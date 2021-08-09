@@ -1,0 +1,29 @@
+@import "../../global.scss";
+
+$svg-fill: red;
+$hover-link: hsl(184, 79%, 53%);
+
+.top-header {
+	display: flex;
+	justify-content: space-between;
+
+	padding: 0 $page-padding;
+
+	&__info {
+		display: flex;
+		align-items: center;
+
+		svg {
+			width: $svg-height;
+			height: $svg-width;
+			fill: $svg-fill;
+			margin-right: 0.25rem;
+		}
+	}
+
+	&__link {
+		&:hover {
+			color: $hover-link;
+		}
+	}
+}

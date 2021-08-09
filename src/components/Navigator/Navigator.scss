@@ -1,0 +1,95 @@
+@import "../../global.scss";
+
+.nav {
+	padding: 0 $page-padding;
+
+	&__list {
+		display: flex;
+		font-size: 1.5rem;
+		border-top: 0.2rem solid $gray-border;
+		border-bottom: 0.2rem solid $gray-border;
+	}
+
+	&__item {
+		padding: 1% 2%;
+
+		background: linear-gradient($green-blue 0 0) 0 100% / var(--d, 0) 5% no-repeat;
+		transition: 0.5s;
+
+		&:hover {
+			--d: 100%;
+		}
+
+		&:first-child {
+			background: none;
+			transition: none;
+			> div {
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		svg {
+			width: 1.5em;
+			height: 1em;
+
+			margin-right: 10%;
+		}
+
+		&--active {
+			color: blue;
+		}
+	}
+
+	@at-root .category-list {
+		position: relative;
+	}
+
+	&__layout-card {
+		width: 150%;
+	}
+
+	&__sub-item {
+		width: 100%;
+		padding: 5% 7%;
+
+		&:hover {
+			color: rgb(0, 60, 255);
+			&::before {
+				content: ">";
+				margin-right: 0.5rem;
+			}
+		}
+	}
+
+	&__sub-menu--sub {
+		top: 0;
+		left: 100%;
+
+		width: 300%;
+	}
+
+	&__sub-cate {
+		font-size: 1rem;
+		width: 100%;
+
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__cate-item {
+		color: black;
+
+		.title {
+			font-weight: 700;
+		}
+	}
+
+	&__cate-link {
+		margin: 0.5em 0;
+
+		&:hover {
+			color: $ligth-blue;
+		}
+	}
+}
