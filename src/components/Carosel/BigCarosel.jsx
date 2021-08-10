@@ -1,0 +1,163 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import { driveViewLink } from "../../config";
+import "./BigCarosel.scss";
+
+const imgs = [
+	{
+		link: "1Uai17CgnF8rXuHY01rT-is3vawDbh0ng",
+	},
+	{
+		link: "1bunegyOuB-hMpsl4sysW378rIbk_NJOh",
+	},
+	{
+		link: "1S35LqiP9ZzOyTFkjKhl19BvrVyqHszlu",
+	},
+	{
+		link: "1iteMTp-HCs7k6m3lNVjw_eByNJo6yGUu",
+	},
+];
+
+const TIME_LIMIT = 5000,
+	MOVE_TIME = 2000;
+
+let moveTimer, pauseTimer;
+
+const maxImg = imgs.length - 1,
+	minImg = 0,
+	initImg = 0;
+
+const BigCarosel = (props) => {
+	const [activeImg, setActiveImg] = useState(initImg);
+
+	const moveToImg = (index) => {
+		if (index === activeImg) {
+			return;
+		}
+		setActiveImg(index);
+	};
+	const prevImg = () => {
+		if (activeImg === minImg) {
+			return maxImg;
+		}
+
+		return activeImg - 1;
+	};
+	const nextImg = () => {
+		if (activeImg === maxImg) {
+			return minImg;
+		}
+
+		return activeImg + 1;
+	};
+
+	const pauseInterval = () => {
+		clearInterval(moveTimer);
+		clearTimeout(pauseTimer);
+		pauseTimer = setTimeout(() => {
+			console.log(activeImg);
+			moveTimer = setInterval(() => {
+				setActiveImg((actImg) => {
+					if (actImg === maxImg) {
+						return minImg;
+					}
+
+					return actImg + 1;
+				});
+			}, MOVE_TIME);
+		}, TIME_LIMIT);
+	};
+
+	const prevBtnClickHandler = () => {
+		pauseInterval();
+
+		moveToImg(prevImg());
+	};
+	const nextBtnClickHandler = () => {
+		pauseInterval();
+		moveToImg(nextImg());
+	};
+	const dotClickHandler = (e) => {
+		const curEl = e.target;
+		if (!curEl.classList.contains("carosel__dot")) {
+			return;
+		}
+		pauseInterval();
+		const imgIndex = Number(curEl.dataset.img);
+		moveToImg(imgIndex);
+	};
+
+	useEffect(() => {
+		moveTimer = setInterval(() => {
+			setActiveImg((actImg) => {
+				if (actImg === maxImg) {
+					return minImg;
+				}
+
+				return actImg + 1;
+			});
+		}, MOVE_TIME);
+
+		return () => {
+			clearInterval(moveTimer);
+		};
+	}, []);
+
+	return (
+		<div className={`carosel ${props.className ?? ""}`}>
+			<div className="carosel__slider">
+				{imgs.map((img, i) => {
+					let imgClass = "carosel__item ";
+
+					if (i === activeImg) {
+						imgClass += "carosel__item--active";
+					}
+
+					let translateX = !imgClass.includes("-") ? `${(i - activeImg) * 100}%` : "0";
+
+					return (
+						<div
+							className={imgClass}
+							key={img.link}
+							style={{
+								left: translateX,
+							}}
+						>
+							<Link
+								className="carosel__img"
+								to="#"
+								style={{
+									backgroundImage: `url(${driveViewLink + img.link})`,
+								}}
+							/>
+						</div>
+					);
+				})}
+			</div>
+			<div className="carosel__dots" onClick={dotClickHandler}>
+				{imgs.map((_, i) => {
+					return (
+						<button
+							key={i}
+							className={`carosel__dot ${
+								i === activeImg ? "carosel__dot--active" : ""
+							}`}
+							data-img={i}
+						/>
+					);
+				})}
+			</div>
+			<div className="carosel__move-btns">
+				<button className="carosel__btn carosel__btn--prev" onClick={prevBtnClickHandler}>
+					&lt;
+				</button>
+				<button className="carosel__btn carosel__btn--next" onClick={nextBtnClickHandler}>
+					&gt;
+				</button>
+			</div>
+		</div>
+	);
+};
+
+export default BigCarosel;

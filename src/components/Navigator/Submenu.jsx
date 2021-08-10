@@ -2,40 +2,6 @@ import { useState } from "react";
 import Card from "../Layout/Card";
 import SubCate from "./SubCate";
 
-const MenuItem = (props) => {
-	const { item } = props;
-	const { subMenu } = item;
-	const hasSubCate = subMenu && subMenu.length > 0;
-	const [showSubCate, setShowSubcate] = useState(false);
-
-	const itemClickHandler = () => {
-		setShowSubcate(true);
-	};
-
-	const itemMouseEnterHandler = () => {
-		setShowSubcate(true);
-	};
-
-	// const itemMouseLeaveHandler = () => {
-	// 	setShowSubcate(false);
-	// };
-	return (
-		<li
-			className="nav__sub-item"
-			onClick={itemClickHandler}
-			onMouseOver={itemMouseEnterHandler}
-			// onMouseLeave={itemMouseLeaveHandler}
-		>
-			{props.children}
-			{hasSubCate && showSubCate && (
-				<Card className="nav__sub-menu--sub">
-					<SubCate items={subMenu} />
-				</Card>
-			)}
-		</li>
-	);
-};
-
 const SubMenu = (props) => {
 	const { items } = props;
 	const [subCateItems, setSubCateItems] = useState([]);
