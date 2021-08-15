@@ -1,34 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { driveViewLink } from "../../config";
 import "./BigCarosel.scss";
-
-const imgs = [
-	{
-		link: "1Uai17CgnF8rXuHY01rT-is3vawDbh0ng",
-	},
-	{
-		link: "1bunegyOuB-hMpsl4sysW378rIbk_NJOh",
-	},
-	{
-		link: "1S35LqiP9ZzOyTFkjKhl19BvrVyqHszlu",
-	},
-	{
-		link: "1iteMTp-HCs7k6m3lNVjw_eByNJo6yGUu",
-	},
-];
 
 const TIME_LIMIT = 5000,
 	MOVE_TIME = 2000;
 
 let moveTimer, pauseTimer;
 
-const maxImg = imgs.length - 1,
-	minImg = 0,
-	initImg = 0;
-
 const BigCarosel = (props) => {
+	const { topProds } = props;
+
+	const maxImg = topProds.length - 1,
+		minImg = 0,
+		initImg = 0;
 	const [activeImg, setActiveImg] = useState(initImg);
 
 	const moveToImg = (index) => {
@@ -107,7 +92,7 @@ const BigCarosel = (props) => {
 	return (
 		<div className={`carosel ${props.className ?? ""}`}>
 			<div className="carosel__slider">
-				{imgs.map((img, i) => {
+				{topProds.map((prod, i) => {
 					let imgClass = "carosel__item ";
 
 					if (i === activeImg) {
@@ -119,16 +104,16 @@ const BigCarosel = (props) => {
 					return (
 						<div
 							className={imgClass}
-							key={img.link}
+							key={prod.id}
 							style={{
 								left: translateX,
 							}}
 						>
 							<Link
 								className="carosel__img"
-								to="#"
+								to={prod.link || "#"}
 								style={{
-									backgroundImage: `url(${driveViewLink + img.link})`,
+									backgroundImage: `url(${prod.imgImg})`,
 								}}
 							/>
 						</div>
@@ -136,7 +121,7 @@ const BigCarosel = (props) => {
 				})}
 			</div>
 			<div className="carosel__dots" onClick={dotClickHandler}>
-				{imgs.map((_, i) => {
+				{topProds.map((_, i) => {
 					return (
 						<button
 							key={i}

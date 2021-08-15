@@ -31,9 +31,6 @@ const SubMenu = (props) => {
 				const hasSubCate = subMenu && subMenu.length > 0;
 
 				return (
-					// <MenuItem key={item.id} item={item}>
-					// 	{item.content}
-					// </MenuItem>
 					<li
 						key={item.id}
 						className="nav__sub-item"

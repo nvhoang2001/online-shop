@@ -4,7 +4,7 @@
 	padding: $page-padding;
 
 	display: grid;
-	grid-template-rows: 40% 30%;
+	grid-template-rows: max(35vh, 250px) max(25vh, 175px);
 	grid-template-columns: 3fr 1fr;
 	gap: 1%;
 

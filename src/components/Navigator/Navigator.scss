@@ -13,6 +13,8 @@
 	&__item {
 		padding: 1% 2%;
 
+		cursor: pointer;
+
 		background: linear-gradient($green-blue 0 0) 0 100% / var(--d, 0) 5% no-repeat;
 		transition: 0.5s;
 
@@ -77,10 +79,16 @@
 
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
 	}
 
 	&__cate-item {
 		color: black;
+		width: 25%;
+
+		&:nth-of-type(n + 5) {
+			margin-top: 5%;
+		}
 
 		.title {
 			font-weight: 700;

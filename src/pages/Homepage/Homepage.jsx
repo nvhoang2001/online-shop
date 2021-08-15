@@ -1,3 +1,4 @@
+import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
 import Header from "../../sections/Header/Header";
 import TopBar from "../../sections/TopBar/TopBar";
 
@@ -6,6 +7,7 @@ const Homepage = () => {
 		<>
 			<Header />
 			<TopBar />
+			<FeatureProduct />
 		</>
 	);
 };
