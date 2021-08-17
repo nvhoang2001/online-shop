@@ -1329,7 +1329,7 @@ const products = [
 		],
 	},
 	{
-		id: "11p4t48Oros2kPKdOMBevQGXDBGi5acJp-",
+		id: "11p4t48Oros2kPKdOMBevQGXDBGi5acJp",
 		name: "Bose QuietComfort 35 II Wireless Bluetooth Headphones, Noise-Cancelling, with Alexa Voice Control - Black",
 		brand: "Bose",
 		type: TECHNOLOGY,
