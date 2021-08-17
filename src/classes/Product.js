@@ -32,9 +32,10 @@ function createProduct(
 	feedbackObj.id = `prod${++count}`;
 	feedbackObj.name = name;
 	feedbackObj.brand = brand;
-	feedbackObj.imgImg = `${driveViewLink}${driveId}`;
+	feedbackObj.imgLink = `${driveViewLink}${driveId}`;
 	feedbackObj.viewInMonth = Math.floor(randomGenerator(10, 10000));
 	feedbackObj.viewInWeek = Math.floor(randomGenerator(10, 1000));
+	feedbackObj.sold = Math.floor(randomGenerator(0, 5000));
 	feedbackObj.type = type;
 	feedbackObj.category = category;
 	feedbackObj.feedbacks = feedbacks;

@@ -1,0 +1,59 @@
+$cap-back: rgba(255, 255, 255, 0.75);
+
+.product {
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+
+	&__img {
+		width: 100%;
+		height: 100%;
+		object-fit: fill;
+	}
+
+	&__cap {
+		height: 30%;
+		width: 100%;
+		padding: 2% 5%;
+
+		position: absolute;
+		left: 0;
+
+		background: $cap-back;
+
+		transition: all 0.5s;
+
+		p {
+			font-size: 0.75rem;
+			color: #666;
+		}
+	}
+
+	&__name {
+		font-size: 1rem;
+		font-weight: 500;
+
+		margin-bottom: 1%;
+	}
+
+	&__foot {
+		font-size: 1rem;
+		border-top: 1% solid gray;
+		display: flex;
+
+		justify-content: space-between;
+		align-items: flex-end;
+
+		svg {
+			cursor: pointer;
+
+			&:hover {
+				fill: rgb(0, 47, 175);
+			}
+		}
+	}
+
+	&:hover &__cap {
+		transform: translateY(-100%);
+	}
+}

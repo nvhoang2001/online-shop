@@ -5,9 +5,10 @@ import { ReactComponent as GiftSVG } from "../../Assets/gift.svg";
 import { ReactComponent as CartSVG } from "../../Assets/shopping-cart.svg";
 import { ReactComponent as SearchSVG } from "../../Assets/search.svg";
 import "./UserHeader.scss";
+import { useSelector } from "react-redux";
 
 const UserHeader = () => {
-	const cartNum = 0;
+	const totalAmount = useSelector((store) => store.checkout.totalAmount);
 
 	return (
 		<div className="user-header">
@@ -28,7 +29,7 @@ const UserHeader = () => {
 			<div className="user-header__shopping-info">
 				<GiftSVG title="Gift" />
 				<CartSVG title="Shopping Cart" />
-				<span className="cart-numbers">{cartNum}</span>
+				<span className="cart-numbers">{totalAmount}</span>
 			</div>
 		</div>
 	);

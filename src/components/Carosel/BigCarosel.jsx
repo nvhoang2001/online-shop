@@ -113,7 +113,7 @@ const BigCarosel = (props) => {
 								className="carosel__img"
 								to={prod.link || "#"}
 								style={{
-									backgroundImage: `url(${prod.imgImg})`,
+									backgroundImage: `url(${prod.imgLink})`,
 								}}
 							/>
 						</div>

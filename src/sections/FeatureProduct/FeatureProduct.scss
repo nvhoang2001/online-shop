@@ -1,0 +1,54 @@
+@import "../../global.scss";
+
+.featured-products {
+	padding: 0 $page-padding;
+
+	&__title {
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+
+	&__list {
+		margin: 2.5% 0;
+		width: 100%;
+		height: max(50vh, 400px);
+		display: flex;
+		position: relative;
+		overflow-x: hidden;
+		padding: 0 2.5%;
+	}
+
+	&__product {
+		position: absolute;
+		top: 0;
+		width: 23%;
+
+		transition: all 0.5s;
+	}
+
+	&__btn {
+		font-size: 1rem;
+		font-weight: 700;
+
+		padding: 1%;
+
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 5;
+
+		background-color: $btn-background;
+
+		&:hover {
+			background-color: #999;
+		}
+
+		&--prev {
+			left: 0;
+		}
+
+		&--next {
+			right: 0;
+		}
+	}
+}

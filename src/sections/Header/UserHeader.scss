@@ -81,20 +81,18 @@ $search-size: 5%;
 		}
 
 		@at-root .cart-numbers {
-			border: 0.2rem solid rgb(255, 81, 0);
+			$color: #f36e36;
 			border-radius: 50%;
-
-			width: 20%;
-			padding: 0.15rem;
+			box-sizing: content-box;
 			text-align: center;
-
+			padding: 0.45em 0.55em;
 			position: absolute;
-			top: -25%;
-			right: 0;
-
-			background-color: white;
-
+			top: -15%;
+			right: 0%;
+			background-color: $color;
 			cursor: pointer;
+			font-size: 0.75rem;
+			color: white;
 		}
 	}
 }

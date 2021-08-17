@@ -65,7 +65,7 @@ export const productItems = products.map((prod) => {
 });
 
 const productSlice = createSlice({
-	name: "cart",
+	name: "products",
 	initialState: {
 		items: productItems,
 		brands: prodBrands,
