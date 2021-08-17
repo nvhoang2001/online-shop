@@ -17,13 +17,10 @@ const getTopItemsByRating = (items, type) => {
 const FeatureProduct = () => {
 	const products = useSelector((store) => store.products.items);
 
-	console.log(products);
 	const [row1Type, row2Type] = types;
 
 	const featuredRow1 = getTopItemsByRating(products, row1Type);
 	const featuredRow2 = getTopItemsByRating(products, row2Type);
-	console.log(featuredRow1);
-	console.log(featuredRow2);
 
 	return (
 		<section className="featured-products">

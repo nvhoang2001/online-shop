@@ -6,9 +6,16 @@ import { ReactComponent as CartSVG } from "../../Assets/shopping-cart.svg";
 import { ReactComponent as SearchSVG } from "../../Assets/search.svg";
 import "./UserHeader.scss";
 import { useSelector } from "react-redux";
+import CartWindow from "../../components/ShoppingCart/CartWindow";
+import { useState } from "react";
 
 const UserHeader = () => {
 	const totalAmount = useSelector((store) => store.checkout.totalAmount);
+	const [showShoppingCart, setShowShoppingCart] = useState(false);
+
+	const toggleShoppingCartHandler = () => {
+		setShowShoppingCart((show) => !show);
+	};
 
 	return (
 		<div className="user-header">
@@ -28,8 +35,9 @@ const UserHeader = () => {
 			</div>
 			<div className="user-header__shopping-info">
 				<GiftSVG title="Gift" />
-				<CartSVG title="Shopping Cart" />
+				<CartSVG title="Shopping Cart" onClick={toggleShoppingCartHandler} />
 				<span className="cart-numbers">{totalAmount}</span>
+				{showShoppingCart && <CartWindow />}
 			</div>
 		</div>
 	);

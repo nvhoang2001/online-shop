@@ -41,7 +41,6 @@ const BigCarosel = (props) => {
 		clearInterval(moveTimer);
 		clearTimeout(pauseTimer);
 		pauseTimer = setTimeout(() => {
-			console.log(activeImg);
 			moveTimer = setInterval(() => {
 				setActiveImg((actImg) => {
 					if (actImg === maxImg) {

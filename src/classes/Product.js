@@ -40,12 +40,12 @@ function createProduct(
 	feedbackObj.category = category;
 	feedbackObj.feedbacks = feedbacks;
 	feedbackObj.ratingNum = getRatingNum(feedbackObj);
-	feedbackObj.rating = getRating(feedbackObj);
+	feedbackObj.rating = Number(getRating(feedbackObj));
 	feedbackObj.isSaling = isSaling;
 	feedbackObj.sale = isSaling ? sale : 0;
 	feedbackObj.description = description;
 	feedbackObj.preview = preview;
-	feedbackObj.price = randomGenerator(10, 1000).toFixed(2);
+	feedbackObj.price = Number(randomGenerator(10, 1000).toFixed(2));
 	return feedbackObj;
 }
 

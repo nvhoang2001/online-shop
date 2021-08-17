@@ -105,9 +105,6 @@ const navInfor = [
 	},
 ];
 
-console.log(cateNav);
-console.log(navInfor);
-
 const Header = () => {
 	return (
 		<header className="header">
