@@ -40,7 +40,7 @@ function createProduct(
 	feedbackObj.category = category;
 	feedbackObj.feedbacks = feedbacks;
 	feedbackObj.ratingNum = getRatingNum(feedbackObj);
-	feedbackObj.rating = Number(getRating(feedbackObj));
+	feedbackObj.rating = Number(getRating(feedbackObj)) || 0;
 	feedbackObj.isSaling = isSaling;
 	feedbackObj.sale = isSaling ? sale : 0;
 	feedbackObj.description = description;

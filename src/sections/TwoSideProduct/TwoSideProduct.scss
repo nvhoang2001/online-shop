@@ -1,0 +1,9 @@
+@import "../../global.scss";
+
+.two-side-product {
+	padding: 0 $page-padding;
+	margin: 5% 0;
+
+	display: flex;
+	justify-content: space-between;
+}

@@ -1,0 +1,44 @@
+$border-color: #e8e8e8;
+$grid-gap: 0.2em;
+
+.side-product {
+	border: 0.1em solid $border-color;
+	border-top: 0.2em solid black;
+	width: 47.5%;
+
+	&__title {
+		font-size: 2rem;
+		font-weight: 600;
+		padding: 3% 2%;
+		background-color: white;
+		margin-bottom: 1%;
+	}
+
+	&__list {
+		ul {
+			height: max(500px, 80vh);
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			grid-template-rows: 50% 50%;
+
+			li:first-child {
+				grid-row-start: 1;
+				grid-row-end: 3;
+
+				border-right: $grid-gap solid $border-color;
+
+				figcaption {
+					height: 25%;
+				}
+			}
+
+			li:last-child {
+				border-top: $grid-gap solid $border-color;
+			}
+		}
+	}
+
+	&__product__cap {
+		height: 45%;
+	}
+}

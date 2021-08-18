@@ -23,22 +23,21 @@ const ProductList = (props) => {
 
 	return (
 		<div className={classes}>
-			{products.map((prod, i) => {
-				let prodStyle = null;
-				if (slide) {
-					prodStyle = {
-						transform: `translateX(${(i - move) * 105}%)`,
-					};
-				}
-				return (
-					<Product
-						style={prodStyle}
-						product={prod}
-						key={prod.id}
-						className={prodClasses}
-					/>
-				);
-			})}
+			<ul>
+				{products.map((prod, i) => {
+					let prodStyle = null;
+					if (slide) {
+						prodStyle = {
+							transform: `translateX(${(i - move) * 105}%)`,
+						};
+					}
+					return (
+						<li key={prod.id}>
+							<Product style={prodStyle} product={prod} className={prodClasses} />
+						</li>
+					);
+				})}
+			</ul>
 
 			{slide && (
 				<button

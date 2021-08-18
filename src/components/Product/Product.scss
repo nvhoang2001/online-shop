@@ -1,4 +1,5 @@
 $cap-back: rgba(255, 255, 255, 0.75);
+$active-link: blue;
 
 .product {
 	position: relative;
@@ -34,6 +35,11 @@ $cap-back: rgba(255, 255, 255, 0.75);
 		font-weight: 500;
 
 		margin-bottom: 1%;
+
+		&:hover {
+			cursor: pointer;
+			color: $active-link;
+		}
 	}
 
 	&__foot {
@@ -45,6 +51,8 @@ $cap-back: rgba(255, 255, 255, 0.75);
 		align-items: flex-end;
 
 		svg {
+			position: relative;
+			z-index: 10;
 			cursor: pointer;
 
 			&:hover {
