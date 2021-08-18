@@ -29,12 +29,14 @@ const FeatureProduct = () => {
 				products={featuredRow1}
 				className="featured-products__list"
 				baseClass="featured-products"
+				title={row1Type}
 				slide
 			/>
 			<ProductList
 				products={featuredRow2}
 				className="featured-products__list"
 				baseClass="featured-products"
+				title={row2Type}
 				slide
 			/>
 		</section>
