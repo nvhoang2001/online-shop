@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Card from "../Layout/Card";
-import CustomButton from "../CustomButton/CustomButton.component";
+import CustomButton from "../UI/CustomButton/CustomButton.component";
 
 import "./CartWindow.scss";
 import { checkoutPage } from "../../config";
@@ -25,7 +25,9 @@ const CartWindow = () => {
 						<img src={imgLink} alt={name} className="shopping-cart__img" />
 						<div className="shopping-cart__item-info">
 							<p>{sumName}</p>
-							<p>x {amount}</p>
+							<p>
+								${price} x {amount}
+							</p>
 						</div>
 						<p className="shopping-cart__price">${amount * price}</p>
 					</li>

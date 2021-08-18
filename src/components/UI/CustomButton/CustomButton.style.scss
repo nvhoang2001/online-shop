@@ -1,4 +1,4 @@
-@import "../../global.scss";
+@import "../../../global.scss";
 
 @mixin custom-btn--invert {
 	background-color: map-get($map: $btn, $key: transparent);
