@@ -12,10 +12,7 @@ const Product = (props) => {
 	let classes = `product ${props.className || ""}`;
 	let capClasses = `product__cap ${props.className || ""}__cap`;
 	const { product } = props;
-	const { name, sold, rating, price, imgLink } = product;
-	let sumName = name.split(" ");
-	sumName.length = 5;
-	sumName = sumName.join(" ");
+	const { name, summaryName, sold, rating, price, imgLink } = product;
 
 	const addItemToCart = () => {
 		dispatch(checkoutActions.addItemToCart(product));
@@ -27,7 +24,7 @@ const Product = (props) => {
 			<figcaption className={capClasses}>
 				<h4 className="product__name">
 					<Link to={`/products/${product.type}/${product.name.replaceAll(" ", "+")}`}>
-						{sumName}
+						{summaryName}
 					</Link>
 				</h4>
 				<p>Sold: {sold}</p>

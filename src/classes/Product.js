@@ -31,6 +31,9 @@ function createProduct(
 
 	feedbackObj.id = `prod${++count}`;
 	feedbackObj.name = name;
+	feedbackObj.summaryName = name.split(" ");
+	feedbackObj.summaryName.length = 5;
+	feedbackObj.summaryName = feedbackObj.summaryName.join(" ");
 	feedbackObj.brand = brand;
 	feedbackObj.imgLink = `${driveViewLink}${driveId}`;
 	feedbackObj.viewInMonth = Math.floor(randomGenerator(10, 10000));
