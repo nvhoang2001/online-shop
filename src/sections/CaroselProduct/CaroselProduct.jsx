@@ -21,15 +21,37 @@ const CaroselProduct = () => {
 	const fashionFirstCol = fashionProds.slice(0, 6),
 		fashionSecondCol = fashionProds.slice(6, 12);
 
+	const colTimers = [{}, {}, {}, {}];
+
 	return (
 		<section className="carosel-product">
 			<div className="carosel-product__sect carosel-product__tech-sect">
-				<ColumnProduct className="carosel-product__col" products={techFirstCol} />
-				<ColumnProduct className="carosel-product__col" products={techSecondCol} />
+				<ColumnProduct
+					className="carosel-product__col"
+					products={techFirstCol}
+					timer={colTimers}
+					index={0}
+				/>
+				<ColumnProduct
+					className="carosel-product__col"
+					products={techSecondCol}
+					timer={colTimers}
+					index={1}
+				/>
 			</div>
 			<div className="carosel-product__sect carosel-product__fashion-sect">
-				<ColumnProduct className="carosel-product__col" products={fashionFirstCol} />
-				<ColumnProduct className="carosel-product__col" products={fashionSecondCol} />
+				<ColumnProduct
+					className="carosel-product__col"
+					products={fashionFirstCol}
+					timer={colTimers}
+					index={2}
+				/>
+				<ColumnProduct
+					className="carosel-product__col"
+					products={fashionSecondCol}
+					timer={colTimers}
+					index={3}
+				/>
 			</div>
 		</section>
 	);

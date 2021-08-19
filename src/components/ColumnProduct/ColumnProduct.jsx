@@ -61,8 +61,7 @@ const colReducer = (state, action) => {
 };
 
 const ColumnProduct = (props) => {
-	// const [intervalTimer, setIntervalTimer] = useState();
-	// const [timeoutTimer, setTimeoutTimer] = useState();
+	const timers = props.timer[props.index];
 	const [colState, setColState] = useReducer(colReducer, initColState);
 
 	const { products, className } = props;
@@ -72,43 +71,43 @@ const ColumnProduct = (props) => {
 	const productsRow1 = products.slice(2, 4),
 		productsRow2 = products.slice(4, 6);
 
-	// const pauseInterval = () => {
-	// 	clearInterval(intervalTimer);
-	// 	clearTimeout(timeoutTimer);
-	// 	let timeout = setTimeout(() => {
-	// 		let interval = setInterval(() => {
-	// 			setColState({ type: MOVE_ALL });
-	// 		}, MOVE_TIME);
-	// 		setIntervalTimer(interval);
-	// 	}, TIME_LIMIT);
-	// 	setTimeoutTimer(timeout);
-	// };
+	const pauseInterval = () => {
+		clearInterval(timers.interval);
+		clearTimeout(timers.timeout);
+		const timeout = setTimeout(() => {
+			const interval = setInterval(() => {
+				setColState({ type: MOVE_ALL });
+			}, MOVE_TIME);
+			timers.interval = interval;
+		}, TIME_LIMIT);
+		timers.timeout = timeout;
+	};
 
-	// useEffect(() => {
-	// 	let timer = setInterval(() => {
-	// 		setColState({ type: MOVE_ALL });
-	// 	}, MOVE_TIME);
-	// 	setIntervalTimer(timer);
-	// 	return () => {
-	// 		clearInterval(intervalTimer);
-	// 	};
-	// }, [intervalTimer]);
+	useEffect(() => {
+		const interTimer = setInterval(() => {
+			setColState({ type: MOVE_ALL });
+		}, MOVE_TIME);
+		timers.interval = interTimer;
+		return () => {
+			clearInterval(timers.interval);
+		};
+	}, [timers]);
 
 	const nextPrimaryBtnClickHandler = () => {
 		setColState({ type: NEXT_PRIMARY });
-		// pauseInterval();
+		pauseInterval();
 	};
 	const nextBottomBtnClickHandler = () => {
 		setColState({ type: NEXT_BOTTOM });
-		// pauseInterval();
+		pauseInterval();
 	};
 	const prevBottomBtnClickHandler = () => {
 		setColState({ type: PREV_BOTTOM });
-		// pauseInterval();
+		pauseInterval();
 	};
 	const prevPrimaryBtnClickHandler = () => {
 		setColState({ type: PREV_PRIMARY });
-		// pauseInterval();
+		pauseInterval();
 	};
 
 	return (
