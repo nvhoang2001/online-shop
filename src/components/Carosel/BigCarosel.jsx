@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { MOVE_TIME, TIME_LIMIT } from "../../config";
 import "./BigCarosel.scss";
-
-const TIME_LIMIT = 5000,
-	MOVE_TIME = 2000;
 
 let moveTimer, pauseTimer;
 

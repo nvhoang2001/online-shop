@@ -1,0 +1,21 @@
+@import "../../global.scss";
+
+.carosel-product {
+	padding: 0 $page-padding;
+	display: flex;
+	justify-content: space-between;
+	margin: 5% 0;
+
+	height: 700px;
+
+	&__sect {
+		width: 49%;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__col {
+		width: 50%;
+		height: 100%;
+	}
+}

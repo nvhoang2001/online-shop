@@ -1,4 +1,5 @@
 import Banner from "../../sections/Banner/Banner";
+import CaroselProduct from "../../sections/CaroselProduct/CaroselProduct";
 import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
 import Header from "../../sections/Header/Header";
 import ProductByCategory from "../../sections/ProductByCategory/ProductByCategory";
@@ -17,6 +18,8 @@ const Homepage = () => {
 			<ProductByCategory type="technology" driveId="1F4p24lo1nlvxtfPUEo1QSfzbtmmlaeBz" />
 			<Banner />
 			<ProductByCategory type="fashion" driveId="1BJ2lz8SWW9y3p5BOJ3Ed13fqEeSsslQT" />
+			<Banner />
+			<CaroselProduct />
 		</>
 	);
 };

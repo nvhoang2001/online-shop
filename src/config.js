@@ -6,3 +6,5 @@ export const checkoutPage = "/checkout";
 export const TECH_PROD_DIR = "/products/technology";
 export const FASHION_PROD_DIR = "/products/fashion";
 export const PROD_DIR = "/products";
+export const TIME_LIMIT = 5000;
+export const MOVE_TIME = 2000;
