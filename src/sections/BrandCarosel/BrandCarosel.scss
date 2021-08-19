@@ -1,0 +1,59 @@
+@import "../../global.scss";
+
+.brand-catorsel {
+	margin: 5% 0;
+
+	padding: 0 $page-padding;
+
+	&__title {
+		border-top: 0.3em solid black;
+		padding: 1.5% 2%;
+		background-color: white;
+
+		h2 {
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+	}
+
+	&__list {
+		height: 5rem;
+		width: 100%;
+		margin: 2% 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	&__brand {
+		position: absolute;
+		color: #666;
+		width: 20%;
+		font-size: 2.5rem;
+		text-align: center;
+		margin: auto 0;
+		top: 50%;
+
+		transition: 0.5s;
+	}
+
+	&__btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		border: 0.1em solid black;
+		border-radius: 50%;
+		padding: 1% 1.1983%;
+		background: white;
+		font-weight: 900;
+
+		&--left {
+			left: 0;
+		}
+		&--right {
+			right: 0;
+		}
+		&:hover {
+			background: transparent;
+		}
+	}
+}

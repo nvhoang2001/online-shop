@@ -1,4 +1,5 @@
 import Banner from "../../sections/Banner/Banner";
+import BrandCarosel from "../../sections/BrandCarosel/BrandCarosel";
 import CaroselProduct from "../../sections/CaroselProduct/CaroselProduct";
 import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
 import Header from "../../sections/Header/Header";
@@ -20,6 +21,7 @@ const Homepage = () => {
 			<ProductByCategory type="fashion" driveId="1BJ2lz8SWW9y3p5BOJ3Ed13fqEeSsslQT" />
 			<Banner />
 			<CaroselProduct />
+			<BrandCarosel />
 		</>
 	);
 };
