@@ -109,9 +109,22 @@ const ColumnProduct = (props) => {
 		setColState({ type: PREV_PRIMARY });
 		pauseInterval();
 	};
+	const mouseEnterHandler = () => {
+		clearInterval(timers.interval);
+	};
+	const mouseLeaveHandler = () => {
+		const interval = setInterval(() => {
+			setColState({ type: MOVE_ALL });
+		}, MOVE_TIME);
+		timers.interval = interval;
+	};
 
 	return (
-		<div className={`column-product ${classes}`}>
+		<div
+			className={`column-product ${classes}`}
+			onMouseEnter={mouseEnterHandler}
+			onMouseLeave={mouseLeaveHandler}
+		>
 			<div className="column-product__primary">
 				<PrimaryProduct
 					product={firstProduct}

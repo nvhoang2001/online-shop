@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ColumnProduct from "../../components/ColumnProduct/ColumnProduct";
 
 import { types } from "../../store/product-slice";
+import capitalizeFirstCharacter from "../../Helpers/capitalizeFirstChar";
 
 import "./CaroselProduct.scss";
 
@@ -26,6 +27,7 @@ const CaroselProduct = () => {
 	return (
 		<section className="carosel-product">
 			<div className="carosel-product__sect carosel-product__tech-sect">
+				<h2 className="carosel-product__title">{capitalizeFirstCharacter(types[0])}</h2>
 				<ColumnProduct
 					className="carosel-product__col"
 					products={techFirstCol}
@@ -40,6 +42,7 @@ const CaroselProduct = () => {
 				/>
 			</div>
 			<div className="carosel-product__sect carosel-product__fashion-sect">
+				<h2 className="carosel-product__title">{capitalizeFirstCharacter(types[1])}</h2>
 				<ColumnProduct
 					className="carosel-product__col"
 					products={fashionFirstCol}

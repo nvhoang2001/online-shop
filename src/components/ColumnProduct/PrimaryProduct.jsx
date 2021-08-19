@@ -6,7 +6,7 @@ import { PROD_DIR } from "../../config";
 
 const PrimaryProduct = (props) => {
 	const { product } = props;
-	const { id, name, imgLink, rating, price, type, sold } = product;
+	const { id, summaryName, imgLink, rating, price, type, sold } = product;
 	const classes = `column-product__product ${props.className || ""}`;
 
 	return (
@@ -21,7 +21,7 @@ const PrimaryProduct = (props) => {
 			</div>
 			<div className="column-product__prod-info">
 				<h4 className="column-product__prod-name">
-					<Link to={`${PROD_DIR}/${type}/${id}`}>{name}</Link>
+					<Link to={`${PROD_DIR}/${type}/${id}`}>{summaryName}</Link>
 				</h4>
 				<p>Sold: {sold}</p>
 				<div className="column-product__foot">
