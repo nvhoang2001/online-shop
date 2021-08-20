@@ -2,6 +2,7 @@ import Banner from "../../sections/Banner/Banner";
 import BrandCarosel from "../../sections/BrandCarosel/BrandCarosel";
 import CaroselProduct from "../../sections/CaroselProduct/CaroselProduct";
 import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
+import Footer from "../../sections/Footer/Footer";
 import Header from "../../sections/Header/Header";
 import ProductByCategory from "../../sections/ProductByCategory/ProductByCategory";
 import TopBar from "../../sections/TopBar/TopBar";
@@ -22,6 +23,7 @@ const Homepage = () => {
 			<Banner />
 			<CaroselProduct />
 			<BrandCarosel />
+			<Footer />
 		</>
 	);
 };

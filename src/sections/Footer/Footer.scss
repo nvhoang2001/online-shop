@@ -1,0 +1,154 @@
+@import "../../global.scss";
+
+$line-color: #ccc;
+$text: #5f5f5f;
+$input-border: #666;
+
+.footer {
+	padding: 5% $page-padding;
+	background: white;
+
+	&__title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		margin-bottom: 1em;
+	}
+
+	&__traits {
+		padding-bottom: 4%;
+		border-bottom: 0.1em solid $line-color;
+
+		&-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		&-item {
+			width: 17%;
+		}
+
+		&-title,
+		&-trait {
+			text-align: center;
+		}
+	}
+
+	&__connect {
+		padding: 3% 0;
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 0.1em solid $line-color;
+
+		&-newsletter {
+			width: 45%;
+		}
+
+		&-input {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 1%;
+
+			input {
+				padding: 3% 4.5%;
+				width: 75%;
+				border: 1px solid $input-border;
+
+				&:focus {
+					border-color: #4dabf7;
+					outline: none;
+					box-shadow: inset 0 1px 1px rgb(0 0 0 / 1%), 0 0 8px rgb(34 139 230 / 50%);
+				}
+			}
+
+			&--error {
+				border-color: #f00;
+				box-shadow: inset 0 1px 1px rgb(0 0 0 / 1%), 0 0 8px rgb(255 0 0 / 50%);
+			}
+		}
+
+		&-btn {
+			background: hsl(9, 100%, 40%);
+			color: white;
+			padding: 3% 4%;
+			width: 22%;
+
+			&:hover {
+				background: hsl(9, 100%, 20%);
+			}
+		}
+
+		&-text {
+			color: $text;
+		}
+
+		&-social-media {
+			width: 20%;
+
+			&-container {
+				margin: 1em 0;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			&-item {
+				width: 15%;
+				text-align: center;
+
+				outline: none;
+				box-shadow: inset 0 1px 1px rgb(0 0 0 / 1%), 0 0 4px rgb(102 102 102 / 50%);
+
+				&:hover {
+					box-shadow: inset 0 1px 1px rgb(0 0 0 / 1%), 0 0 8px rgb(34, 139, 230);
+				}
+			}
+		}
+
+		&-app {
+			width: 30%;
+		}
+
+		&-highlight {
+			color: #e60000;
+		}
+	}
+
+	&__footer {
+		padding: 3% 0;
+		text-align: center;
+		border-bottom: 0.1em solid $line-color;
+
+		&-brand {
+			&-list {
+				display: flex;
+				justify-content: center;
+			}
+
+			&-item {
+				padding: 0 1%;
+				border-right: 0.1em solid black;
+
+				&:last-child {
+					border-right: none;
+				}
+
+				& a:hover {
+					color: hsl(207, 70%, 49%);
+				}
+			}
+		}
+	}
+
+	&__author {
+		padding-top: 2%;
+		text-align: center;
+
+		.heart {
+			color: red;
+			font-size: 1.5em;
+		}
+
+		a {
+			color: blue;
+		}
+	}
+}

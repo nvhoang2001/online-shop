@@ -8,6 +8,7 @@ body {
 	background-color: #e6e6e6;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+.error-text {
+	color: red;
+	font-size: 0.75rem;
 }
