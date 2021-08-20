@@ -5,7 +5,7 @@ $text: #5f5f5f;
 $input-border: #666;
 
 .footer {
-	padding: 5% $page-padding;
+	padding: 5% $page-padding 1%;
 	background: white;
 
 	&__title {
@@ -139,7 +139,7 @@ $input-border: #666;
 	}
 
 	&__author {
-		padding-top: 2%;
+		padding-top: 1%;
 		text-align: center;
 
 		.heart {
