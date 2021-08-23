@@ -1,0 +1,79 @@
+@import "../../global.scss";
+
+.register-form {
+	padding: 5% 10%;
+
+	&__title {
+		font-size: 2rem;
+		font-weight: 700;
+		text-align: center;
+		margin-bottom: 5%;
+	}
+
+	&__form {
+		padding: 5%;
+		border-radius: 2%;
+		background: #fff;
+
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	&__input {
+		width: 45%;
+
+		&-radio-container {
+			margin-top: 2.5%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		input {
+			&:focus {
+				@include create-shadow(blue);
+			}
+		}
+	}
+
+	&__row {
+		width: 100%;
+	}
+
+	&__btn {
+		padding: 2% 5%;
+		border-radius: 0.5em;
+		display: block;
+		margin-left: auto;
+		color: #fff;
+		background: rgb(204, 60, 2);
+		&:hover {
+			background: #0571ff;
+		}
+
+		&:disabled {
+			background: gray;
+
+			&:hover {
+				cursor: not-allowed;
+			}
+		}
+	}
+}
+
+.radio-choice {
+	width: 30%;
+	text-align: center;
+	input {
+		margin-top: 5%;
+		margin-left: 10%;
+		width: auto;
+	}
+}
+
+input[type="radio"] {
+	appearance: checkbox;
+	cursor: pointer;
+}
