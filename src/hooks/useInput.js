@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 
 const inputInitialize = {
 	touched: false,
@@ -33,22 +33,23 @@ const inputReducer = (prevState, action) => {
 	};
 };
 
-const useInput = (validator) => {
+const useInput = (validator, isRequired) => {
 	const [inputState, setInputState] = useReducer(inputReducer, inputInitialize);
-	const isValid = validator(inputState.value);
-	const hasError = !isValid && inputState.touched;
 
-	const inputChangeHandler = (value) => {
+	const isValid = isRequired ? validator(inputState.value) : true;
+	const hasError = isRequired ? !isValid && inputState.touched : false;
+
+	const inputChangeHandler = useCallback((value) => {
 		setInputState({ type: SET_VALUE, payload: value });
-	};
+	}, []);
 
-	const clear = () => {
+	const clear = useCallback(() => {
 		setInputState({ type: CLEAR });
-	};
+	}, []);
 
-	const touchedInputHandler = (value) => {
+	const touchedInputHandler = useCallback((value) => {
 		setInputState({ type: SET_TOUCHED, payload: value });
-	};
+	}, []);
 
 	return {
 		value: inputState.value,
