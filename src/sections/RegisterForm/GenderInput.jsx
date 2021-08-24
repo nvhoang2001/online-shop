@@ -16,7 +16,6 @@ const GenderInput = (props) => {
 		}
 
 		props.sendInputValue("gender", clickedEl.value);
-		console.log(clickedEl);
 	};
 
 	const resetChoice = () => {
@@ -39,6 +38,7 @@ const GenderInput = (props) => {
 						name="gender"
 						type="radio"
 						checked={gender[0]}
+						readOnly
 					/>
 				</label>
 				<label htmlFor="gender-female" className="radio-choice">
@@ -49,6 +49,7 @@ const GenderInput = (props) => {
 						name="gender"
 						type="radio"
 						checked={gender[1]}
+						readOnly
 					/>
 				</label>
 			</div>
