@@ -1,19 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
 import BigCarosel from "../../components/Carosel/BigCarosel";
-import { driveViewLink } from "../../config";
-import { productActions } from "../../store/product-slice";
 import AsideBar from "./AsideBar";
 
+import { driveViewLink } from "../../config";
 import "./Topbar.scss";
 
 const ITEM_AMOUNT = 5;
 
 const TopBar = () => {
-	const dispatch = useDispatch();
+	const products = useSelector((store) => store.products.items);
+	const productsList = [...products];
+	productsList.sort((prevIem, nextItem) => {
+		return prevIem.viewInMonth - nextItem.viewInMonth;
+	});
 
-	dispatch(productActions.setTopViewItems(ITEM_AMOUNT));
-
-	const topProds = useSelector((store) => store.products.topItems);
+	const topProds = productsList.slice(0, ITEM_AMOUNT);
 
 	return (
 		<section className="TopBar">

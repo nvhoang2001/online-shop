@@ -69,19 +69,8 @@ const productSlice = createSlice({
 	initialState: {
 		items: productItems,
 		brands: prodBrands,
-		topItems: [],
 	},
-	reducers: {
-		setTopViewItems(state, action) {
-			const itemsSortByView = [...state.items].sort((prevIem, nextItem) => {
-				return prevIem.viewInMonth - nextItem.viewInMonth;
-			});
-
-			itemsSortByView.length = action.payload;
-
-			state.topItems = itemsSortByView;
-		},
-	},
+	reducers: {},
 });
 
 export const productActions = productSlice.actions;
