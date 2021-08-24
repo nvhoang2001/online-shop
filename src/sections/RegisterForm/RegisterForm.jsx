@@ -1,4 +1,6 @@
 import { useReducer } from "react";
+import { useDispatch } from "react-redux";
+import { signupAuth } from "../../store/user-slice";
 
 import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 import AgeInput from "./AgeInput";
@@ -6,6 +8,8 @@ import GenderInput from "./GenderInput";
 
 import emailValidator from "../../Helpers/emailValidator";
 import "./RegisterForm.scss";
+
+const PASSWORD_MIN_LIMIT = 6;
 
 const inputInf = [
 	{
@@ -24,8 +28,8 @@ const inputInf = [
 		label: "Password",
 		type: "password",
 		placeholder: "",
-		validator: (password) => password.trim() !== "",
-		errorText: "Please enter a password!",
+		validator: (password) => password.trim().length > PASSWORD_MIN_LIMIT,
+		errorText: "Password should be at least 6 characters",
 		isRequired: true,
 	},
 	{
@@ -138,6 +142,7 @@ const formReducer = (prevState, action) => {
 
 const RegisterForm = () => {
 	const [formState, setFormState] = useReducer(formReducer, initFormState);
+	const dispatch = useDispatch();
 	const requiredInputs = inputInf.slice(0, 4);
 	const normInputs = inputInf.slice(4);
 	let formIsValid = false;
@@ -178,7 +183,7 @@ const RegisterForm = () => {
 		// Clear all the input fields
 		Object.values(formState.clearFns).forEach((func) => func());
 
-		console.log(formState.values);
+		dispatch(signupAuth(formState.values));
 	};
 
 	return (
