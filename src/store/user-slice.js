@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_KEY, DB_URL } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
+import { saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
 
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
 const SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
@@ -64,13 +65,11 @@ export const signupAuth = (userInfo) => {
 		const { email, password } = userInfo;
 		const signUpData = { email, password, returnSecureToken: true };
 		const authData = await sendDataToURL(`${SIGN_UP_URL}${API_KEY}`, signUpData);
-		const userData = { auth: signUpData, ...userInfo };
-
+		const userData = { auth: authData, ...userInfo };
+		saveAuthInfo(authData);
 		dispatch(userSlice.actions.register(userData));
-
 		delete userInfo["confirm-password"];
 		delete userInfo["password"];
-
 		sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
 	};
 };
@@ -79,11 +78,24 @@ export const signInAuth = (signInInfo) => {
 	return async (dispatch) => {
 		const signIpData = { ...signInInfo, returnSecureToken: true };
 		const authData = await sendDataToURL(`${SIGN_IN_URL}${API_KEY}`, signIpData);
+		saveAuthInfo(authData);
 		const resData = await fetch(`${DB_URL}/users/${authData.localId}.json`);
 		const userDataID = await resData.json();
 		const [userID] = Object.keys(userDataID);
 		const { ...userData } = userDataID[userID];
 		const userInfo = { auth: authData, ...userData };
+		dispatch(userSlice.actions.logIn(userInfo));
+	};
+};
+
+export const retrieveStoredAuth = (authData) => {
+	return async (dispatch) => {
+		const auth = JSON.parse(authData.auth);
+		const resData = await fetch(`${DB_URL}/users/${auth.localId}.json`);
+		const userDataID = await resData.json();
+		const [userID] = Object.keys(userDataID);
+		const { ...userData } = userDataID[userID];
+		const userInfo = { auth, ...userData };
 		dispatch(userSlice.actions.logIn(userInfo));
 	};
 };
