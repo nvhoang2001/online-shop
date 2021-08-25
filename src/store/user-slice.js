@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { API_KEY, DB_URL } from "../config";
+import { API_KEY, DB_URL, TIME_THRESHOLD } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
-import { saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
+import { calculateRemainingTime, saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
 
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
 const SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
+const REFRESH_URL = "https://securetoken.googleapis.com/v1/token?key=";
+
+let timeout, timeout2;
 
 const userSlice = createSlice({
 	name: "user",
@@ -26,6 +29,18 @@ const userSlice = createSlice({
 		},
 
 		logOut() {
+			if (timeout) {
+				clearTimeout(timeout);
+				timeout = null;
+			}
+			if (timeout2) {
+				clearTimeout(timeout2);
+				timeout2 = null;
+			}
+
+			localStorage.removeItem("auth");
+			localStorage.removeItem("expirationTime");
+
 			return {
 				auth: null,
 				username: "",
@@ -57,6 +72,13 @@ const userSlice = createSlice({
 			action.payload.country && (state.country = action.payload.country);
 			action.payload.zipcode && (state.zipcode = action.payload.zipcode);
 		},
+
+		refreshAuthInfo(state, action) {
+			state.auth.expiresIn = action.payload.expires_in;
+			state.auth.refreshToken = action.payload.refresh_token;
+			state.auth.idToken = action.payload.id_token;
+			saveAuthInfo(state.auth);
+		},
 	},
 });
 
@@ -71,6 +93,7 @@ export const signupAuth = (userInfo) => {
 		delete userInfo["confirm-password"];
 		delete userInfo["password"];
 		sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+		refreshSignInSession(authData, dispatch);
 	};
 };
 
@@ -85,6 +108,7 @@ export const signInAuth = (signInInfo) => {
 		const { ...userData } = userDataID[userID];
 		const userInfo = { auth: authData, ...userData };
 		dispatch(userSlice.actions.logIn(userInfo));
+		refreshSignInSession(authData, dispatch);
 	};
 };
 
@@ -97,8 +121,39 @@ export const retrieveStoredAuth = (authData) => {
 		const { ...userData } = userDataID[userID];
 		const userInfo = { auth, ...userData };
 		dispatch(userSlice.actions.logIn(userInfo));
+		refreshSignInSession(auth, dispatch);
 	};
 };
+
+function refreshSignInSession(auth, dispatch) {
+	const storedExpirationDate = localStorage.getItem("expirationTime");
+	const remainingTime = calculateRemainingTime(storedExpirationDate);
+	const { refreshToken } = auth;
+	const requestBody = {
+		grant_type: "refresh_token",
+		refresh_token: refreshToken,
+	};
+
+	timeout = setTimeout(() => {
+		// Send refresh token
+		fetch(`${REFRESH_URL}${API_KEY}`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(requestBody),
+		})
+			.then((res) => res.json())
+			.then((resData) => {
+				dispatch(userSlice.actions.refreshAuthInfo(resData));
+				timeout2 = setTimeout(
+					refreshSignInSession,
+					resData.expires_in * 1000 - TIME_THRESHOLD,
+				);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, remainingTime);
+}
 
 export const userActions = userSlice.actions;
 export default userSlice;

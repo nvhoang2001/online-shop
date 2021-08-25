@@ -65,8 +65,6 @@ const SignIn = (props) => {
 		setFormState({ type: GET_VALUES, name, payload: value });
 	};
 
-	console.log(formState);
-
 	const submitHandler = (e) => {
 		e.preventDefault();
 
@@ -74,7 +72,6 @@ const SignIn = (props) => {
 			return;
 		}
 
-		console.log(formState.values);
 		dispatch(signInAuth(formState.values));
 	};
 
