@@ -22,7 +22,6 @@ const CustomInput = (props) => {
 
 	useEffect(() => {
 		props.sendClearInputFunc(id, clear);
-		props.sendInputTouchFunc(id, touchedInputHandler);
 	}, [id]);
 
 	useEffect(() => {
