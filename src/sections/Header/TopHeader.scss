@@ -1,7 +1,8 @@
 @import "../../global.scss";
 
 $svg-fill: red;
-$hover-link: hsl(184, 79%, 53%);
+$hover-link: hsl(184, 79%, 40%);
+$margin-color: rgb(128 128 128 / 0.25);
 
 .top-header {
 	display: flex;
@@ -24,6 +25,46 @@ $hover-link: hsl(184, 79%, 53%);
 	&__link {
 		&:hover {
 			color: $hover-link;
+		}
+	}
+
+	&__user-control {
+		position: relative;
+	}
+
+	&__user-menu {
+		padding: 0.5em 1em;
+		left: unset;
+		top: 150%;
+		right: 0;
+		width: max(175%, 200px, 12.5rem);
+		box-shadow: 0px 0px 0.1em 0.1em $margin-color;
+	}
+
+	&__user {
+		&:hover {
+			color: $hover-link;
+			cursor: pointer;
+		}
+	}
+}
+
+.user-menu {
+	&__item {
+		padding: 10% 10%;
+		width: 100%;
+
+		background: linear-gradient($margin-color 0 0) bottom 6px center,
+			linear-gradient($margin-color 0 0) bottom left,
+			linear-gradient($margin-color 0 0) bottom right;
+		background-size: 0 3px;
+		background-repeat: no-repeat;
+		transition: 0.25s linear, background-position 0s 0.5s;
+
+		&:hover {
+			cursor: pointer;
+			background-size: 100% 2px, 50% 2px, 50% 2px;
+			background-position: bottom, bottom 6px left 0, bottom 6px right 0;
 		}
 	}
 }

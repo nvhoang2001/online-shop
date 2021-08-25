@@ -3,6 +3,7 @@ import { API_KEY, DB_URL } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
 
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
+const SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
 
 const userSlice = createSlice({
 	name: "user",
@@ -19,14 +20,31 @@ const userSlice = createSlice({
 		zipcode: "",
 	},
 	reducers: {
-		logIn(state, action) {},
-		logOut(state, action) {},
+		logIn(_, action) {
+			return action.payload;
+		},
+
+		logOut() {
+			return {
+				auth: null,
+				username: "",
+				address: "",
+				gender: true,
+				email: "",
+				phone: "",
+				age: 0,
+				city: "",
+				country: "",
+				zipcode: "",
+			};
+		},
+
 		changePassword(state, action) {},
 		register(state, action) {
 			state.auth = action.payload.auth;
 
 			// Required field
-			state.name = action.payload.username;
+			state.username = action.payload.username;
 			state.email = action.payload.email;
 
 			// Not required field
@@ -54,6 +72,19 @@ export const signupAuth = (userInfo) => {
 		delete userInfo["password"];
 
 		sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+	};
+};
+
+export const signInAuth = (signInInfo) => {
+	return async (dispatch) => {
+		const signIpData = { ...signInInfo, returnSecureToken: true };
+		const authData = await sendDataToURL(`${SIGN_IN_URL}${API_KEY}`, signIpData);
+		const resData = await fetch(`${DB_URL}/users/${authData.localId}.json`);
+		const userDataID = await resData.json();
+		const [userID] = Object.keys(userDataID);
+		const { ...userData } = userDataID[userID];
+		const userInfo = { auth: authData, ...userData };
+		dispatch(userSlice.actions.logIn(userInfo));
 	};
 };
 
