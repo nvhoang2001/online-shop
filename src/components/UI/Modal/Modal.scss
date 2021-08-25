@@ -1,0 +1,17 @@
+$top-stack: 10;
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: $top-stack;
+	width: 100vw;
+	height: 100vh;
+	background: #00000040;
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: $top-stack;
+}
