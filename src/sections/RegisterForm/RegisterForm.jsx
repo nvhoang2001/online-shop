@@ -7,6 +7,12 @@ import AgeInput from "./AgeInput";
 import GenderInput from "./GenderInput";
 
 import emailValidator from "../../Helpers/emailValidator";
+import formReducer, {
+	GET_CLEAR_FNS,
+	GET_VALIDITY,
+	GET_VALUES,
+	initFormState,
+} from "../../Helpers/formReducer";
 import "./RegisterForm.scss";
 
 const PASSWORD_MIN_LIMIT = 6;
@@ -93,53 +99,6 @@ const inputInf = [
 	},
 ];
 
-const initFormState = {
-	clearFns: {},
-	touchFns: {},
-	validity: {},
-	values: {},
-};
-
-const GET_CLEAR_FNS = "GET_CLEAR_FNS",
-	GET_TOUCH_FNS = "GET_TOUCH_FNS",
-	GET_VALUES = "GET_VALUES",
-	GET_VALIDITY = "GET_VALIDITY";
-
-const formReducer = (prevState, action) => {
-	switch (action.type) {
-		case GET_CLEAR_FNS: {
-			const clonedState = { ...prevState };
-			clonedState.clearFns[action.id] = action.payload;
-			return clonedState;
-		}
-		case GET_TOUCH_FNS: {
-			const clonedState = { ...prevState };
-			clonedState.touchFns[action.id] = action.payload;
-			return clonedState;
-		}
-		case GET_VALIDITY: {
-			const clonedState = { ...prevState };
-			clonedState.validity[action.id] = action.payload;
-			return clonedState;
-		}
-		case GET_VALUES: {
-			const clonedState = { ...prevState };
-			clonedState.values[action.name] = action.payload;
-			return clonedState;
-		}
-
-		default:
-			break;
-	}
-
-	return {
-		clearFns: {},
-		touchFns: {},
-		validity: {},
-		values: {},
-	};
-};
-
 const RegisterForm = () => {
 	const [formState, setFormState] = useReducer(formReducer, initFormState);
 	const dispatch = useDispatch();
@@ -149,8 +108,8 @@ const RegisterForm = () => {
 
 	if (Object.keys(formState.validity).length) {
 		formIsValid = true;
-		for (const key in formState.validity) {
-			if (!formState.validity[key]) {
+		for (const inp of inputInf) {
+			if (!formState.validity[inp.id]) {
 				formIsValid = false;
 				break;
 			}
@@ -163,10 +122,6 @@ const RegisterForm = () => {
 
 	const getInputValidity = (id, validity) => {
 		setFormState({ type: GET_VALIDITY, id, payload: validity });
-	};
-
-	const getInputTouchFunc = (id, touchFunc) => {
-		setFormState({ type: GET_TOUCH_FNS, id, payload: touchFunc });
 	};
 
 	const getInputValue = (name, value) => {
@@ -197,7 +152,6 @@ const RegisterForm = () => {
 						className="register-form__input"
 						sendClearInputFunc={getClearInputFunc}
 						sendInputValidity={getInputValidity}
-						sendInputTouchFunc={getInputTouchFunc}
 						sendInputValue={getInputValue}
 					/>
 				))}
@@ -216,7 +170,6 @@ const RegisterForm = () => {
 						className="register-form__input"
 						sendClearInputFunc={getClearInputFunc}
 						sendInputValidity={getInputValidity}
-						sendInputTouchFunc={getInputTouchFunc}
 						sendInputValue={getInputValue}
 					/>
 				))}
