@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useDispatch } from "react-redux";
 import { signInAuth } from "../../store/user-slice";
 
@@ -14,6 +14,7 @@ import formReducer, {
 	initFormState,
 } from "../../Helpers/formReducer";
 import "./SignIn.scss";
+import { INVALID_SIGN_IN } from "../../config";
 
 const inputInfo = [
 	{
@@ -39,6 +40,7 @@ const inputInfo = [
 ];
 const SignIn = (props) => {
 	const dispatch = useDispatch();
+	const [hasError, setHasError] = useState(false);
 	const [formState, setFormState] = useReducer(formReducer, initFormState);
 	let formIsValid = false;
 
@@ -65,14 +67,21 @@ const SignIn = (props) => {
 		setFormState({ type: GET_VALUES, name, payload: value });
 	};
 
+	const showError = () => {
+		setHasError(true);
+	};
+
+	const hideError = () => {
+		setHasError(false);
+	};
+
 	const submitHandler = (e) => {
 		e.preventDefault();
 
 		if (!formIsValid) {
 			return;
 		}
-
-		dispatch(signInAuth(formState.values));
+		dispatch(signInAuth(formState.values, hideError, showError));
 	};
 
 	return (
@@ -89,6 +98,7 @@ const SignIn = (props) => {
 						sendInputValue={getInputValue}
 					/>
 				))}
+				{hasError && <div className="sign-in__error">{INVALID_SIGN_IN}</div>}
 				<div className="sign-in__btns">
 					<CustomButton onClick={props.onHide}>Cancel</CustomButton>
 					<button type="submit" className="sign-in__btn" disabled={!formIsValid}>

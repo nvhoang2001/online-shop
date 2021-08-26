@@ -17,6 +17,14 @@
 		justify-content: space-between;
 	}
 
+	&__error {
+		padding: 0.5em 1em;
+		margin: 1rem 0;
+		background: blue;
+		text-align: center;
+		color: white;
+	}
+
 	&__btn {
 		padding: 2% 5%;
 		border-radius: 0.25rem;

@@ -7,6 +7,7 @@ const sendDataToURL = async (URL, data) => {
 		body: JSON.stringify(data),
 	});
 	const resData = await res.json();
+	if (!res.ok) throw new Error(resData.error.message);
 	return resData;
 };
 

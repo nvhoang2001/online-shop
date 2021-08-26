@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { API_KEY, DB_URL, TIME_THRESHOLD } from "../config";
+import { API_KEY, DB_URL, INVALID_SIGN_IN, TIME_THRESHOLD } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
 import { calculateRemainingTime, saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
 
@@ -97,18 +97,24 @@ export const signupAuth = (userInfo) => {
 	};
 };
 
-export const signInAuth = (signInInfo) => {
+export const signInAuth = (signInInfo, successHandler, errorHandler) => {
 	return async (dispatch) => {
-		const signIpData = { ...signInInfo, returnSecureToken: true };
-		const authData = await sendDataToURL(`${SIGN_IN_URL}${API_KEY}`, signIpData);
-		saveAuthInfo(authData);
-		const resData = await fetch(`${DB_URL}/users/${authData.localId}.json`);
-		const userDataID = await resData.json();
-		const [userID] = Object.keys(userDataID);
-		const { ...userData } = userDataID[userID];
-		const userInfo = { auth: authData, ...userData };
-		dispatch(userSlice.actions.logIn(userInfo));
-		refreshSignInSession(authData, dispatch);
+		const signInData = { ...signInInfo, returnSecureToken: true };
+		try {
+			const authData = await sendDataToURL(`${SIGN_IN_URL}${API_KEY}`, signInData);
+			console.log(authData);
+			saveAuthInfo(authData);
+			const resData = await fetch(`${DB_URL}/users/${authData.localId}.json`);
+			const userDataID = await resData.json();
+			const [userID] = Object.keys(userDataID);
+			const { ...userData } = userDataID[userID];
+			const userInfo = { auth: authData, ...userData };
+			dispatch(userSlice.actions.logIn(userInfo));
+			refreshSignInSession(authData, dispatch);
+			successHandler();
+		} catch (err) {
+			errorHandler(0);
+		}
 	};
 };
 
