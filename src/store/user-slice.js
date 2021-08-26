@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { API_KEY, DB_URL, EMAIL_EXISTS, INVALID_SIGN_IN, TIME_THRESHOLD } from "../config";
+import { API_KEY, DB_URL, TIME_THRESHOLD } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
 import { calculateRemainingTime, saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
 

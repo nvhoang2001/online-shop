@@ -1,4 +1,3 @@
-export const GET_CLEAR_FNS = "GET_CLEAR_FNS";
 export const GET_VALUES = "GET_VALUES";
 export const GET_VALIDITY = "GET_VALIDITY";
 

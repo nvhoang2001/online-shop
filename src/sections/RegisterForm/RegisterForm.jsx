@@ -9,12 +9,7 @@ import ErrorNotification from "../../components/Layout/ErrorNotification";
 import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 
 import emailValidator from "../../Helpers/emailValidator";
-import formReducer, {
-	GET_CLEAR_FNS,
-	GET_VALIDITY,
-	GET_VALUES,
-	initFormState,
-} from "../../Helpers/formReducer";
+import formReducer, { GET_VALIDITY, GET_VALUES, initFormState } from "../../Helpers/formReducer";
 import { EMAIL_EXISTS, TOO_MANY_ATTEMPTS_TRY_LATER } from "../../config";
 import "./RegisterForm.scss";
 
@@ -123,10 +118,6 @@ const RegisterForm = () => {
 			}
 		}
 	}
-
-	const getClearInputFunc = (id, clearFunc) => {
-		setFormState({ type: GET_CLEAR_FNS, id, payload: clearFunc });
-	};
 
 	const getInputValidity = (id, validity) => {
 		setFormState({ type: GET_VALIDITY, id, payload: validity });

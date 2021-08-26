@@ -7,12 +7,7 @@ import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
 
 import emailValidator from "../../Helpers/emailValidator";
-import formReducer, {
-	GET_CLEAR_FNS,
-	GET_VALIDITY,
-	GET_VALUES,
-	initFormState,
-} from "../../Helpers/formReducer";
+import formReducer, { GET_VALIDITY, GET_VALUES, initFormState } from "../../Helpers/formReducer";
 import "./SignIn.scss";
 import { INVALID_SIGN_IN } from "../../config";
 
@@ -55,10 +50,6 @@ const SignIn = (props) => {
 		}
 	}
 
-	const getClearInputFunc = (id, clearFunc) => {
-		setFormState({ type: GET_CLEAR_FNS, id, payload: clearFunc });
-	};
-
 	const getInputValidity = (id, validity) => {
 		setFormState({ type: GET_VALIDITY, id, payload: validity });
 	};
@@ -93,7 +84,6 @@ const SignIn = (props) => {
 						key={inp.id}
 						input={inp}
 						className="sign-in__input"
-						sendClearInputFunc={getClearInputFunc}
 						sendInputValidity={getInputValidity}
 						sendInputValue={getInputValue}
 					/>
