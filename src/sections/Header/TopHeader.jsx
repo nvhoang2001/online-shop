@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import UserMenu from "./UserMenu";
-import Modal from "../../components/UI/Modal/Modal";
 import SignIn from "../SignIn/SignIn";
 import Card from "../../components/Layout/Card";
+import Modal from "../../components/UI/Modal/Modal";
 
 import { ReactComponent as ContactSVG } from "../../Assets/address-book.svg";
 import { ReactComponent as LocationSVG } from "../../Assets/map-marker.svg";
@@ -28,6 +28,7 @@ const TopHeader = () => {
 
 	const hideMenu = () => {
 		setShowMenu(false);
+		setShowSignIn(false);
 	};
 
 	let userContent = (

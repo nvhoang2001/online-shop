@@ -148,7 +148,7 @@ const RegisterForm = () => {
 	if (errorCode === EMAIL_ERROR) {
 		errorContent = (
 			<Modal onHide={hideError}>
-				<ErrorNotification onHide={hideError} emailErr>
+				<ErrorNotification onHide={hideError} btnContent="Change a new one? Ez :)">
 					{EMAIL_EXISTS}
 				</ErrorNotification>
 			</Modal>
@@ -156,7 +156,7 @@ const RegisterForm = () => {
 	} else if (errorCode === ACCESS_ERROR) {
 		errorContent = (
 			<Modal onHide={hideError}>
-				<ErrorNotification onHide={hideError} emailErr="false">
+				<ErrorNotification onHide={hideError} btnContent="It's just some minutes!">
 					{TOO_MANY_ATTEMPTS_TRY_LATER}
 				</ErrorNotification>
 			</Modal>

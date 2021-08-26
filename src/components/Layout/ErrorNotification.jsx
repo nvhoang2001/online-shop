@@ -5,8 +5,7 @@ import { ReactComponent as CryEmoji } from "../../Assets/sad-tear.svg";
 import "./ErrorNotification.scss";
 
 const ErrorNotification = (props) => {
-	let btnContent =
-		props.emailErr === true ? "Change a new one! Ez :)" : "It's just some minutes!";
+	const { btnContent } = props;
 	return (
 		<Card className="error-notify">
 			<figure className="error-notify__container">

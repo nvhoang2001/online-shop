@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { API_KEY, DB_URL, TIME_THRESHOLD } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
+import { API_KEY, DB_URL, TIME_THRESHOLD } from "../config";
 import { calculateRemainingTime, saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
 
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
@@ -22,6 +22,7 @@ const userSlice = createSlice({
 		city: "",
 		country: "",
 		zipcode: "",
+		hasError: false,
 	},
 	reducers: {
 		logIn(_, action) {
@@ -52,6 +53,7 @@ const userSlice = createSlice({
 				city: "",
 				country: "",
 				zipcode: "",
+				hasError: false,
 			};
 		},
 
@@ -79,6 +81,10 @@ const userSlice = createSlice({
 			state.auth.idToken = action.payload.id_token;
 			saveAuthInfo(state.auth);
 		},
+
+		changeErrorState(state, action) {
+			state.hasError = action.payload;
+		},
 	},
 });
 
@@ -96,7 +102,6 @@ export const signupAuth = (userInfo, successHandler, errorHandler) => {
 			sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
 			refreshSignInSession(authData, dispatch);
 		} catch (error) {
-			console.log(error.message);
 			if (error.message === "EMAIL_EXISTS") {
 				errorHandler(1);
 			} else {
@@ -155,7 +160,12 @@ function refreshSignInSession(auth, dispatch) {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(requestBody),
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error("Invalid request.");
+				}
+				return res.json();
+			})
 			.then((resData) => {
 				dispatch(userSlice.actions.refreshAuthInfo(resData));
 				timeout2 = setTimeout(
@@ -164,7 +174,7 @@ function refreshSignInSession(auth, dispatch) {
 				);
 			})
 			.catch((err) => {
-				console.log(err);
+				dispatch(userSlice.actions.changeErrorState(true));
 			});
 	}, remainingTime);
 }
