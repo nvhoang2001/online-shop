@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { API_KEY, DB_URL, INVALID_SIGN_IN, TIME_THRESHOLD } from "../config";
+import { API_KEY, DB_URL, EMAIL_EXISTS, INVALID_SIGN_IN, TIME_THRESHOLD } from "../config";
 import sendDataToURL from "../Helpers/sendDataToURL";
 import { calculateRemainingTime, saveAuthInfo } from "../Helpers/storeAndRetrieveAuthInfo";
 
@@ -82,18 +82,27 @@ const userSlice = createSlice({
 	},
 });
 
-export const signupAuth = (userInfo) => {
+export const signupAuth = (userInfo, successHandler, errorHandler) => {
 	return async (dispatch) => {
 		const { email, password } = userInfo;
 		const signUpData = { email, password, returnSecureToken: true };
-		const authData = await sendDataToURL(`${SIGN_UP_URL}${API_KEY}`, signUpData);
-		const userData = { auth: authData, ...userInfo };
-		saveAuthInfo(authData);
-		dispatch(userSlice.actions.register(userData));
-		delete userInfo["confirm-password"];
-		delete userInfo["password"];
-		sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
-		refreshSignInSession(authData, dispatch);
+		try {
+			const authData = await sendDataToURL(`${SIGN_UP_URL}${API_KEY}`, signUpData);
+			const userData = { auth: authData, ...userInfo };
+			saveAuthInfo(authData);
+			dispatch(userSlice.actions.register(userData));
+			delete userInfo["confirm-password"];
+			delete userInfo["password"];
+			sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+			refreshSignInSession(authData, dispatch);
+		} catch (error) {
+			console.log(error.message);
+			if (error.message === "EMAIL_EXISTS") {
+				errorHandler(1);
+			} else {
+				errorHandler(2);
+			}
+		}
 	};
 };
 
@@ -102,7 +111,6 @@ export const signInAuth = (signInInfo, successHandler, errorHandler) => {
 		const signInData = { ...signInInfo, returnSecureToken: true };
 		try {
 			const authData = await sendDataToURL(`${SIGN_IN_URL}${API_KEY}`, signInData);
-			console.log(authData);
 			saveAuthInfo(authData);
 			const resData = await fetch(`${DB_URL}/users/${authData.localId}.json`);
 			const userDataID = await resData.json();

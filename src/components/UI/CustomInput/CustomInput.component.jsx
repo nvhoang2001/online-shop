@@ -6,7 +6,7 @@ import "./CustomInput.scss";
 const CustomInput = (props) => {
 	const { id, label, type, name, placeholder, validator, errorText, isRequired } = props.input;
 
-	const { clear, hasError, value, isValid, inputChangeHandler, touchedInputHandler } = useInput(
+	const { hasError, value, isValid, inputChangeHandler, touchedInputHandler } = useInput(
 		validator,
 		isRequired,
 	);
@@ -19,10 +19,6 @@ const CustomInput = (props) => {
 	const inputBlurHandler = () => {
 		touchedInputHandler(true);
 	};
-
-	useEffect(() => {
-		props.sendClearInputFunc(id, clear);
-	}, [id]);
 
 	useEffect(() => {
 		props.sendInputValidity(id, isValid);

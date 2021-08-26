@@ -1,0 +1,24 @@
+.error-notify {
+	width: 40vw;
+	padding: 1.5rem 2rem;
+	top: 10rem;
+	left: 30vw;
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		svg {
+			fill: blue;
+		}
+	}
+
+	&__content {
+		margin: 1rem 0;
+	}
+
+	&__btn {
+		align-self: flex-end;
+	}
+}

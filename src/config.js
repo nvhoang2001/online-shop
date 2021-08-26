@@ -14,3 +14,6 @@ export const DB_URL =
 export const TIME_THRESHOLD = 300_000;
 export const UNSTABLE_NETWORK_ERROR = "Your internet connection is unstable!";
 export const INVALID_SIGN_IN = "Invalid email or password! Please check it again!";
+export const EMAIL_EXISTS = "The email address is already in use by another account!";
+export const TOO_MANY_ATTEMPTS_TRY_LATER =
+	"We have blocked all requests from this device due to unusual activity. Please try again later!";

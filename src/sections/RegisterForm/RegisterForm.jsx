@@ -1,10 +1,12 @@
-import { useReducer } from "react";
+import { useState, useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { signupAuth } from "../../store/user-slice";
 
-import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 import AgeInput from "./AgeInput";
 import GenderInput from "./GenderInput";
+import Modal from "../../components/UI/Modal/Modal";
+import ErrorNotification from "../../components/Layout/ErrorNotification";
+import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 
 import emailValidator from "../../Helpers/emailValidator";
 import formReducer, {
@@ -13,6 +15,7 @@ import formReducer, {
 	GET_VALUES,
 	initFormState,
 } from "../../Helpers/formReducer";
+import { EMAIL_EXISTS, TOO_MANY_ATTEMPTS_TRY_LATER } from "../../config";
 import "./RegisterForm.scss";
 
 const PASSWORD_MIN_LIMIT = 6;
@@ -99,7 +102,12 @@ const inputInf = [
 	},
 ];
 
+const NO_ERROR = 0,
+	EMAIL_ERROR = 1,
+	ACCESS_ERROR = 2;
+
 const RegisterForm = () => {
+	const [errorCode, setErrorCode] = useState(NO_ERROR);
 	const [formState, setFormState] = useReducer(formReducer, initFormState);
 	const dispatch = useDispatch();
 	const requiredInputs = inputInf.slice(0, 4);
@@ -128,6 +136,13 @@ const RegisterForm = () => {
 		setFormState({ type: GET_VALUES, name, payload: value });
 	};
 
+	const showError = (errorCode) => {
+		setErrorCode(errorCode);
+	};
+	const hideError = () => {
+		setErrorCode(NO_ERROR);
+	};
+
 	const submitFormHandler = (e) => {
 		e.preventDefault();
 
@@ -135,14 +150,31 @@ const RegisterForm = () => {
 			return;
 		}
 
-		// Clear all the input fields
-		Object.values(formState.clearFns).forEach((func) => func());
-
-		dispatch(signupAuth(formState.values));
+		dispatch(signupAuth(formState.values, hideError, showError));
 	};
+
+	let errorContent = null;
+	if (errorCode === EMAIL_ERROR) {
+		errorContent = (
+			<Modal onHide={hideError}>
+				<ErrorNotification onHide={hideError} emailErr>
+					{EMAIL_EXISTS}
+				</ErrorNotification>
+			</Modal>
+		);
+	} else if (errorCode === ACCESS_ERROR) {
+		errorContent = (
+			<Modal onHide={hideError}>
+				<ErrorNotification onHide={hideError} emailErr="false">
+					{TOO_MANY_ATTEMPTS_TRY_LATER}
+				</ErrorNotification>
+			</Modal>
+		);
+	}
 
 	return (
 		<section className="register-form">
+			{errorContent}
 			<h1 className="register-form__title">New Account</h1>
 			<form className="register-form__form" onSubmit={submitFormHandler}>
 				{requiredInputs.map((inp) => (
@@ -150,25 +182,20 @@ const RegisterForm = () => {
 						key={inp.id}
 						input={inp}
 						className="register-form__input"
-						sendClearInputFunc={getClearInputFunc}
 						sendInputValidity={getInputValidity}
 						sendInputValue={getInputValue}
 					/>
 				))}
 
-				<AgeInput sendClearInputFunc={getClearInputFunc} sendInputValue={getInputValue} />
+				<AgeInput sendInputValue={getInputValue} />
 
-				<GenderInput
-					sendClearInputFunc={getClearInputFunc}
-					sendInputValue={getInputValue}
-				/>
+				<GenderInput sendInputValue={getInputValue} />
 
 				{normInputs.map((inp) => (
 					<CustomInput
 						key={inp.id}
 						input={inp}
 						className="register-form__input"
-						sendClearInputFunc={getClearInputFunc}
 						sendInputValidity={getInputValidity}
 						sendInputValue={getInputValue}
 					/>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AgeInput = (props) => {
 	const [age, setAge] = useState("");
@@ -7,14 +7,6 @@ const AgeInput = (props) => {
 		setAge(e.target.value);
 		props.sendInputValue("age", e.target.value);
 	};
-
-	const resetAge = () => {
-		setAge("");
-	};
-
-	useEffect(() => {
-		props.sendClearInputFunc("age", resetAge);
-	}, []);
 
 	return (
 		<div className={"custom-input register-form__input"}>
