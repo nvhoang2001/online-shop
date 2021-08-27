@@ -43,14 +43,26 @@ const TopHeader = () => {
 		</>
 	);
 	if (isSignedIn) {
-		const toggleUserMenu = () => {
-			setShowMenu((prevState) => !prevState);
+		const showUserMenu = () => {
+			setShowMenu(true);
+		};
+		const hideUserMenu = () => {
+			setShowMenu(false);
 		};
 
 		userContent = (
-			<span className="top-header__user" onClick={toggleUserMenu}>
-				{userInfor.username}
-			</span>
+			<div
+				className="top-header__user-control"
+				onMouseEnter={showUserMenu}
+				onMouseLeave={hideUserMenu}
+			>
+				{showMenu && (
+					<Card className="top-header__user-menu">
+						<UserMenu onHide={hideMenu} />
+					</Card>
+				)}
+				<span className="top-header__user">{userInfor.username}</span>
+			</div>
 		);
 	}
 
@@ -70,14 +82,9 @@ const TopHeader = () => {
 					<LocationSVG />
 					<p>Location: Locate my location</p>
 				</div>
-				<div className="top-header__info top-header__user-control">
+				<div className="top-header__info ">
 					<UserSVG />
-					<p>{userContent}</p>
-					{showMenu && (
-						<Card className="top-header__user-menu">
-							<UserMenu onHide={hideMenu} />
-						</Card>
-					)}
+					<div>{userContent}</div>
 				</div>
 			</div>
 		</>
