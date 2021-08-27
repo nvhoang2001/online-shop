@@ -88,19 +88,33 @@ const userSlice = createSlice({
 	},
 });
 
-export const signupAuth = (userInfo, successHandler, errorHandler) => {
+export const signupAuth = (userInfo, successHandler, errorHandler, firstTime = true) => {
 	return async (dispatch) => {
 		const { email, password } = userInfo;
 		const signUpData = { email, password, returnSecureToken: true };
 		try {
-			const authData = await sendDataToURL(`${SIGN_UP_URL}${API_KEY}`, signUpData);
+			let timer;
+			const url = firstTime ? `${SIGN_UP_URL}${API_KEY}` : `${SIGN_IN_URL}${API_KEY}`;
+			const authData = await sendDataToURL(url, signUpData);
 			const userData = { auth: authData, ...userInfo };
 			saveAuthInfo(authData);
-			dispatch(userSlice.actions.register(userData));
-			delete userInfo["confirm-password"];
-			delete userInfo["password"];
-			sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
-			refreshSignInSession(authData, dispatch);
+			const { wait, time } = successHandler();
+			if (wait) {
+				timer = setTimeout(() => {
+					dispatch(userSlice.actions.register(userData));
+					delete userInfo["confirm-password"];
+					delete userInfo["password"];
+					sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+					refreshSignInSession(authData, dispatch);
+				}, time);
+			} else {
+				clearTimeout(timer);
+				dispatch(userSlice.actions.register(userData));
+				delete userInfo["confirm-password"];
+				delete userInfo["password"];
+				sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+				refreshSignInSession(authData, dispatch);
+			}
 		} catch (error) {
 			if (error.message === "EMAIL_EXISTS") {
 				errorHandler(1);

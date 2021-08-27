@@ -1,17 +1,21 @@
-import { useState, useReducer } from "react";
 import { useDispatch } from "react-redux";
+import { useState, useReducer } from "react";
+import { useHistory } from "react-router-dom";
 import { signupAuth } from "../../store/user-slice";
 
 import AgeInput from "./AgeInput";
 import GenderInput from "./GenderInput";
 import Modal from "../../components/UI/Modal/Modal";
 import ErrorNotification from "../../components/Layout/ErrorNotification";
+import SuccessNotification from "../../components/Layout/SuccessNotification";
 import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 
 import emailValidator from "../../Helpers/emailValidator";
+import { baseURL, EMAIL_EXISTS, TOO_MANY_ATTEMPTS_TRY_LATER } from "../../config";
 import formReducer, { GET_VALIDITY, GET_VALUES, initFormState } from "../../Helpers/formReducer";
-import { EMAIL_EXISTS, TOO_MANY_ATTEMPTS_TRY_LATER } from "../../config";
 import "./RegisterForm.scss";
+
+let timeoutTimer, interTimer;
 
 const PASSWORD_MIN_LIMIT = 6;
 
@@ -100,11 +104,16 @@ const inputInf = [
 const NO_ERROR = 0,
 	EMAIL_ERROR = 1,
 	ACCESS_ERROR = 2;
+const COUNTDOWN_TIME = 5,
+	SHOW_MODAL_TIME = 500;
 
 const RegisterForm = () => {
-	const [errorCode, setErrorCode] = useState(NO_ERROR);
-	const [formState, setFormState] = useReducer(formReducer, initFormState);
+	const history = useHistory();
 	const dispatch = useDispatch();
+	const [errorCode, setErrorCode] = useState(NO_ERROR);
+	const [showSuccess, setShowSuccess] = useState(false);
+	const [countdownTime, setCountdownTime] = useState(COUNTDOWN_TIME);
+	const [formState, setFormState] = useReducer(formReducer, initFormState);
 	const requiredInputs = inputInf.slice(0, 4);
 	const normInputs = inputInf.slice(4);
 	let formIsValid = false;
@@ -134,6 +143,37 @@ const RegisterForm = () => {
 		setErrorCode(NO_ERROR);
 	};
 
+	const successRegisterHandler = () => {
+		hideError();
+		setShowSuccess(true);
+		timeoutTimer = setTimeout(() => {
+			interTimer = setInterval(() => {
+				if (countdownTime === 0) {
+					clearInterval(interTimer);
+					history.push(baseURL);
+					setShowSuccess(false);
+				}
+				setCountdownTime((time) => time - 1);
+			}, 1000);
+		}, SHOW_MODAL_TIME);
+		return { wait: true, time: (COUNTDOWN_TIME + 1) * 1000 };
+	};
+
+	const successRegisterNoCountdown = () => {
+		hideError();
+		setShowSuccess(false);
+		clearTimeout(timeoutTimer);
+		clearInterval(interTimer);
+		setTimeout(() => {
+			history.push(baseURL);
+		}, 0);
+		return { wait: false };
+	};
+
+	const successModalClickHandler = () => {
+		dispatch(signupAuth(formState.values, successRegisterNoCountdown, showError, false));
+	};
+
 	const submitFormHandler = (e) => {
 		e.preventDefault();
 
@@ -141,7 +181,7 @@ const RegisterForm = () => {
 			return;
 		}
 
-		dispatch(signupAuth(formState.values, hideError, showError));
+		dispatch(signupAuth(formState.values, successRegisterHandler, showError));
 	};
 
 	let errorContent = null;
@@ -166,6 +206,16 @@ const RegisterForm = () => {
 	return (
 		<section className="register-form">
 			{errorContent}
+			{showSuccess && (
+				<Modal onHide={successModalClickHandler}>
+					<SuccessNotification>
+						<p>
+							Register success, you'll be redirect to homepage in{" "}
+							<span style={{ color: "#d80100" }}>{countdownTime}</span> seconds....
+						</p>
+					</SuccessNotification>
+				</Modal>
+			)}
 			<h1 className="register-form__title">New Account</h1>
 			<form className="register-form__form" onSubmit={submitFormHandler}>
 				{requiredInputs.map((inp) => (
