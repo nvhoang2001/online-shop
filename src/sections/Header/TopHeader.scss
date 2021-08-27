@@ -67,5 +67,10 @@ $margin-color: rgb(128 128 128 / 0.25);
 			background-size: 100% 2px, 50% 2px, 50% 2px;
 			background-position: bottom, bottom 6px left 0, bottom 6px right 0;
 		}
+
+		> a {
+			width: 100%;
+			display: block;
+		}
 	}
 }

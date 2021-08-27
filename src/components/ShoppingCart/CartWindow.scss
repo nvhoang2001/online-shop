@@ -1,6 +1,7 @@
 .shopping-cart {
 	border-radius: 2%;
-	width: 300%;
+	width: max(400px, 300%, 20rem);
+	padding: 40%;
 
 	position: absolute;
 	top: 100%;

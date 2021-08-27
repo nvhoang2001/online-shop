@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import Card from "../Layout/Card";
 import CustomButton from "../UI/CustomButton/CustomButton.component";
 
-import "./CartWindow.scss";
 import { checkoutPage } from "../../config";
+import "./CartWindow.scss";
 
 const CartWindow = () => {
 	const cart = useSelector((store) => store.checkout);

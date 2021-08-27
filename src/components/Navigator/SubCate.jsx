@@ -16,7 +16,9 @@ const SubCate = (props) => {
 							{products.map((prod) => {
 								return (
 									<li key={prod.id} className="nav__cate-link">
-										<Link to={`${linkItem}/${prod.path}`}>{prod.content}</Link>
+										<Link to={`${linkItem}?brand=${prod.path}`}>
+											{prod.content}
+										</Link>
 									</li>
 								);
 							})}
