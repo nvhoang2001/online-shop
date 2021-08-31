@@ -1,20 +1,32 @@
 const mergeObject = (obj1, obj2) => {
-	const mergedObj = { ...obj2 };
-	for (const key in obj1) {
-		if (key in obj2) {
-			if (Array.isArray(mergedObj[key])) {
-				mergedObj[key] = [...obj1[key], ...obj2[key]];
-			} else mergedObj[key] = { ...obj1[key], ...obj2[key] };
-			continue;
-		}
-		mergedObj[key] = obj1[key];
+	if (!obj1) {
+		return obj2;
 	}
 
-	return mergedObj;
+	if (!Array.isArray(obj2)) {
+		const mergedObj = { ...obj2 };
+		for (const key in obj1) {
+			if (key in obj2) {
+				if (Array.isArray(mergedObj[key])) {
+					mergedObj[key] = [...obj1[key], ...obj2[key]];
+				} else mergedObj[key] = { ...obj1[key], ...obj2[key] };
+				continue;
+			}
+			mergedObj[key] = obj1[key];
+		}
+
+		return mergedObj;
+	}
+
+	if (!Array.isArray(obj1)) {
+		return [...obj2];
+	}
+
+	return [...obj1, ...obj2];
 };
 
 const getNthFloorProperties = (obj, depth = 1, output = {}) => {
-	if (depth === 0) {
+	if (depth <= 0) {
 		output = mergeObject(output, obj);
 		return output;
 	}
