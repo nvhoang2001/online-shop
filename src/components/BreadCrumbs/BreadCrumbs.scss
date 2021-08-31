@@ -1,0 +1,30 @@
+.bread-crumbs {
+	width: 100%;
+	margin-bottom: 3%;
+	&__item {
+		text-transform: uppercase;
+		display: inline;
+		color: rgba(0, 0, 0, 0.75);
+
+		&::after {
+			content: " > ";
+			display: inline;
+		}
+
+		&:hover {
+			color: rgb(0, 140, 255);
+		}
+
+		&--active {
+			color: black;
+
+			&::after {
+				content: "";
+			}
+
+			&:hover {
+				color: inherit;
+			}
+		}
+	}
+}

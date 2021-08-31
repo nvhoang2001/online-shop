@@ -6,9 +6,10 @@ import { userActions } from "./store/user-slice";
 import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
 import RegisterPage from "./pages/Register/RegisterPage";
+import ProductPage from "./pages/ProductsPage/ProductPage";
 import ErrorNotification from "./components/Layout/ErrorNotification";
 
-import { signUpURL } from "./config";
+import { PROD_DIR, signUpURL } from "./config";
 import "./reset-css.scss";
 import "./App.css";
 
@@ -42,6 +43,13 @@ function App() {
 				<Route path={signUpURL} exact>
 					{!isSignIn && <RegisterPage />}
 					{isSignIn && <Redirect to="/" />}
+				</Route>
+
+				<Route path={PROD_DIR}>
+					<ProductPage />
+				</Route>
+				<Route path={`${PROD_DIR}/:typeName`} exact>
+					<ProductPage />
 				</Route>
 			</Switch>
 		</Fragment>

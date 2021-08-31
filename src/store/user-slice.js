@@ -8,6 +8,7 @@ const SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWi
 const REFRESH_URL = "https://securetoken.googleapis.com/v1/token?key=";
 
 let timeout, timeout2;
+let signUpAuthToken;
 
 const userSlice = createSlice({
 	name: "user",
@@ -88,14 +89,20 @@ const userSlice = createSlice({
 	},
 });
 
-export const signupAuth = (userInfo, successHandler, errorHandler, firstTime = true) => {
+export const signupAuth = (userInfo, successHandler, errorHandler) => {
 	return async (dispatch) => {
 		const { email, password } = userInfo;
 		const signUpData = { email, password, returnSecureToken: true };
 		try {
 			let timer;
-			const url = firstTime ? `${SIGN_UP_URL}${API_KEY}` : `${SIGN_IN_URL}${API_KEY}`;
-			const authData = await sendDataToURL(url, signUpData);
+			let authData;
+			if (!signUpAuthToken) {
+				authData = await sendDataToURL(`${SIGN_UP_URL}${API_KEY}`, signUpData);
+				signUpAuthToken = authData;
+			} else {
+				authData = signUpAuthToken;
+			}
+
 			const userData = { auth: authData, ...userInfo };
 			saveAuthInfo(authData);
 			const { wait, time } = successHandler();
@@ -106,6 +113,7 @@ export const signupAuth = (userInfo, successHandler, errorHandler, firstTime = t
 					delete userInfo["password"];
 					sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
 					refreshSignInSession(authData, dispatch);
+					signUpAuthToken = null;
 				}, time);
 			} else {
 				clearTimeout(timer);
@@ -114,6 +122,7 @@ export const signupAuth = (userInfo, successHandler, errorHandler, firstTime = t
 				delete userInfo["password"];
 				sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
 				refreshSignInSession(authData, dispatch);
+				signUpAuthToken = null;
 			}
 		} catch (error) {
 			if (error.message === "EMAIL_EXISTS") {

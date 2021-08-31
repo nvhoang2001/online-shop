@@ -63,12 +63,35 @@ export const productItems = products.map((prod) => {
 	const { id, brand, category, description, feedbacks, name, preview, type } = prod;
 	return createProduct(id, name, brand, type, category, feedbacks, description, preview);
 });
+const categoryProducts = () => {
+	const category = {};
+	productItems.forEach((prod) => {
+		const { type, category: prodCate, brand } = prod;
+		if (!category[type]) {
+			category[type] = {};
+		}
+
+		if (!category[type][prodCate]) {
+			category[type][prodCate] = {};
+		}
+
+		if (!category[type][prodCate][brand]) {
+			category[type][prodCate][brand] = [];
+		}
+
+		category[type][prodCate][brand].push(prod);
+	});
+	return category;
+};
+
+const categoriedProducts = categoryProducts();
 
 const productSlice = createSlice({
 	name: "products",
 	initialState: {
 		items: productItems,
 		brands: prodBrands,
+		catedItems: categoriedProducts,
 	},
 	reducers: {},
 });

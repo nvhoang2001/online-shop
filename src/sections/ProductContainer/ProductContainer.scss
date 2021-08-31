@@ -1,0 +1,7 @@
+@import "../../global.scss";
+
+.product-containter {
+	padding: 2% $page-padding;
+	display: flex;
+	flex-wrap: wrap;
+}
