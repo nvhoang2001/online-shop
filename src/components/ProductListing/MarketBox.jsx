@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 import capitalizeFirstCharacter from "../../Helpers/capitalizeFirstChar";
 import getNthFloorProperties from "../../Helpers/getNthFloorProperties";
-import { useState } from "react";
 
 const PRODUCT_FLOOR = 4;
 
@@ -53,6 +53,10 @@ const MarketBox = (props) => {
 			return;
 		}
 	};
+
+	useEffect(() => {
+		setActiveWindow(0);
+	}, [locas.length]);
 
 	return (
 		<div className="market-box">
