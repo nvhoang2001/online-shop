@@ -13,13 +13,18 @@ const BrandFilter = (props) => {
 	locas.at(0) === "" && locas.shift();
 	locas.at(-1) === "" && locas.pop();
 	let cates = catedProds;
-	if (locas.length !== 1) {
-		for (let i = 1; i < locas.length; i++) {
-			cates = cates[locas[i]];
+	let brands = [];
+
+	if (locas.length <= 3) {
+		if (locas.length !== 1) {
+			for (let i = 1; i < locas.length; i++) {
+				cates = cates[locas[i]];
+			}
 		}
+
+		brands = Object.entries(getNthFloorProperties(cates, BRAND_FLOOR - locas.length));
 	}
 
-	let brands = Object.entries(getNthFloorProperties(cates, BRAND_FLOOR - locas.length));
 	const topBrands = brands.slice(0, 5),
 		botBrands = brands.slice(5);
 
@@ -55,6 +60,9 @@ const BrandFilter = (props) => {
 		<div
 			className="filter-product--filter filter-section filter-brand"
 			onClick={checkBrandHandler}
+			style={{
+				display: `${brands.length > 0 ? "" : "none"}`,
+			}}
 		>
 			<div className="filter-section-header">
 				<h3>Brands:</h3>

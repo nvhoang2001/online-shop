@@ -1,0 +1,73 @@
+.product-listing {
+	width: 75%;
+}
+
+.market-box {
+	padding: 2% 5%;
+	background: white;
+
+	overflow: hidden;
+
+	&__title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		text-align: center;
+	}
+
+	&__control-btns {
+		display: flex;
+		justify-content: flex-end;
+
+		button {
+			$btn-background: blue;
+
+			padding: 1% 1.25%;
+			margin: 1%;
+			border: 1px solid transparent;
+			border-radius: 0.25rem;
+
+			background: $btn-background;
+			color: white;
+			transition: 0.25s;
+
+			&:hover {
+				color: $btn-background;
+				border-color: $btn-background;
+				background: transparent;
+			}
+		}
+	}
+
+	&__list {
+		margin: 3% 0;
+		height: 7rem;
+		width: 100%;
+
+		overflow: hidden;
+		position: relative;
+
+		&-item {
+			padding: 2%;
+			width: 22.5%;
+			height: 7rem;
+			position: absolute;
+			text-align: center;
+			border: 1px solid #000;
+			display: flex;
+			flex-flow: column;
+			justify-content: space-between;
+			align-items: center;
+			transition: all 0.25s;
+
+			a {
+				display: inline-block;
+				padding: 0 0.5rem 0.5rem;
+				background: linear-gradient(currentColor 0 0) bottom / var(--d, 0) 1px no-repeat;
+				transition: 0.5s;
+				&:hover {
+					--d: 100%;
+				}
+			}
+		}
+	}
+}
