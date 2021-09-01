@@ -71,3 +71,54 @@
 		}
 	}
 }
+
+.sorting-box {
+	margin-top: 1.5rem;
+	padding: 1.14286rem;
+	font-weight: 400;
+	background: white;
+	border-radius: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	&__form {
+		$font-size: 0.75rem;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		overflow: hidden;
+		position: relative;
+		label {
+			font-size: $font-size;
+			display: inline-block;
+			color: #808080;
+			line-height: 2.14286rem;
+			margin-bottom: 0;
+			padding-left: 0.78571rem;
+			margin: 0 0.35714rem 0 0;
+		}
+		select {
+			font-size: $font-size;
+			background-color: white;
+			background-position: right 0.5rem top 0.5rem;
+			background-size: 1.28571rem;
+			height: 2.28571rem;
+			line-height: 1rem;
+			max-width: 20rem;
+			padding: 0.57143rem 0.78571rem;
+			padding-right: 2rem;
+		}
+
+		&::after {
+			content: "\025BE";
+			position: absolute;
+			// height: 1rem;
+			// width: 1rem;
+			padding: 1% 2%;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 0.4rem;
+		}
+	}
+}
