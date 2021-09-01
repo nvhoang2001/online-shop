@@ -2,9 +2,12 @@ import { useHistory } from "react-router-dom";
 
 const SortingBox = () => {
 	const history = useHistory();
-
 	const sortChangeHandler = (e) => {
-		history.push(`${history.location.pathname}?sort=${e.target.value}`);
+		const searchParams = new URLSearchParams(history.location.search);
+		if (searchParams.has("sort")) {
+			searchParams.set("sort", e.target.value);
+		} else searchParams.append("sort", e.target.value);
+		history.push(`${history.location.pathname}?${searchParams.toString()}`);
 	};
 
 	return (
