@@ -13,6 +13,15 @@ function getRating(feedbackObj) {
 		feedbackObj.feedbacks.reduce((s, i) => s + i.rating, 0) / feedbackObj.ratingNum
 	).toFixed(1);
 }
+
+function getReleaseDate(feedackArray) {
+	const releaseArray = feedackArray.map((feedback) => {
+		return new Date(feedback.feedbackTime).getTime();
+	});
+	const latestRelease = Math.min(...releaseArray);
+	return latestRelease;
+}
+
 let count = 0;
 
 function createProduct(
@@ -49,6 +58,7 @@ function createProduct(
 	feedbackObj.description = description;
 	feedbackObj.preview = preview;
 	feedbackObj.price = Number(randomGenerator(10, 1000).toFixed(2));
+	feedbackObj.releaseDate = getReleaseDate(feedbacks);
 	return feedbackObj;
 }
 
