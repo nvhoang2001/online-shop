@@ -1,4 +1,13 @@
 import { useHistory } from "react-router-dom";
+import {
+	SORTING_ALPHAASC,
+	SORTING_ALPHADESC,
+	SORTING_AVGCUSTOMERREVIEW,
+	SORTING_BESTSELLING,
+	SORTING_NEWEST,
+	SORTING_PRICEASC,
+	SORTING_PRICEDESC,
+} from "../../config";
 
 const SortingBox = () => {
 	const history = useHistory();
@@ -19,15 +28,15 @@ const SortingBox = () => {
 					id="product-sorting"
 					className="sorting-box__select"
 					onChange={sortChangeHandler}
-					defaultValue="newest"
+					defaultValue={SORTING_NEWEST}
 				>
-					<option value="newest">Newest Items</option>
-					<option value="bestselling">Best Selling</option>
-					<option value="alphaasc">A to Z</option>
-					<option value="alphadesc">Z to A</option>
-					<option value="avgcustomerreview">By Review</option>
-					<option value="priceasc">Price &uarr;</option>
-					<option value="pricedesc">Price &darr;</option>
+					<option value={SORTING_NEWEST}>Newest Items</option>
+					<option value={SORTING_BESTSELLING}>Best Selling</option>
+					<option value={SORTING_ALPHAASC}>A to Z</option>
+					<option value={SORTING_ALPHADESC}>Z to A</option>
+					<option value={SORTING_AVGCUSTOMERREVIEW}>By Review</option>
+					<option value={SORTING_PRICEASC}>Price &uarr;</option>
+					<option value={SORTING_PRICEDESC}>Price &darr;</option>
 				</select>
 			</form>
 		</div>

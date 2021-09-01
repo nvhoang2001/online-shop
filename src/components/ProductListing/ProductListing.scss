@@ -1,3 +1,5 @@
+$top-margin: 1.5rem;
+
 .product-listing {
 	width: 75%;
 }
@@ -73,7 +75,7 @@
 }
 
 .sorting-box {
-	margin-top: 1.5rem;
+	margin-top: $top-margin;
 	padding: 1.14286rem;
 	font-weight: 400;
 	background: white;
@@ -119,6 +121,38 @@
 			top: 50%;
 			transform: translateY(-50%);
 			right: 0.4rem;
+		}
+	}
+}
+
+.product-grid {
+	margin-top: $top-margin;
+	padding: 5%;
+	background: white;
+
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		// justify-content: space-between;
+
+		&-item {
+			height: max(40vh, 350px);
+			width: 23.5%;
+			margin-right: 2%;
+
+			&:nth-of-type(n + 5) {
+				margin-top: 1.5rem;
+			}
+
+			&:nth-of-type(4n + 4) {
+				margin-right: 0;
+			}
+		}
+	}
+
+	&__item {
+		&__cap {
+			height: 35%;
 		}
 	}
 }

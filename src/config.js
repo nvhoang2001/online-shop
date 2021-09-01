@@ -17,3 +17,10 @@ export const INVALID_SIGN_IN = "Invalid email or password! Please check it again
 export const EMAIL_EXISTS = "The email address is already in use by another account!";
 export const TOO_MANY_ATTEMPTS_TRY_LATER =
 	"We have blocked all requests from this device due to unusual activity. Please try again later!";
+export const SORTING_NEWEST = "newest";
+export const SORTING_BESTSELLING = "bestselling";
+export const SORTING_ALPHAASC = "alphaasc";
+export const SORTING_ALPHADESC = "alphadesc";
+export const SORTING_AVGCUSTOMERREVIEW = "avgcustomerreview";
+export const SORTING_PRICEASC = "priceasc";
+export const SORTING_PRICEDESC = "pricedesc";
