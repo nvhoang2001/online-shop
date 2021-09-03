@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useState, useContext } from "react";
+import filterContext from "../../store/filterContext";
 import getNthFloorProperties from "../../Helpers/getNthFloorProperties";
 
 const BRAND_FLOOR = 3;
 
 const BrandFilter = (props) => {
 	const { location } = props;
-	const [selectedBrands, setSelectedBrands] = useState({});
+	const filterCtx = useContext(filterContext);
+
 	const [isExpandingBrands, setIsExpandingBrands] = useState(false);
 	const catedProds = useSelector((store) => store.products.catedItems);
 	const locas = location.split("/");
@@ -42,23 +44,19 @@ const BrandFilter = (props) => {
 		}
 
 		const itemIndex = filterItem.dataset.index;
+		// Get brand name
+		filterCtx.updateBrands(brands[itemIndex][0]);
+	};
 
-		setSelectedBrands((selected) => {
-			const newSelectedBrands = { ...selected };
-			newSelectedBrands[itemIndex]
-				? delete newSelectedBrands[itemIndex]
-				: (newSelectedBrands[itemIndex] = true);
-			return newSelectedBrands;
-		});
-	};
 	const clearBrandFilter = () => {
-		setSelectedBrands({});
+		filterCtx.clearBrand();
 	};
-	const selectedIsEmpty = Object.keys(selectedBrands).length === 0;
+
+	const selectedIsEmpty = filterCtx.brands.length === 0;
 
 	return (
 		<div
-			className="filter-product--filter filter-section filter-brand"
+			className="filter-section filter-brand"
 			onClick={checkBrandHandler}
 			style={{
 				display: `${brands.length > 0 ? "" : "none"}`,
@@ -67,9 +65,10 @@ const BrandFilter = (props) => {
 			<div className="filter-section-header">
 				<h3>Brands:</h3>
 				<button
-					className="filter-brand--clear"
+					className="filter-section-btn"
 					onClick={clearBrandFilter}
 					disabled={selectedIsEmpty}
+					title="Clear"
 				>
 					x
 				</button>
@@ -81,7 +80,7 @@ const BrandFilter = (props) => {
 						<li
 							key={brand[0]}
 							className={`filter-product__item ${
-								selectedBrands[i] === true
+								filterCtx.brands.includes(brand[0])
 									? "filter-product__item--is-selected"
 									: ""
 							}`}
@@ -96,6 +95,7 @@ const BrandFilter = (props) => {
 						</li>
 					);
 				})}
+
 				{!isExpandingBrands && botBrands.length > 0 && (
 					<button
 						className="filter-product__btn filter-product__btn--expand"
@@ -112,7 +112,7 @@ const BrandFilter = (props) => {
 							<li
 								key={brand[0]}
 								className={`filter-product__item ${
-									selectedBrands[i + 5] === true
+									filterCtx.brands.includes(brand[0])
 										? "filter-product__item--is-selected"
 										: ""
 								}`}
@@ -127,6 +127,7 @@ const BrandFilter = (props) => {
 							</li>
 						);
 					})}
+
 					<button
 						className="filter-product__btn filter-product__btn--shrink"
 						onClick={brandsShrinkHandler}

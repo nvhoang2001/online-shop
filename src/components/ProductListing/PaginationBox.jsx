@@ -54,8 +54,6 @@ const PaginationBox = (props) => {
 
 	let links = [];
 
-	console.log(pageCount);
-	console.log(PAGE_RANGE_DISPLAY);
 	if (pageCount > PAGE_RANGE_DISPLAY) {
 		let leftSide = PAGE_RANGE_DISPLAY / 2 + 1;
 		let rightSide = PAGE_RANGE_DISPLAY - leftSide;
@@ -139,7 +137,6 @@ const PaginationBox = (props) => {
 		}
 	}
 
-	console.log(links);
 	return (
 		<>
 			{pageCount !== 1 && (

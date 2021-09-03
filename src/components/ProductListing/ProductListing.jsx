@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
@@ -5,6 +6,7 @@ import MarketBox from "./MarketBox";
 import SortingBox from "./SortingBox";
 import ProductGrid from "./ProductGrid";
 import PaginationBox from "./PaginationBox";
+import filterContext from "../../store/filterContext";
 
 import getNthFloorProperties from "../../Helpers/getNthFloorProperties";
 import {
@@ -26,6 +28,11 @@ const ProductListing = () => {
 	const locas = location.pathname.split("/");
 	locas.at(0) === "" && locas.shift();
 	locas.at(-1) === "" && locas.pop();
+
+	const filterCtx = useContext(filterContext);
+	const { brands: filteredBrands, price: filteredPrice, rating: filteredRating } = filterCtx;
+
+	console.log(filterCtx);
 
 	const catedProds = useSelector((store) => store.products.catedItems);
 
@@ -51,6 +58,21 @@ const ProductListing = () => {
 			products.push(...arr);
 		}
 	}
+
+	products = products.filter((prod) => {
+		const checkBrand = filteredBrands.length !== 0 ? filteredBrands.includes(prod.brand) : true;
+		const checkPrice =
+			filteredPrice.to !== "" || filteredPrice.from !== ""
+				? filteredPrice.from !== ""
+					? filteredPrice.to !== ""
+						? prod.price >= filteredPrice.from && prod.price <= filteredPrice.to
+						: prod.price >= filteredPrice.from
+					: prod.price <= filteredPrice.to
+				: true;
+		const checkRating = prod.rating >= filteredRating;
+
+		return checkBrand && checkPrice && checkRating;
+	});
 
 	const searchParams = new URLSearchParams(location.search);
 

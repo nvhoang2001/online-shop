@@ -1,28 +1,28 @@
-import { useState } from "react";
+import { useContext } from "react";
+import filterContext from "../../store/filterContext";
 
 const PriceFilter = () => {
-	const [minInputValue, setMinInputValue] = useState("");
-	const [maxInputValue, setMaxInputValue] = useState("");
+	const filterCtx = useContext(filterContext);
 
 	const minInputChangeHandler = (e) => {
-		setMinInputValue(e.target.value);
+		filterCtx.updatePrice({ from: e.target.value });
 	};
 	const maxInputChangeHandler = (e) => {
-		setMaxInputValue(e.target.value);
+		filterCtx.updatePrice({ to: e.target.value });
 	};
 	const clearInputHandler = () => {
-		setMinInputValue("");
-		setMaxInputValue("");
+		filterCtx.updatePrice({ from: "", to: "" });
 	};
 
 	return (
-		<div className="filter-product--filter filter-section filter-price">
+		<div className="filter-section filter-price">
 			<div className="filter-section-header">
 				<h3>Price:</h3>
 				<button
-					className="filter-price--clear"
+					className="filter-section-btn"
 					onClick={clearInputHandler}
-					disabled={!minInputValue && !maxInputValue}
+					disabled={!filterCtx.price.from && !filterCtx.price.to}
+					title="Clear"
 				>
 					x
 				</button>
@@ -32,7 +32,7 @@ const PriceFilter = () => {
 					type="number"
 					min="0"
 					placeholder="$ From"
-					value={minInputValue}
+					value={filterCtx.price.from}
 					onChange={minInputChangeHandler}
 				/>{" "}
 				-
@@ -40,7 +40,7 @@ const PriceFilter = () => {
 					type="number"
 					min="0"
 					placeholder="$ To"
-					value={maxInputValue}
+					value={filterCtx.price.to}
 					onChange={maxInputChangeHandler}
 				/>
 			</div>

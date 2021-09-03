@@ -1,5 +1,6 @@
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
+import { FilterProvider } from "../../store/filterContext";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import ProductListing from "../../components/ProductListing/ProductListing";
 import ProductSideBar from "../../components/ProductSideBar/ProductSideBar";
@@ -17,8 +18,10 @@ const ProductContainer = () => {
 	return (
 		<section className="product-containter">
 			<BreadCrumbs location={location.pathname} />
-			<ProductSideBar location={location.pathname} />
-			<ProductListing location={location.pathname} />
+			<FilterProvider>
+				<ProductSideBar location={location.pathname} />
+				<ProductListing location={location.pathname} />
+			</FilterProvider>
 		</section>
 	);
 };

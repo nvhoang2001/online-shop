@@ -69,13 +69,39 @@ $item-hover-color: #0077ff;
 		@extend %title;
 	}
 
-	.filter-tag {
+	&--filter {
 		margin: 5% 0;
-		padding: 5%;
+		padding: 10% 5% 5%;
 		background-color: #faffaf9e;
+		position: relative;
 
-		&--empty-tag {
-			color: rgb(49 49 49 / 50%);
+		> button {
+			position: absolute;
+			top: 0.5rem;
+			right: 1rem;
+			text-decoration: underline;
+		}
+
+		.filter-tag {
+			background: #dad8d8bf;
+			border-radius: 4px;
+			padding: 0.21429rem 0.5rem 0.21429rem 0.71429rem;
+			display: inline-block;
+			color: #333;
+			margin: 2%;
+
+			&__clear-btn {
+				height: 0.85714rem;
+				width: 0.85714rem;
+				display: inline-block;
+				color: #a5a5a5;
+				position: relative;
+				top: -1px;
+			}
+
+			&--empty-tag {
+				color: rgb(49 49 49 / 50%);
+			}
 		}
 	}
 
@@ -91,10 +117,8 @@ $item-hover-color: #0077ff;
 			justify-content: space-between;
 			margin: 5% 0;
 		}
-	}
 
-	.filter-brand {
-		&--clear {
+		&-btn {
 			@extend %clear-btn;
 		}
 	}
@@ -120,10 +144,6 @@ $item-hover-color: #0077ff;
 					margin: 0;
 				}
 			}
-		}
-
-		&--clear {
-			@extend %clear-btn;
 		}
 	}
 
@@ -172,7 +192,8 @@ $item-hover-color: #0077ff;
 				background: rgb(158, 158, 0);
 			}
 
-			&:hover {
+			&:hover,
+			&--active {
 				color: $item-hover-color;
 			}
 		}
@@ -227,4 +248,12 @@ $item-hover-color: #0077ff;
 			color: $item-hover-color;
 		}
 	}
+}
+
+.star {
+	@extend %star;
+	background: hsl(60, 100%, 54%);
+	display: inline-block;
+	height: 1rem;
+	width: 1rem;
 }
