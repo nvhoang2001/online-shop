@@ -33,7 +33,7 @@ const RatingFilter = () => {
 					<div className="start-angle" />
 					<div className="start-angle" />
 					<div className="start-angle" />
-					5.0 {"&"} up
+					5.0
 				</button>
 			</div>
 		</div>

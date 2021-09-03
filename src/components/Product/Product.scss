@@ -1,4 +1,6 @@
-$cap-back: rgba(255, 255, 255, 0.75);
+@import "../../global.scss";
+
+$cap-back: rgba(190, 190, 190, 0.75);
 $active-link: blue;
 
 .product {
@@ -63,5 +65,18 @@ $active-link: blue;
 
 	&:hover &__cap {
 		transform: translateY(-100%);
+	}
+
+	&__rating {
+		display: flex;
+		align-items: center;
+
+		span {
+			@extend %star;
+			background-color: #ffeb00;
+			display: inline-block;
+			height: 0.75rem;
+			width: 0.75rem;
+		}
 	}
 }

@@ -28,7 +28,9 @@ const Product = (props) => {
 					</Link>
 				</h4>
 				<p>Sold: {sold}</p>
-				<p>Rating: {rating} / 5.0</p>
+				<p className="product__rating">
+					Rating: {rating} / 5.0 <span />
+				</p>
 				<div className="product__foot">
 					<span className="product__price">${price}</span>
 					<span>
