@@ -1,4 +1,14 @@
+$blue: #3699ff;
+
 $top-margin: 1.5rem;
+
+%box {
+	margin-top: $top-margin;
+	padding: 1.14286rem;
+	font-weight: 400;
+	background: white;
+	border-radius: 2px;
+}
 
 .product-listing {
 	width: 75%;
@@ -21,20 +31,18 @@ $top-margin: 1.5rem;
 		justify-content: flex-end;
 
 		button {
-			$btn-background: blue;
-
 			padding: 1% 1.25%;
 			margin: 1%;
 			border: 1px solid transparent;
 			border-radius: 0.25rem;
 
-			background: $btn-background;
+			background: $blue;
 			color: white;
 			transition: 0.25s;
 
 			&:hover {
-				color: $btn-background;
-				border-color: $btn-background;
+				color: $blue;
+				border-color: $blue;
 				background: transparent;
 			}
 		}
@@ -75,11 +83,7 @@ $top-margin: 1.5rem;
 }
 
 .sorting-box {
-	margin-top: $top-margin;
-	padding: 1.14286rem;
-	font-weight: 400;
-	background: white;
-	border-radius: 2px;
+	@extend %box;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
@@ -153,6 +157,67 @@ $top-margin: 1.5rem;
 	&__item {
 		&__cap {
 			height: 35%;
+		}
+	}
+}
+
+.pagination-box {
+	@extend %box;
+
+	&__control {
+		display: flex;
+		justify-content: center;
+	}
+
+	&__page-list {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&-item {
+			line-height: 1.25;
+			position: relative;
+			color: #8898aa;
+			border: 1px solid #dee2e6;
+			background-color: #fff;
+
+			font-size: 0.875rem;
+			display: flex;
+			width: 36px;
+			height: 36px;
+			margin: 0 3px;
+			padding: 0;
+			border-radius: 50%;
+			align-items: center;
+			justify-content: center;
+			transition: 0.25s;
+
+			&--active {
+				transform: translateY(-10%);
+				box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+				z-index: 3;
+				color: #fff;
+				border-color: $blue;
+				background-color: $blue;
+			}
+
+			&:hover[href] {
+				z-index: 2;
+				transform: translateY(-10%);
+				text-decoration: none;
+				color: #8898aa;
+				border-color: #dee2e6;
+				background-color: #dee2e6;
+			}
+		}
+	}
+
+	&__btn {
+		border-radius: 50%;
+		padding: 0.5rem 0.75rem;
+		margin: 0 2%;
+		&--hide {
+			display: none;
 		}
 	}
 }

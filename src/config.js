@@ -24,3 +24,4 @@ export const SORTING_ALPHADESC = "alphadesc";
 export const SORTING_AVGCUSTOMERREVIEW = "avgcustomerreview";
 export const SORTING_PRICEASC = "priceasc";
 export const SORTING_PRICEDESC = "pricedesc";
+export const MAX_PRODUCT_IN_PAGE = 16;
