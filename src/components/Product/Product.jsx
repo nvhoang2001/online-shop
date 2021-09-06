@@ -12,7 +12,7 @@ const Product = (props) => {
 	let classes = `product ${props.className || ""}`;
 	let capClasses = `product__cap ${props.className || ""}__cap`;
 	const { product } = props;
-	const { name, summaryName, sold, rating, price, imgLink } = product;
+	const { name, summaryName, sold, rating, price, imgLink, id } = product;
 
 	const addItemToCart = () => {
 		dispatch(checkoutActions.addItemToCart(product));
@@ -23,9 +23,7 @@ const Product = (props) => {
 			<img src={imgLink} alt={name} className="product__img" />
 			<figcaption className={capClasses}>
 				<h4 className="product__name">
-					<Link to={`/products/${product.type}/${product.name.replaceAll(" ", "+")}`}>
-						{summaryName}
-					</Link>
+					<Link to={`/product/${id}`}>{summaryName}</Link>
 				</h4>
 				<p>Sold: {sold}</p>
 				<p className="product__rating">

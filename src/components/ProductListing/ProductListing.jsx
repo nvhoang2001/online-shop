@@ -32,8 +32,6 @@ const ProductListing = () => {
 	const filterCtx = useContext(filterContext);
 	const { brands: filteredBrands, price: filteredPrice, rating: filteredRating } = filterCtx;
 
-	console.log(filterCtx);
-
 	const catedProds = useSelector((store) => store.products.catedItems);
 
 	let cates = catedProds;

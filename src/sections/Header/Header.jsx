@@ -1,10 +1,14 @@
+import { useSelector } from "react-redux";
+
 import TopHeader from "./TopHeader";
 import UserHeader from "./UserHeader";
 import Navigator from "../../components/Navigator/Navigator";
 
+import { PROD_DIR } from "../../config";
 import products from "../../store/product-info";
-
+import capitalizeFirstChar from "../../Helpers/capitalizeFirstChar";
 import randomGenerateString from "../../Helpers/randomGenerateString";
+
 import "./Header.scss";
 
 const cateNav = [];
@@ -20,11 +24,13 @@ products.forEach((prod) => {
 	if (typeIndex === -1) {
 		cateNav.push({
 			id: randomGenerateString(NAV_ID_LENGTH),
-			content: type.toUpperCase()[0] + type.slice(1),
+			content: capitalizeFirstChar(type),
+			path: `${PROD_DIR}/${type}`,
 			subMenu: [
 				{
 					id: randomGenerateString(NAV_ID_LENGTH),
-					content: category[0].toUpperCase() + category.slice(1),
+					content: capitalizeFirstChar(category),
+					type,
 					path: category,
 					products: [
 						{
@@ -43,7 +49,8 @@ products.forEach((prod) => {
 	if (cateIndex === -1) {
 		cateNav[typeIndex].subMenu.push({
 			id: randomGenerateString(NAV_ID_LENGTH),
-			content: category[0].toUpperCase() + category.slice(1),
+			content: capitalizeFirstChar(category),
+			type,
 			path: category,
 			products: [
 				{
@@ -80,7 +87,6 @@ cateNav.forEach((cate) => {
 const navInfor = [
 	{
 		content: "Category",
-		path: "#",
 		menu: [
 			...cateNav,
 
@@ -106,11 +112,13 @@ const navInfor = [
 ];
 
 const Header = () => {
+	const categoriedProducts = useSelector((store) => store.products.catedItems);
+
 	return (
 		<header className="header">
 			<TopHeader />
 			<UserHeader />
-			<Navigator nav={navInfor} />
+			<Navigator nav={navInfor} category={categoriedProducts} />
 		</header>
 	);
 };

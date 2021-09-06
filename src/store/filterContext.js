@@ -46,7 +46,6 @@ export const FilterProvider = (props) => {
 	function updatePrice({ from, to }) {
 		price.from = from ?? price.from;
 		price.to = to ?? price.to;
-		console.log(from, to);
 		setFilterState((filterState) => {
 			return { ...filterState, price: { ...price } };
 		});

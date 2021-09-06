@@ -2,6 +2,7 @@
 
 .nav {
 	padding: 0 $page-padding;
+	position: relative;
 
 	&__list {
 		display: flex;
@@ -12,9 +13,7 @@
 
 	&__item {
 		padding: 1% 2%;
-
 		cursor: pointer;
-
 		background: linear-gradient($green-blue 0 0) 0 100% / var(--d, 0) 5% no-repeat;
 		transition: 0.5s;
 
@@ -23,9 +22,7 @@
 		}
 
 		&:first-child {
-			background: none;
-			transition: none;
-			> div {
+			> a {
 				display: flex;
 				align-items: center;
 			}
@@ -34,7 +31,6 @@
 		svg {
 			width: 1.5em;
 			height: 1em;
-
 			margin-right: 10%;
 		}
 
@@ -43,17 +39,16 @@
 		}
 	}
 
-	@at-root .category-list {
-		position: relative;
-	}
-
 	&__layout-card {
-		width: 150%;
+		left: 3%;
+		padding: 0;
+		width: 15rem;
+		font-size: 1rem;
 	}
 
 	&__sub-item {
-		width: 100%;
-		padding: 5% 7%;
+		margin: 1em 1.25em;
+		font-size: 1.2rem;
 
 		cursor: pointer;
 

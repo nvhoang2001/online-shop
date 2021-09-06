@@ -48,9 +48,7 @@ function App() {
 				<Route path={PROD_DIR}>
 					<ProductPage />
 				</Route>
-				<Route path={`${PROD_DIR}/:typeName`} exact>
-					<ProductPage />
-				</Route>
+				<Route path="/product/:typeName" exact></Route>
 			</Switch>
 		</Fragment>
 	);

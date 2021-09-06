@@ -1,7 +1,7 @@
 @import "../../global.scss";
 
-$cap-back: rgba(190, 190, 190, 0.75);
-$active-link: blue;
+$cap-back: rgba(102, 102, 102, 0.8);
+$active-link: #6bd5ff;
 
 .product {
 	position: relative;
@@ -22,13 +22,13 @@ $active-link: blue;
 		position: absolute;
 		left: 0;
 
+		color: #fff;
 		background: $cap-back;
 
 		transition: all 0.5s;
 
 		p {
 			font-size: 0.75rem;
-			color: #666;
 		}
 	}
 

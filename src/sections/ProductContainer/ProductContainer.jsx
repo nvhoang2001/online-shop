@@ -1,4 +1,4 @@
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { FilterProvider } from "../../store/filterContext";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
@@ -9,11 +9,6 @@ import "./ProductContainer.scss";
 
 const ProductContainer = () => {
 	const location = useLocation();
-	const history = useHistory();
-	const params = useParams();
-	console.log(location);
-	console.log(history);
-	console.log(params);
 
 	return (
 		<section className="product-containter">

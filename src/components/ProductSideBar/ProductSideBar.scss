@@ -249,11 +249,3 @@ $item-hover-color: #0077ff;
 		}
 	}
 }
-
-.star {
-	@extend %star;
-	background: hsl(60, 100%, 54%);
-	display: inline-block;
-	height: 1rem;
-	width: 1rem;
-}

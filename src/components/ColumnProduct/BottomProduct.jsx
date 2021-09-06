@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 
 import AddToCartBtn from "./AddToCartBtn";
 
-import { PROD_DIR } from "../../config";
-
 const BottomProduct = (props) => {
 	const classes = `column-product__product ${props.className || ""}`;
 
 	const { product } = props;
-	const { id, type, summaryName, imgLink, price, rating } = product;
+	const { id, summaryName, imgLink } = product;
 
 	return (
 		<div className={classes} style={props.style}>
@@ -22,7 +20,7 @@ const BottomProduct = (props) => {
 			</div>
 			<div className="column-product__prod-info">
 				<h4 className="column-product__prod-name">
-					<Link to={`${PROD_DIR}/${type}/${id}`}>{summaryName}</Link>
+					<Link to={`/product/${id}`}>{summaryName}</Link>
 				</h4>
 			</div>
 		</div>
