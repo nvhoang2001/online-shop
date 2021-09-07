@@ -1,8 +1,12 @@
-import { Fragment } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "./store/user-slice";
+import { Redirect, Route, Switch } from "react-router-dom";
 
+import { userActions } from "./store/user-slice";
+import { retrieveStoredAuth } from "./store/user-slice";
+
+import Header from "./sections/Header/Header";
+import Footer from "./sections/Footer/Footer";
 import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
 import RegisterPage from "./pages/Register/RegisterPage";
@@ -10,6 +14,8 @@ import ProductPage from "./pages/ProductsPage/ProductPage";
 import ErrorNotification from "./components/Layout/ErrorNotification";
 
 import { PROD_DIR, signUpURL } from "./config";
+import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
+
 import "./reset-css.scss";
 import "./App.css";
 
@@ -23,8 +29,22 @@ function App() {
 		dispatch(userActions.logOut());
 	};
 
+	useEffect(() => {
+		if (isSignIn) {
+			return;
+		}
+
+		const retrievedAuth = retrieveStoredAuthInfo();
+		if (!retrievedAuth) {
+			return;
+		}
+
+		dispatch(retrieveStoredAuth(retrievedAuth));
+	}, []);
+
 	return (
 		<Fragment>
+			<Header />
 			{hasError && (
 				<Modal onHide={hideError}>
 					<ErrorNotification
@@ -48,8 +68,8 @@ function App() {
 				<Route path={PROD_DIR}>
 					<ProductPage />
 				</Route>
-				<Route path="/product/:typeName" exact></Route>
 			</Switch>
+			<Footer />
 		</Fragment>
 	);
 }

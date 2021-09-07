@@ -5,34 +5,14 @@ import Banner from "../../sections/Banner/Banner";
 import BrandCarosel from "../../sections/BrandCarosel/BrandCarosel";
 import CaroselProduct from "../../sections/CaroselProduct/CaroselProduct";
 import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
-import Footer from "../../sections/Footer/Footer";
-import Header from "../../sections/Header/Header";
+
 import ProductByCategory from "../../sections/ProductByCategory/ProductByCategory";
 import TopBar from "../../sections/TopBar/TopBar";
 import TwoSideProduct from "../../sections/TwoSideProduct/TwoSideProduct";
 
-import { retrieveStoredAuthInfo } from "../../Helpers/storeAndRetrieveAuthInfo";
-import { retrieveStoredAuth } from "../../store/user-slice";
-
 const Homepage = () => {
-	const isSignIn = !!useSelector((store) => store.user.auth);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (isSignIn) {
-			return;
-		}
-
-		const retrievedAuth = retrieveStoredAuthInfo();
-		if (!retrievedAuth) {
-			return;
-		}
-
-		dispatch(retrieveStoredAuth(retrievedAuth));
-	}, []);
 	return (
 		<>
-			<Header />
 			<TopBar />
 			<FeatureProduct />
 			<Banner />
@@ -44,7 +24,6 @@ const Homepage = () => {
 			<Banner />
 			<CaroselProduct />
 			<BrandCarosel />
-			<Footer />
 		</>
 	);
 };
