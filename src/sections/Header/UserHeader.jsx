@@ -20,6 +20,10 @@ const UserHeader = () => {
 		setShowShoppingCart((show) => !show);
 	};
 
+	const hideShoppingCartHandler = () => {
+		setShowShoppingCart(false);
+	};
+
 	const searchHandler = (e) => {
 		e.preventDefault();
 		const searchValue = searchBtnRef.current.value;
@@ -54,7 +58,7 @@ const UserHeader = () => {
 				<div className="user-header__cart">
 					<CartSVG title="Shopping Cart" onClick={toggleShoppingCartHandler} />
 					<span className="cart-numbers">{totalAmount}</span>
-					{showShoppingCart && <CartWindow />}
+					{showShoppingCart && <CartWindow hideWindow={hideShoppingCartHandler} />}
 				</div>
 			</div>
 		</div>

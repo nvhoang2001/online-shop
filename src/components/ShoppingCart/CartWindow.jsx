@@ -6,35 +6,16 @@ import CustomButton from "../UI/CustomButton/CustomButton.component";
 
 import { checkoutPage } from "../../config";
 import "./CartWindow.scss";
+import CartProductList from "../CartProductList/CartProductList";
 
-const CartWindow = () => {
+const CartWindow = (props) => {
 	const cart = useSelector((store) => store.checkout);
+	const { hideWindow } = props;
 	const { totalPrice } = cart;
 	const items = cart.cartItems;
 	const history = useHistory();
 
-	let listContent = (
-		<ul className="shopping-cart__list">
-			{items.map((item) => {
-				const { imgLink, name, amount, price } = item;
-				let sumName = name.split(" ");
-				sumName.length = 5;
-				sumName = sumName.join(" ");
-				return (
-					<li className="shopping-cart__item" key={item.id}>
-						<img src={imgLink} alt={name} className="shopping-cart__img" />
-						<div className="shopping-cart__item-info">
-							<p>{sumName}</p>
-							<p>
-								${price} x {amount}
-							</p>
-						</div>
-						<p className="shopping-cart__price">${amount * price}</p>
-					</li>
-				);
-			})}
-		</ul>
-	);
+	let listContent = <CartProductList items={items} baseClass="shopping-cart" />;
 
 	if (items.length === 0) {
 		listContent = (
@@ -44,6 +25,7 @@ const CartWindow = () => {
 
 	const goToCheckout = () => {
 		history.push(checkoutPage);
+		hideWindow();
 	};
 
 	return (
