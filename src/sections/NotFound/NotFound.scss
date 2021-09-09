@@ -1,0 +1,42 @@
+@import "../../global.scss";
+
+.page_404 {
+	padding: $page-padding;
+
+	&__container {
+		position: relative;
+	}
+
+	&__img {
+		width: 100%;
+		img {
+			width: 100%;
+		}
+	}
+
+	&__noti {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	&__title {
+		font-size: 2rem;
+
+		+ p {
+			line-height: 1.5;
+		}
+	}
+
+	&__link_404 {
+		margin: 0.25rem 0;
+		padding: 0.5rem 0.75rem;
+		display: inline-block;
+		background: hsl(113, 68%, 53%);
+		color: hsl(0, 0%, 100%);
+
+		&:hover {
+			background: hsl(113, 68%, 40%);
+		}
+	}
+}

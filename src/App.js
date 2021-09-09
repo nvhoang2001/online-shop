@@ -11,8 +11,9 @@ import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
-import ErrorNotification from "./components/Layout/ErrorNotification";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
+import ErrorNotification from "./components/Layout/ErrorNotification";
 
 import { checkoutPage, PROD_DIR, signUpURL } from "./config";
 import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
@@ -76,6 +77,10 @@ function App() {
 						<CheckoutPage />
 					</Route>
 				)}
+
+				<Route path="*">
+					<NotFoundPage />
+				</Route>
 			</Switch>
 			<Footer />
 		</Fragment>
