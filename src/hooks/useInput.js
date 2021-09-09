@@ -39,17 +39,30 @@ const useInput = (validator, isRequired) => {
 	const isValid = isRequired ? validator(inputState.value) : true;
 	const hasError = isRequired ? !isValid && inputState.touched : false;
 
-	const inputChangeHandler = useCallback((value) => {
-		setInputState({ type: SET_VALUE, payload: value });
-	}, []);
+	const setInputValue = useCallback(
+		(value) => {
+			setInputState({ type: SET_VALUE, payload: value });
+		},
+		[setInputState],
+	);
+
+	const inputChangeHandler = useCallback(
+		(value) => {
+			setInputState({ type: SET_VALUE, payload: value });
+		},
+		[setInputState],
+	);
 
 	const clear = useCallback(() => {
 		setInputState({ type: CLEAR });
-	}, []);
+	}, [setInputState]);
 
-	const touchedInputHandler = useCallback((value) => {
-		setInputState({ type: SET_TOUCHED, payload: value });
-	}, []);
+	const touchedInputHandler = useCallback(
+		(value) => {
+			setInputState({ type: SET_TOUCHED, payload: value });
+		},
+		[setInputState],
+	);
 
 	return {
 		value: inputState.value,
@@ -57,6 +70,7 @@ const useInput = (validator, isRequired) => {
 		hasError,
 		inputChangeHandler,
 		touchedInputHandler,
+		setInputValue,
 		clear,
 	};
 };

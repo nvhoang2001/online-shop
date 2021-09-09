@@ -3,22 +3,30 @@ import { createSlice } from "@reduxjs/toolkit";
 const checkoutSlice = createSlice({
 	name: "checkout",
 	initialState: {
-		userInfor: null,
+		username: "",
+		phone: "",
 		country: "",
 		city: "",
 		zipCode: "",
-		paymentMethod: "",
+		address: "",
+		note: "",
+		shipFee: 20,
+		discount: 0,
 		cartItems: [],
 		totalAmount: 0,
 		totalPrice: 0,
 	},
 	reducers: {
 		reset(state) {
-			state.userInfor = null;
 			state.country = "";
 			state.city = "";
 			state.zipCode = "";
-			state.paymentMethod = "";
+			state.address = "";
+			state.note = "";
+			state.phone = "";
+			state.username = "";
+			state.shipFee = 20;
+			state.discount = 0;
 			state.cartItems = [];
 			state.totalAmount = 0;
 			state.totalPrice = 0;
@@ -34,6 +42,11 @@ const checkoutSlice = createSlice({
 
 			state.totalAmount++;
 			state.totalPrice += action.payload.price;
+		},
+
+		updateUserInfo(state, action) {
+			const { name, value } = action.payload;
+			state[name] = value;
 		},
 	},
 });

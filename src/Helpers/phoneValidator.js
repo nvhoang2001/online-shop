@@ -1,6 +1,5 @@
-// For 1-10 letter word for extension and 1-6 digit extension
 const phoneRegex =
-	/\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?/;
+	/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
 function phoneValidator(phone) {
 	return phoneRegex.test(phone);

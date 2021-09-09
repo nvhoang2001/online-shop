@@ -116,6 +116,8 @@ const ProductListing = () => {
 		case SORTING_PRICEDESC:
 			products.sort((prod1, prod2) => prod2.price - prod1.price);
 			break;
+		default:
+			break;
 	}
 
 	const pageParams = searchParams.get("page") ?? 1;

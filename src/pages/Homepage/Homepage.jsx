@@ -1,6 +1,3 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import Banner from "../../sections/Banner/Banner";
 import BrandCarosel from "../../sections/BrandCarosel/BrandCarosel";
 import CaroselProduct from "../../sections/CaroselProduct/CaroselProduct";

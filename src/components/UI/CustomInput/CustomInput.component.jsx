@@ -4,12 +4,11 @@ import useInput from "../../../hooks/useInput";
 import "./CustomInput.scss";
 
 const CustomInput = (props) => {
-	const { id, label, type, name, placeholder, validator, errorText, isRequired } = props.input;
+	const { id, label, type, name, placeholder, validator, errorText, isRequired, defaultValue } =
+		props.input;
 
-	const { hasError, value, isValid, inputChangeHandler, touchedInputHandler } = useInput(
-		validator,
-		isRequired,
-	);
+	const { hasError, value, isValid, inputChangeHandler, touchedInputHandler, setInputValue } =
+		useInput(validator, isRequired);
 
 	const changeHandler = (e) => {
 		inputChangeHandler(e.target.value);
@@ -19,6 +18,12 @@ const CustomInput = (props) => {
 	const inputBlurHandler = () => {
 		touchedInputHandler(true);
 	};
+
+	useEffect(() => {
+		if (defaultValue) {
+			setInputValue(defaultValue);
+		}
+	}, [defaultValue, setInputValue]);
 
 	useEffect(() => {
 		props.sendInputValidity(id, isValid);

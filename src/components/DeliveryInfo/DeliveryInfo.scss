@@ -1,0 +1,205 @@
+%delivery-section {
+	background-color: #fff;
+	padding: 2% 3%;
+	border-radius: 0.5rem;
+}
+
+.delivery {
+	width: 65%;
+
+	&__title {
+		font-size: 1.5rem;
+		font-weight: 700;
+		@extend %delivery-section;
+	}
+
+	&__login-section {
+		@extend %delivery-section;
+		margin: 1rem 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		&-title {
+			font-size: 1.25rem;
+			margin-bottom: 0.5rem;
+
+			span {
+				font-size: 1.2em;
+			}
+		}
+
+		strong {
+			font-weight: 700;
+		}
+
+		button {
+			$transition-time: 0.4s;
+
+			border: 1px solid black;
+			padding: 0.5rem 0.3rem;
+			text-shadow: 1px 0 var(--c, #0000), 0 1px var(--c, #0000), 0 -1px var(--c, #0000),
+				-1px 0 var(--c, #0000);
+			letter-spacing: 0.1rem;
+			transition: $transition-time;
+			mix-blend-mode: darken;
+
+			&:hover {
+				color: #fff;
+				--c: #000;
+			}
+		}
+	}
+
+	&__form {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		&-section {
+			width: 100%;
+			margin: 1rem 0;
+			p {
+				margin-bottom: 0.5rem;
+			}
+			label {
+				margin: 0 1rem;
+			}
+
+			input {
+				margin: 0 0.25rem;
+			}
+		}
+	}
+
+	&__input {
+		width: 47.5%;
+	}
+
+	&__submit-btn {
+		background: black;
+
+		&:hover {
+			color: black;
+			border-color: black;
+		}
+
+		&--loading {
+			background: linear-gradient(#000 50%, #0000 0), linear-gradient(#0000 50%, #000 0),
+				linear-gradient(#000 50%, #0000 0), linear-gradient(#0000 50%, #000 0),
+				linear-gradient(#000 50%, #0000 0), linear-gradient(#0000 50%, #000 0) #ddd;
+			background-size: calc(100% / 6 + 1px) 200%;
+			background-repeat: no-repeat;
+			animation: loader 2s infinite;
+		}
+	}
+
+	&__notify {
+		&--success {
+			border-radius: 0.5rem;
+			padding-bottom: 3rem;
+
+			button {
+				position: absolute;
+				bottom: 1rem;
+				right: 1rem;
+				margin-top: 1rem;
+				margin-left: auto;
+				padding: 0.75rem 1.2rem;
+				border: 1px solid black;
+				border-radius: 0.3rem;
+				transition: 0.25s;
+
+				&:hover {
+					background-color: black;
+					border-color: transparent;
+					color: whitesmoke;
+				}
+			}
+		}
+	}
+
+	&__btn-section {
+		display: flex;
+		justify-content: center;
+		button {
+			margin: 0 2rem;
+		}
+	}
+
+	&__btn--online-payment {
+		box-shadow: rgb(255 255 255 / 25%) 0px 1px 0px inset;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		height: 100%;
+		width: 100%;
+		color: rgb(255, 255, 255);
+		text-shadow: rgb(0 0 0 / 25%) 0px -1px 0px;
+		background-image: linear-gradient(
+			rgb(125, 197, 238),
+			rgb(0, 140, 221) 85%,
+			rgb(48, 162, 228)
+		);
+		font-weight: bold;
+
+		&:hover {
+			background-image: linear-gradient(
+				rgb(48, 162, 228),
+				rgb(0, 140, 221) 85%,
+				rgb(125, 197, 238)
+			);
+		}
+
+		&:disabled {
+			box-shadow: rgb(255 255 255 / 25%) 0px 1px 0px inset;
+
+			color: rgb(153, 153, 153);
+			background: rgb(248, 249, 250);
+			text-shadow: rgb(255 255 255 / 50%) 0px 1px 0px;
+		}
+	}
+}
+
+.expand {
+	&-8 {
+		width: 77.5%;
+	}
+
+	&-7 {
+		width: 67.5%;
+	}
+
+	&-3 {
+		width: 27.5%;
+	}
+}
+
+@keyframes loader {
+	0% {
+		background-position: calc(0 * 100% / 5) 100%, calc(1 * 100% / 5) 0%, calc(2 * 100% / 5) 100%,
+			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
+	}
+	16.67% {
+		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 0%, calc(2 * 100% / 5) 100%,
+			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
+	}
+	33.33% {
+		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 100%,
+			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
+	}
+	50% {
+		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
+			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
+	}
+	66.67% {
+		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
+			calc(3 * 100% / 5) 100%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
+	}
+	83.33% {
+		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
+			calc(3 * 100% / 5) 100%, calc(4 * 100% / 5) 0%, calc(5 * 100% / 5) 0%;
+	}
+	100% {
+		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
+			calc(3 * 100% / 5) 100%, calc(4 * 100% / 5) 0%, calc(5 * 100% / 5) 100%;
+	}
+}

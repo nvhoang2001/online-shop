@@ -9,7 +9,6 @@ const Banner = () => {
 	const bannerProd = useSelector((store) => store.products.items[20]);
 	const { imgLink } = bannerProd;
 	const linkConver = `${PROD_DIR}/${bannerProd.type}/${bannerProd.category}/${bannerProd.brand}`;
-	console.log(bannerProd);
 	return (
 		<section className="banner">
 			<Link to={linkConver} className="banner__link">

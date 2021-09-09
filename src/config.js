@@ -9,8 +9,11 @@ export const PROD_DIR = "/products";
 export const TIME_LIMIT = 5000;
 export const MOVE_TIME = 2000;
 export const API_KEY = "AIzaSyD9J9UkgOCzJAqwtGqtee6_840LdBbl0EE";
+export const STRIPE_KEY =
+	"pk_test_51J7tZFAKuIJ92SHigNetWfLXZD6VC2QEmi8TZTUCn9iiq9AOaNawtZENA8WTypwubxKsutMnfFVmgt3R7faEM97q00KU8u1wXQ";
 export const DB_URL =
 	"https://ecommerce-shop-e8e5b-default-rtdb.asia-southeast1.firebasedatabase.app/";
+export const FORM_RECEIVE_ADDRESS = "https://fakestoreapi.com/carts/7";
 export const TIME_THRESHOLD = 300_000;
 export const UNSTABLE_NETWORK_ERROR = "Your internet connection is unstable!";
 export const INVALID_SIGN_IN = "Invalid email or password! Please check it again!";

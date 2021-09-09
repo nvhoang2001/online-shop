@@ -14,7 +14,7 @@ const userSlice = createSlice({
 	name: "user",
 	initialState: {
 		auth: null,
-		name: "",
+		username: "",
 		address: "",
 		gender: true,
 		email: "",

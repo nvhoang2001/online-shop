@@ -12,8 +12,9 @@ import Homepage from "./pages/Homepage/Homepage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import ErrorNotification from "./components/Layout/ErrorNotification";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
 
-import { PROD_DIR, signUpURL } from "./config";
+import { checkoutPage, PROD_DIR, signUpURL } from "./config";
 import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
 
 import "./reset-css.scss";
@@ -21,6 +22,7 @@ import "./App.css";
 
 function App() {
 	const userInfo = useSelector((store) => store.user);
+	const items = useSelector((store) => store.checkout.cartItems);
 	const dispatch = useDispatch();
 	const isSignIn = !!userInfo.auth;
 	const { hasError } = userInfo;
@@ -68,6 +70,12 @@ function App() {
 				<Route path={PROD_DIR}>
 					<ProductPage />
 				</Route>
+
+				{items.length !== 0 && (
+					<Route path={checkoutPage}>
+						<CheckoutPage />
+					</Route>
+				)}
 			</Switch>
 			<Footer />
 		</Fragment>

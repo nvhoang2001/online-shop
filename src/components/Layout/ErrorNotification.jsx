@@ -5,9 +5,10 @@ import { ReactComponent as CryEmoji } from "../../Assets/sad-tear.svg";
 import "./ErrorNotification.scss";
 
 const ErrorNotification = (props) => {
-	const { btnContent } = props;
+	const { btnContent, className } = props;
+	const notiClasses = `error-notify ${className ?? ""}`;
 	return (
-		<Card className="error-notify">
+		<Card className={notiClasses}>
 			<figure className="error-notify__container">
 				<CryEmoji />
 				<div className="error-notify__content">{props.children}</div>
