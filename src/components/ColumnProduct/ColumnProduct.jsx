@@ -57,7 +57,7 @@ const colReducer = (state, action) => {
 			break;
 	}
 
-	return initColState;
+	return { ...initColState };
 };
 
 const ColumnProduct = (props) => {
@@ -72,27 +72,40 @@ const ColumnProduct = (props) => {
 		productsRow2 = products.slice(4, 6);
 
 	const pauseInterval = () => {
-		clearInterval(timers.interval);
+		// Clear interval and timeout (if any)
 		clearTimeout(timers.timeout);
+
+		// Then set a timeout for 6s.
 		const timeout = setTimeout(() => {
+			clearInterval(timers.interval);
+			// After 6s passed, set an interval to active for every 2s
 			const interval = setInterval(() => {
 				setColState({ type: MOVE_ALL });
 			}, MOVE_TIME);
 			timers.interval = interval;
-		}, TIME_LIMIT);
+		}, TIME_LIMIT + 1000);
+
 		timers.timeout = timeout;
+		// Save all of that timer to timers object
 	};
 
 	useEffect(() => {
+		// Save current timestamp
+		timers.startTime = Date.now();
+
+		// Set an interval active for every 2s an save its timer in timers object
 		const interTimer = setInterval(() => {
 			setColState({ type: MOVE_ALL });
 		}, MOVE_TIME);
 		timers.interval = interTimer;
+
 		return () => {
+			// If timer change, for when CaroselProduct being unmounted, clear timer.
 			clearInterval(timers.interval);
 		};
-	}, [timers]);
+	}, [timers, setColState]);
 
+	// If any of above of bottom buttons are clicked, change product and then pause for 8s
 	const nextPrimaryBtnClickHandler = () => {
 		setColState({ type: NEXT_PRIMARY });
 		pauseInterval();
@@ -109,14 +122,31 @@ const ColumnProduct = (props) => {
 		setColState({ type: PREV_PRIMARY });
 		pauseInterval();
 	};
+
+	// Pause slider when cursor enter
 	const mouseEnterHandler = () => {
 		clearInterval(timers.interval);
+		clearTimeout(timers.timeout);
 	};
+
 	const mouseLeaveHandler = () => {
-		const interval = setInterval(() => {
-			setColState({ type: MOVE_ALL });
-		}, MOVE_TIME);
-		timers.interval = interval;
+		// Get the current timestamp and start timestamp
+		const currentTime = Date.now();
+		const { startTime } = timers;
+		const activeTime = MOVE_TIME - ((currentTime - startTime) % 2000);
+
+		// Clear timer in case user click move buttons
+		clearTimeout(timers.timeout);
+
+		// Set timeout to start slide in the next of the next interval.
+		const timeout = setTimeout(() => {
+			clearInterval(timers.interval);
+			const interval = setInterval(() => {
+				setColState({ type: MOVE_ALL });
+			}, MOVE_TIME);
+			timers.interval = interval;
+		}, activeTime);
+		timers.timeout = timeout;
 	};
 
 	return (
