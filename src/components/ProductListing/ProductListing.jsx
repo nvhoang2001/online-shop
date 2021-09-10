@@ -120,6 +120,13 @@ const ProductListing = () => {
 			break;
 	}
 
+	const searchKeyword = searchParams.get("search");
+	if (searchKeyword) {
+		products = products.filter((product) =>
+			product.name.toLowerCase().includes(searchKeyword.toLowerCase()),
+		);
+	}
+
 	const pageParams = searchParams.get("page") ?? 1;
 
 	return (

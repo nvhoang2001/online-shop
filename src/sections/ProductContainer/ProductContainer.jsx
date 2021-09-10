@@ -15,7 +15,7 @@ const ProductContainer = () => {
 			<BreadCrumbs location={location.pathname} />
 			<FilterProvider>
 				<ProductSideBar location={location.pathname} />
-				<ProductListing location={location.pathname} />
+				<ProductListing />
 			</FilterProvider>
 		</section>
 	);
