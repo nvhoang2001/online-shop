@@ -1,6 +1,12 @@
 import { useContext } from "react";
 import filterContext from "../../store/filterContext";
 
+import { ReactComponent as OneAngle } from "../../Assets/1-angle.min.svg";
+import { ReactComponent as TwoAngle } from "../../Assets/2-angle.min.svg";
+import { ReactComponent as ThreeAngle } from "../../Assets/3-angle.min.svg";
+import { ReactComponent as FourAngle } from "../../Assets/4-angle.min.svg";
+import { ReactComponent as FiveAngle } from "../../Assets/5-angle.min.svg";
+
 const RatingFilter = () => {
 	const filterCtx = useContext(filterContext);
 	const filterRating = filterCtx.rating;
@@ -39,17 +45,39 @@ const RatingFilter = () => {
 			</div>
 			<div className="filter-section-body filter-rating__body" onClick={selectRatingHandler}>
 				{buttons.map((button, i) => {
-					const stars = new Array(button).fill("");
+					// const stars = new Array(button).fill("");
+					let star;
 					const buttonClasses = `filter-rating__btn ${
 						filterRating === i + 1 ? "filter-rating__btn--active" : ""
 					}`;
 
+					switch (i) {
+						case 0:
+							star = <OneAngle />;
+							break;
+						case 1:
+							star = <TwoAngle />;
+							break;
+						case 2:
+							star = <ThreeAngle />;
+							break;
+						case 3:
+							star = <FourAngle />;
+							break;
+						case 4:
+							star = <FiveAngle />;
+							break;
+						default:
+							break;
+					}
+
 					return (
 						<button className={buttonClasses} data-value={i + 1} key={i}>
-							{stars.map((_, index) => (
+							{/* {stars.map((_, index) => (
+								
 								<div className="start-angle" key={index} />
-							))}
-							{i + 1}.0 {"&"} up
+							))} */}
+							{star} {i + 1}.0 {"&"} up
 						</button>
 					);
 				})}

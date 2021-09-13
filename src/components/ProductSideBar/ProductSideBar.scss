@@ -148,49 +148,11 @@ $item-hover-color: #0077ff;
 	}
 
 	.filter-rating {
-		.start-angle {
-			position: absolute;
-			top: 0;
-			left: $star-left;
-			clip-path: polygon(
-				49% 0,
-				calc(50% + 0.2245 * 50%) calc(0.691 * 50%),
-				50% 50%,
-				calc(50% - 0.2245 * 50%) calc(0.691 * 50%)
-			);
-			width: $star-size;
-			height: $star-size;
-			background: yellow;
-			transform: rotate(1deg);
-
-			&:nth-of-type(2) {
-				transform: rotate(74deg);
-			}
-			&:nth-of-type(3) {
-				transform: rotate(146deg);
-			}
-			&:nth-of-type(4) {
-				transform: rotate(217deg);
-			}
-			&:nth-of-type(5) {
-				transform: rotate(288deg);
-			}
-		}
-
 		&__btn {
-			display: block;
-			position: relative;
-			padding-left: 2rem;
+			display: flex;
+			align-items: center;
 			margin: 5% 0;
-
-			&::before {
-				@extend %star;
-				content: " ";
-				position: absolute;
-				top: 0;
-				left: $star-left;
-				background: rgb(158, 158, 0);
-			}
+			padding-left: 2%;
 
 			&:hover,
 			&--active {
