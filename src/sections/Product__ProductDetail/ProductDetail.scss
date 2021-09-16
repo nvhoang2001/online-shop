@@ -1,0 +1,40 @@
+@import "../../global.scss";
+
+.product-detail {
+	padding: 2% $page-padding;
+	background-color: $product-background;
+
+	&__title {
+		@extend %section-title;
+		margin: 0.5rem 0;
+	}
+
+	&__container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	&__content {
+		width: 50%;
+	}
+
+	&__table {
+		width: 95%;
+		margin: 1rem 0;
+		&-row {
+			border: 1px solid #000;
+			text-align: left;
+			padding: 0.2rem 0.25rem 0.2rem 0.3rem;
+
+			&--head {
+				background-color: #66666640;
+			}
+		}
+	}
+
+	&__link {
+		color: blue;
+		text-decoration: underline;
+	}
+}

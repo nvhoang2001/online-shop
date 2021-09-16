@@ -1,0 +1,62 @@
+@import "../../global.scss";
+
+.customer-feedback {
+	width: 65%;
+
+	&__title {
+		@extend %section-title;
+	}
+
+	&__feedback {
+		margin: 1rem 0;
+
+		&-time {
+			color: #565959;
+			margin: 0.5rem 0;
+			font-size: 0.9rem;
+			line-height: 1.25;
+		}
+
+		&-content {
+			white-space: pre-line;
+		}
+	}
+
+	&__user {
+		margin: 0.25rem 0;
+
+		span {
+			display: inline-flex;
+			align-items: center;
+			color: #666;
+		}
+		svg {
+			transform: scale(0.55);
+		}
+	}
+
+	&__username {
+		font-weight: 700;
+		padding-right: 0.75rem;
+		border-right: 2px solid #cccc;
+		margin-right: 0.75rem;
+	}
+
+	&__control-btns {
+		display: flex;
+		justify-content: flex-end;
+
+		> button {
+			border: 1px solid #000;
+			border-radius: 0.25rem;
+			padding: 0.5rem 1rem;
+			margin: 1rem;
+			background-color: aquamarine;
+			transition: 0.25s;
+
+			&:hover {
+				background-color: transparent;
+			}
+		}
+	}
+}

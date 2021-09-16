@@ -2,12 +2,11 @@ import { useState } from "react";
 import capitalizeFirstCharacter from "../../Helpers/capitalizeFirstChar";
 import Product from "./Product";
 
-const ProductList = (props) => {
+const ProductList = ({ products, slide, title, className, baseClass }) => {
 	const [move, setMove] = useState(0);
 
-	const { products, slide, title } = props;
-	const classes = props.className || "";
-	const prodClasses = props.baseClass ? `${props.baseClass}__product` : "";
+	const classes = className || "";
+	const prodClasses = baseClass ? `${baseClass}__product` : "";
 
 	const btnNextClickHandler = () => {
 		if (move >= products.length - 4) {
@@ -24,9 +23,7 @@ const ProductList = (props) => {
 
 	return (
 		<>
-			{title && (
-				<h2 className={`${props.baseClass}__title`}>{capitalizeFirstCharacter(title)}</h2>
-			)}
+			{title && <h2 className={`${baseClass}__title`}>{capitalizeFirstCharacter(title)}</h2>}
 			<div className={classes}>
 				<ul>
 					{products.map((prod, i) => {
@@ -46,7 +43,7 @@ const ProductList = (props) => {
 
 				{slide && (
 					<button
-						className={`${props.baseClass}__btn ${props.baseClass}__btn--prev`}
+						className={`${baseClass}__btn ${baseClass}__btn--prev`}
 						onClick={btnPrevClickHandler}
 					>
 						&lt;
@@ -54,7 +51,7 @@ const ProductList = (props) => {
 				)}
 				{slide && (
 					<button
-						className={`${props.baseClass}__btn ${props.baseClass}__btn--next`}
+						className={`${baseClass}__btn ${baseClass}__btn--next`}
 						onClick={btnNextClickHandler}
 					>
 						&gt;

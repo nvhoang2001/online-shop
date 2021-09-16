@@ -9,7 +9,7 @@ const AddToCartBtn = (props) => {
 	};
 
 	return (
-		<button className={props.className ? props.className : ""} onClick={addToCartHandler}>
+		<button className={props.className ?? ""} onClick={addToCartHandler}>
 			Add To Cart
 		</button>
 	);

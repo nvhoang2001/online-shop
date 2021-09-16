@@ -1,0 +1,13 @@
+@import "../../global.scss";
+
+.from-manufacturer {
+	padding: 2% $page-padding;
+
+	&__title {
+		@extend %section-title;
+	}
+	&__content {
+		padding-left: 15%;
+		margin-top: 1rem;
+	}
+}

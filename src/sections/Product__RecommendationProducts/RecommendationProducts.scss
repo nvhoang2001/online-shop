@@ -1,0 +1,18 @@
+@import "../../global.scss";
+
+.recommendation-products {
+	padding: $page-padding;
+
+	&__title {
+		@extend %section-title;
+	}
+
+	&__product-list {
+		margin: 1rem 0;
+	}
+
+	&__product {
+		width: 19.5%;
+		height: max(400px, 35vh);
+	}
+}

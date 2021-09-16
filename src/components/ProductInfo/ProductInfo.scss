@@ -1,0 +1,83 @@
+@property --p {
+	syntax: "<percentage>";
+	inherits: false;
+	initial-value: 0%;
+}
+
+.product-info {
+	width: 65%;
+
+	&__title {
+		font-size: 1.5rem;
+	}
+
+	&__rating {
+		$border-width: 2px;
+		$border-color: rgba(102, 102, 102, 0.5);
+
+		margin: 0.5rem 0;
+		display: flex;
+		p {
+			border-left: $border-width solid $border-color;
+			padding: 0 1rem;
+
+			&:last-of-type {
+				border-right: $border-width solid $border-color;
+			}
+		}
+	}
+
+	&__price {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #ff3714;
+		margin: 0.5rem 0;
+	}
+	&__brief {
+		strong {
+			font-weight: 700;
+		}
+
+		&-list {
+			margin: 0.5rem 0;
+		}
+
+		&-item {
+			margin-left: 1.5rem;
+			margin-bottom: 0.5rem;
+			line-height: 1.2;
+			position: relative;
+
+			&::before {
+				content: " ";
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				left: -1rem;
+				height: 0.25rem;
+				width: 0.25rem;
+				background-color: blue;
+				border-radius: 50%;
+				border: 1px solid #000;
+			}
+		}
+	}
+
+	&__btn {
+		border: 1px solid #000;
+		margin: 0 1rem;
+		border-radius: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		background: radial-gradient(#000 0 var(--p), #0000 0) center/0.75rem 0.75rem;
+		transition: --p 0.5s, color 0.5s;
+		&:hover {
+			color: #fff;
+			--p: 100%;
+		}
+	}
+}
+
+.hightlight {
+	color: red;
+	font-size: 1.1em;
+}

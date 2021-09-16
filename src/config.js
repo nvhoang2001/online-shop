@@ -6,6 +6,7 @@ export const checkoutPage = "/checkout";
 export const TECH_PROD_DIR = "/products/technology";
 export const FASHION_PROD_DIR = "/products/fashion";
 export const PROD_DIR = "/products";
+export const PUBLIC_USR = "/prodfile";
 export const TIME_LIMIT = 5000;
 export const MOVE_TIME = 2000;
 export const API_KEY = "AIzaSyD9J9UkgOCzJAqwtGqtee6_840LdBbl0EE";

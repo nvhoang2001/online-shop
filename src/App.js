@@ -20,6 +20,7 @@ import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
 
 import "./reset-css.scss";
 import "./App.css";
+import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 
 function App() {
 	const userInfo = useSelector((store) => store.user);
@@ -70,6 +71,10 @@ function App() {
 
 				<Route path={PROD_DIR}>
 					<ProductPage />
+				</Route>
+
+				<Route path="/product/:productId">
+					<ProductDetailPage />
 				</Route>
 
 				{items.length !== 0 && (
