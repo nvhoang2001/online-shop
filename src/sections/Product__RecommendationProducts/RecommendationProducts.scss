@@ -9,10 +9,60 @@
 
 	&__product-list {
 		margin: 1rem 0;
+		height: max(450px, 40vh);
+		position: relative;
+		overflow-x: hidden;
+
+		&--no-slide {
+			margin: 1rem 0;
+			ul {
+				display: flex;
+				justify-content: flex-start;
+				li {
+					width: 23%;
+					margin-right: 2%;
+
+					> .product {
+						width: 100%;
+						position: relative;
+					}
+				}
+			}
+		}
 	}
 
 	&__product {
-		width: 19.5%;
 		height: max(400px, 35vh);
+		position: absolute;
+		top: 0;
+		width: 23%;
+
+		transition: all 0.5s;
+	}
+
+	&__btn {
+		font-size: 1rem;
+		font-weight: 700;
+
+		padding: 1%;
+
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 5;
+
+		background-color: $btn-background;
+
+		&:hover {
+			background-color: #999;
+		}
+
+		&--prev {
+			left: 0;
+		}
+
+		&--next {
+			right: 0;
+		}
 	}
 }

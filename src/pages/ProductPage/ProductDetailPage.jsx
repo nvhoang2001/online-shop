@@ -12,7 +12,6 @@ const ProductDetailPage = () => {
 	const products = useSelector((store) => store.products.items);
 	const { productId } = params;
 	const product = products.find((prod) => prod.id === productId);
-	console.log(product);
 	return (
 		<div className="product-page-wrapper" style={{ backgroundColor: "#f9fbfd" }}>
 			<ProductBrieffing product={product} />

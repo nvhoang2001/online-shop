@@ -3,7 +3,6 @@ import "./ProductInfo.scss";
 
 const ProductInfo = ({ product }) => {
 	const { name, ratingNum, rating, sold, preview, price } = product;
-	console.log(product);
 	return (
 		<div className="product-info">
 			<h1 className="product-info__title">{name}</h1>

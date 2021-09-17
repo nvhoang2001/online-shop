@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import "./ProductDetail.scss";
 
 const ProductDetail = ({ product }) => {
-	console.log(product);
-
 	const { description } = product;
 	const descriptionData = Object.entries(description);
 	const firstTableData = descriptionData.slice(0, Math.floor(descriptionData.length * 0.7));
