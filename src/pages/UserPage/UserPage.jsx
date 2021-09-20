@@ -39,15 +39,19 @@ const UserPage = () => {
 	let coverImgs = "",
 		profileImgs = "",
 		username = "",
-		id = "",
 		followingUserIds = [];
 	if (userData) {
-		({ coverImgs, profileImgs, username, followingUserIds, id } = userData);
+		({ coverImgs, profileImgs, username, followingUserIds } = userData);
 	}
 
 	return (
 		<>
-			<CustomerProfile coverImgs={coverImgs} profileImgs={profileImgs} username={username} />
+			<CustomerProfile
+				uid={userId}
+				coverImgs={coverImgs}
+				profileImgs={profileImgs}
+				username={username}
+			/>
 			<div
 				className="user-container"
 				style={{
@@ -58,7 +62,7 @@ const UserPage = () => {
 				}}
 			>
 				<FollowingUser followingUserIds={followingUserIds} />
-				<Activities uid={id} username={username} />
+				<Activities uid={userId} username={username} />
 			</div>
 		</>
 	);

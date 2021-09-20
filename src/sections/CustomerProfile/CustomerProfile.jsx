@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
+
 import "./CustomerProfile.scss";
 
-const CustomerProfile = ({ coverImgs, profileImgs, username }) => {
-	const isSignIn = !!useSelector((store) => store.user.auth);
+const CustomerProfile = ({ uid, coverImgs, profileImgs, username }) => {
+	const authData = useSelector((store) => store.user.auth);
+	const isSignIn = !!authData;
+	const followable = isSignIn && uid !== authData.localId;
 
 	return (
 		<section className="customer-profile">
@@ -17,7 +20,7 @@ const CustomerProfile = ({ coverImgs, profileImgs, username }) => {
 					className="customer-profile__profile-img"
 				/>
 				<h2 className="customer-profile__username">{username}</h2>
-				{isSignIn && <button className="customer-profile__follow-btn">Follow</button>}
+				{followable && <button className="customer-profile__follow-btn">Follow</button>}
 			</div>
 		</section>
 	);
