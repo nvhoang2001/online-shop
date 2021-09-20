@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import { ReactComponent as OneAngle } from "../../Assets/1-angle.min.svg";
-import { ReactComponent as TwoAngle } from "../../Assets/2-angle.min.svg";
-import { ReactComponent as ThreeAngle } from "../../Assets/3-angle.min.svg";
-import { ReactComponent as FourAngle } from "../../Assets/4-angle.min.svg";
-import { ReactComponent as FiveAngle } from "../../Assets/5-angle.min.svg";
-import { PUBLIC_USR } from "../../config";
+import CustomerFeedbackItem from "./CustomerFeedbackItem";
+
 import "./CustomerFeedback.scss";
 
 const MAX_FEEDBACK = 5;
@@ -18,7 +14,6 @@ const CustomerFeedback = ({ feedbacks }) => {
 	const searchParams = new URLSearchParams(location.search);
 	const commentPage = +searchParams.get("comment") || 1;
 	const MAX_PAGE = Math.ceil(feedbacks.length / MAX_FEEDBACK);
-	const ratingStars = [<OneAngle />, <TwoAngle />, <ThreeAngle />, <FourAngle />, <FiveAngle />];
 
 	useEffect(() => {
 		if (commentPage === null) {
@@ -56,26 +51,12 @@ const CustomerFeedback = ({ feedbacks }) => {
 			<h3 className="customer-feedback__title">Customer Feedbacks</h3>
 			<ul className="customer-feedback__list">
 				{showedComment.map((feedback) => {
-					const { userId, username, rating, feedbackTime, content } = feedback;
 					return (
-						<li className="customer-feedback__feedback" key={userId}>
-							<h4 className="customer-feedback__user">
-								<Link
-									className="customer-feedback__username"
-									to={`${PUBLIC_USR}/${userId}`}
-								>
-									{username}
-								</Link>
-								<span title={`rating ${rating}`}>
-									Rating{ratingStars[rating - 1]}
-								</span>
-							</h4>
-
-							<p className="customer-feedback__feedback-time">
-								Reviewed on {feedbackTime}
-							</p>
-							<p className="customer-feedback__feedback-content">{content}</p>
-						</li>
+						<CustomerFeedbackItem
+							className="customer-feedback"
+							feedback={feedback}
+							key={feedback.userId}
+						/>
 					);
 				})}
 			</ul>
