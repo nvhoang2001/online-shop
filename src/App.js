@@ -9,18 +9,19 @@ import Header from "./sections/Header/Header";
 import Footer from "./sections/Footer/Footer";
 import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
+import UserPage from "./pages/UserPage/UserPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
 import ErrorNotification from "./components/Layout/ErrorNotification";
+import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 
-import { checkoutPage, PROD_DIR, signUpURL } from "./config";
+import { checkoutPage, PROD_DIR, PUBLIC_USR, signUpURL } from "./config";
 import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
 
 import "./reset-css.scss";
 import "./App.css";
-import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 
 function App() {
 	const userInfo = useSelector((store) => store.user);
@@ -82,6 +83,10 @@ function App() {
 						<CheckoutPage />
 					</Route>
 				)}
+
+				<Route path={`${PUBLIC_USR}/:userId`}>
+					<UserPage />
+				</Route>
 
 				<Route path="*">
 					<NotFoundPage />

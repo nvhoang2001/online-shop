@@ -7,7 +7,7 @@ import { ReactComponent as FourAngle } from "../../Assets/4-angle.min.svg";
 import { ReactComponent as FiveAngle } from "../../Assets/5-angle.min.svg";
 import { PUBLIC_USR } from "../../config";
 
-const CustomerFeedbackItem = ({ className, feedback }) => {
+const CustomerFeedbackItem = ({ className, feedback, children }) => {
 	const { userId, username, rating, feedbackTime, content } = feedback;
 	const ratingStars = [<OneAngle />, <TwoAngle />, <ThreeAngle />, <FourAngle />, <FiveAngle />];
 	return (
@@ -21,6 +21,7 @@ const CustomerFeedbackItem = ({ className, feedback }) => {
 
 			<p className={`${className}__feedback-time`}>Reviewed on {feedbackTime}</p>
 			<p className={`${className}__feedback-content`}>{content}</p>
+			{children}
 		</li>
 	);
 };

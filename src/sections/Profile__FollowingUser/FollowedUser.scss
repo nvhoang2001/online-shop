@@ -1,0 +1,57 @@
+.follow-users {
+	width: 27.5%;
+	padding: 1rem;
+	min-height: 200px;
+	background: #fff;
+	border-radius: 1rem;
+	&--no-list {
+		height: 200px;
+	}
+
+	&__follow-list {
+		height: 100%;
+		padding: 0.5rem 1rem;
+		position: relative;
+		border: 1px solid #000;
+		border-radius: 0.75rem;
+
+		&::before {
+			content: "Following";
+			position: absolute;
+			font-weight: 700;
+			left: 5%;
+			top: 0;
+			transform: translateY(-50%);
+			background: #fff;
+		}
+	}
+
+	&__user {
+		margin: 0.5rem 0;
+		a {
+			display: flex;
+			align-items: center;
+		}
+
+		&-img {
+			width: 50px;
+			margin-right: 1rem;
+		}
+
+		&-name {
+			font-weight: 700;
+			a:hover > & {
+				color: #3333ff;
+			}
+		}
+	}
+
+	&__no-follow {
+		height: 100%;
+		padding-top: 20%;
+		text-align: center;
+		color: #cccc;
+		font-size: 2em;
+		font-weight: 700;
+	}
+}

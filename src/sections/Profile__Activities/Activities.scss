@@ -1,0 +1,80 @@
+@import "../../global.scss";
+
+.community-activities {
+	width: 67.5%;
+	background: #fff;
+
+	&__title {
+		font-size: 2rem;
+		padding: 1rem 1.5rem;
+		border-bottom: 1px solid #ccc;
+	}
+
+	&__container {
+		padding: 1rem 1.5rem;
+	}
+
+	&__feedback {
+		margin: 1rem 0;
+		border-bottom: 1px solid #ccc;
+
+		&-time {
+			color: #565959;
+			margin: 0.5rem 0;
+			font-size: 0.9rem;
+			line-height: 1.25;
+		}
+
+		&-content {
+			white-space: pre-line;
+		}
+
+		&-product {
+			margin: 1.5rem;
+			border: 1px solid #808080;
+			padding: 1rem;
+			display: flex;
+			align-items: center;
+
+			&-img {
+				width: 3.75rem;
+				margin-right: 1rem;
+			}
+
+			&-link {
+				&:hover {
+					color: hsl(240, 100%, 60%);
+				}
+			}
+		}
+	}
+
+	&__user {
+		margin: 0.25rem 0;
+
+		span {
+			display: inline-flex;
+			align-items: center;
+			color: #666;
+		}
+		svg {
+			transform: scale(0.55);
+		}
+	}
+
+	&__username {
+		font-weight: 700;
+		padding-right: 0.75rem;
+		border-right: 2px solid #cccc;
+		margin-right: 0.75rem;
+	}
+
+	&__no-activity {
+		height: 100px;
+		padding: 20px;
+		text-align: center;
+		font-size: 2em;
+		font-weight: 700;
+		color: #cccc;
+	}
+}

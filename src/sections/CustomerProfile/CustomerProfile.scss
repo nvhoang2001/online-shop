@@ -1,0 +1,53 @@
+@import "../../global.scss";
+.customer-profile {
+	padding: $page-padding;
+	&__imgs-container {
+		position: relative;
+		height: max(480px, 60vh);
+		background: #fff;
+		box-shadow: 0 0 6px 1px #666;
+	}
+
+	&__cover-img {
+		height: max(360px, 45vh);
+		background-position: bottom center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	&__profile-img {
+		width: 10%;
+		position: absolute;
+		top: 75%;
+		left: 5%;
+		transform: translateY(-50%);
+		border: 3px solid rgb(50, 50, 255);
+		border-radius: 50%;
+		background-color: white;
+	}
+
+	&__username {
+		position: absolute;
+		top: 77%;
+		left: 18%;
+		font-size: 2rem;
+		font-weight: 700;
+	}
+
+	&__follow-btn {
+		position: absolute;
+		bottom: 7%;
+		right: 5%;
+		border: 1px solid blue;
+		border-radius: 0.5rem;
+		padding: 0.75rem 2rem;
+		background: blue;
+		color: #fff;
+		transition: 0.25s;
+
+		&:hover {
+			background: transparent;
+			color: black;
+		}
+	}
+}
