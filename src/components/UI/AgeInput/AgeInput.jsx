@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const AgeInput = ({ sendInputValue, baseClass }) => {
+const AgeInput = ({ sendInputValue, baseClass, className, defaultValue }) => {
 	const [age, setAge] = useState("");
+
+	useEffect(() => {
+		if (defaultValue) {
+			setAge(defaultValue);
+		}
+	}, []);
 
 	const ageChangeHandler = (e) => {
 		setAge(e.target.value);
@@ -9,7 +15,7 @@ const AgeInput = ({ sendInputValue, baseClass }) => {
 	};
 
 	return (
-		<div className={`custom-input ${baseClass}__input`}>
+		<div className={`custom-input ${baseClass}__input ${className}`}>
 			<p>
 				<label className="custom-input__label" htmlFor="age">
 					Age

@@ -1,7 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const GenderInput = ({ sendInputValue, baseClass }) => {
+const GenderInput = ({ sendInputValue, baseClass, className, defaultValue }) => {
 	const [gender, setGender] = useState([false, false, false]);
+
+	useEffect(() => {
+		if (defaultValue) {
+			switch (defaultValue) {
+				case "male":
+					setGender([true, false, false]);
+
+					break;
+				case "female":
+					setGender([false, true, false]);
+
+					break;
+				case "other":
+					setGender([false, false, true]);
+
+					break;
+
+				default:
+					break;
+			}
+		}
+	}, []);
 
 	const genderChooseHandler = (e) => {
 		const clickedEl = e.target;
@@ -31,7 +53,7 @@ const GenderInput = ({ sendInputValue, baseClass }) => {
 	};
 
 	return (
-		<div className={`custom-input ${baseClass}__input`}>
+		<div className={`custom-input ${baseClass}__input ${className}`}>
 			<p>Gender</p>
 			<div className={`${baseClass}__input-radio-container`} onClick={genderChooseHandler}>
 				<label htmlFor="gender-male" className="radio-choice">
