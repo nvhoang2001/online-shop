@@ -1,13 +1,9 @@
 import "./CustomButton.style.scss";
 
-const CustomButton = (props) => {
+const CustomButton = ({ type, className, onClick, children }) => {
 	return (
-		<button
-			type={props.type ?? "button"}
-			className={`btn ${props.className ? props.className : ""}`}
-			onClick={props.onClick}
-		>
-			{props.children}
+		<button type={type ?? "button"} className={`btn ${className ?? ""}`} onClick={onClick}>
+			{children}
 		</button>
 	);
 };

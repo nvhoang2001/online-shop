@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-const AgeInput = (props) => {
+const AgeInput = ({ sendInputValue, baseClass }) => {
 	const [age, setAge] = useState("");
 
 	const ageChangeHandler = (e) => {
 		setAge(e.target.value);
-		props.sendInputValue("age", e.target.value);
+		sendInputValue("age", e.target.value);
 	};
 
 	return (
-		<div className={"custom-input register-form__input"}>
+		<div className={`custom-input ${baseClass}__input`}>
 			<p>
 				<label className="custom-input__label" htmlFor="age">
 					Age

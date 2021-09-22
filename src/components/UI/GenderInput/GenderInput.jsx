@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const GenderInput = (props) => {
+const GenderInput = ({ sendInputValue, baseClass }) => {
 	const [gender, setGender] = useState([false, false, false]);
 
 	const genderChooseHandler = (e) => {
@@ -27,13 +27,13 @@ const GenderInput = (props) => {
 				break;
 		}
 
-		props.sendInputValue("gender", clickedEl.value);
+		sendInputValue("gender", clickedEl.value);
 	};
 
 	return (
-		<div className={"custom-input register-form__input"}>
+		<div className={`custom-input ${baseClass}__input`}>
 			<p>Gender</p>
-			<div className="register-form__input-radio-container" onClick={genderChooseHandler}>
+			<div className={`${baseClass}__input-radio-container`} onClick={genderChooseHandler}>
 				<label htmlFor="gender-male" className="radio-choice">
 					Male:{" "}
 					<input

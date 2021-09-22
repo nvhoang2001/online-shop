@@ -3,16 +3,29 @@ import useInput from "../../../hooks/useInput";
 
 import "./CustomInput.scss";
 
-const CustomInput = (props) => {
+const CustomInput = ({
+	input,
+	sendInputValidity,
+	sendInputValue,
+	className,
+	sendInputClearFnc,
+}) => {
 	const { id, label, type, name, placeholder, validator, errorText, isRequired, defaultValue } =
-		props.input;
+		input;
 
-	const { hasError, value, isValid, inputChangeHandler, touchedInputHandler, setInputValue } =
-		useInput(validator, isRequired);
+	const {
+		hasError,
+		value,
+		isValid,
+		inputChangeHandler,
+		touchedInputHandler,
+		setInputValue,
+		clear,
+	} = useInput(validator, isRequired);
 
 	const changeHandler = (e) => {
 		inputChangeHandler(e.target.value);
-		props.sendInputValue(name, e.target.value);
+		sendInputValue(name, e.target.value);
 	};
 
 	const inputBlurHandler = () => {
@@ -26,7 +39,13 @@ const CustomInput = (props) => {
 	}, [defaultValue, setInputValue]);
 
 	useEffect(() => {
-		props.sendInputValidity(id, isValid);
+		if (sendInputClearFnc) {
+			sendInputClearFnc(id, clear);
+		}
+	}, [id, clear]);
+
+	useEffect(() => {
+		sendInputValidity(id, isValid);
 	}, [id, isValid]);
 
 	const inputClass = `custom-input__input ${hasError ? "invalid" : ""}`;
@@ -40,7 +59,7 @@ const CustomInput = (props) => {
 	}
 
 	return (
-		<div className={`custom-input ${props.className || " "}`}>
+		<div className={`custom-input ${className || " "}`}>
 			<p style={style}>
 				<label className="custom-input__label" htmlFor={id}>
 					{label}

@@ -3,9 +3,9 @@ import { useState, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { signupAuth } from "../../store/user-slice";
 
-import AgeInput from "./AgeInput";
-import GenderInput from "./GenderInput";
 import Modal from "../../components/UI/Modal/Modal";
+import AgeInput from "../../components/UI/AgeInput/AgeInput";
+import GenderInput from "../../components/UI/GenderInput/GenderInput";
 import ErrorNotification from "../../components/Layout/ErrorNotification";
 import SuccessNotification from "../../components/Layout/SuccessNotification";
 import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
@@ -228,9 +228,9 @@ const RegisterForm = () => {
 					/>
 				))}
 
-				<AgeInput sendInputValue={getInputValue} />
+				<AgeInput baseClass="register-form" sendInputValue={getInputValue} />
 
-				<GenderInput sendInputValue={getInputValue} />
+				<GenderInput baseClass="register-form" sendInputValue={getInputValue} />
 
 				{normInputs.map((inp) => (
 					<CustomInput
