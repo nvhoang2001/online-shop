@@ -14,10 +14,11 @@ import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
+import PrivateUserPage from "./pages/PrivateUserPage/PrivateUserPage";
 import ErrorNotification from "./components/Layout/ErrorNotification";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 
-import { checkoutPage, PROD_DIR, PUBLIC_USR, signUpURL } from "./config";
+import { checkoutPage, PRIVATE_PROFILE_DIR, PROD_DIR, PUBLIC_USR, signUpURL } from "./config";
 import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
 
 import "./reset-css.scss";
@@ -87,6 +88,13 @@ function App() {
 				<Route path={`${PUBLIC_USR}/:userId`}>
 					<UserPage />
 				</Route>
+
+				{isSignIn && (
+					<Route path={`${PRIVATE_PROFILE_DIR}`}>
+						<PrivateUserPage />
+					</Route>
+				)}
+				{isSignIn && <Route path={`${PRIVATE_PROFILE_DIR}/change-password`}></Route>}
 
 				<Route path="*">
 					<NotFoundPage />

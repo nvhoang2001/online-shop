@@ -1,0 +1,187 @@
+@import "../../global.scss";
+
+@function section-size($size, $space: 5%) {
+	@return ($size * 10% - $space / 2);
+}
+
+@mixin section($size, $space: 5%) {
+	width: ($size * 10% - $space / 2);
+	padding: 1rem;
+}
+
+%user-imgs {
+	background-position: bottom center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+%change-img-btn {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+	&:hover {
+		$text-color: hsl(0, 0%, 100%);
+		color: $text-color;
+		border-color: $text-color;
+	}
+}
+
+.private-dashboard {
+	margin: $page-padding;
+	background: #fff;
+
+	&__title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		padding: 1rem;
+	}
+
+	&__modal {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: #00000080;
+		opacity: 0;
+		transition: all 0.5s;
+	}
+
+	&__form {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
+		&-submit-btn {
+			margin: 2rem;
+		}
+	}
+
+	&__section-8 {
+		@include section(8);
+	}
+
+	&__section-2 {
+		@include section(2);
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: center;
+		align-items: center;
+
+		h4 {
+			align-self: flex-start;
+			margin-bottom: 1rem;
+		}
+	}
+
+	&__user {
+		&-cover-img {
+			@extend %user-imgs;
+			height: max(360px, 45vh);
+			margin: 1rem;
+
+			&--active {
+				> div {
+					opacity: 1;
+				}
+			}
+		}
+
+		&-profile-img {
+			@extend %user-imgs;
+			height: max(150px, 20vh);
+			width: max(150px, 20vh);
+
+			&:hover {
+				> div {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	&__cover-image-change-trigger {
+		@extend %change-img-btn;
+	}
+	&__profile-image-change-trigger {
+		@extend %change-img-btn;
+	}
+
+	&__input {
+		width: 45%;
+
+		&--cover-img {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fff;
+			width: 45%;
+			padding: 1rem;
+		}
+
+		&--cover-img > & {
+			width: 100%;
+		}
+
+		&--profile-img {
+			width: 100%;
+		}
+
+		&--profile-img > & {
+			width: 100%;
+
+			input {
+				&::placeholder {
+					font-size: 0.85rem;
+				}
+			}
+		}
+
+		&-radio-container {
+			margin-top: 2.5%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		input {
+			&:focus {
+				@include create-shadow(blue);
+			}
+		}
+
+		&--cover-img > & {
+			width: 100%;
+		}
+
+		&.w-wide {
+			width: 60%;
+		}
+	}
+
+	&__update-area {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	&__profile-redirection {
+		font-size: 1rem;
+		color: white;
+		background-color: #000;
+		padding: 0.55rem 1.15rem;
+		border: 0.1rem solid transparent;
+		transition-duration: 0.25s;
+		border-radius: 0.25rem;
+
+		&:hover {
+			color: #000;
+			background-color: transparent;
+			border-color: #000;
+		}
+	}
+}

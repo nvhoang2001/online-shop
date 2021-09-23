@@ -41,7 +41,8 @@ const UserPage = () => {
 		username = "",
 		followingUserIds = [];
 	if (userData) {
-		({ coverImgs, profileImgs, username, followingUserIds } = userData);
+		({ coverImgs, profileImgs, username } = userData);
+		followingUserIds = userData.followingUserIds || followingUserIds;
 	}
 
 	return (

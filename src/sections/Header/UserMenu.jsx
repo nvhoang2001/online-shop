@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { PRIVATE_PROFILE_DIR } from "../../config";
 import { userActions } from "../../store/user-slice";
 
-const UserMenu = (props) => {
+const UserMenu = ({ onHide }) => {
 	const dispatch = useDispatch();
 	const logoutHandler = () => {
 		dispatch(userActions.logOut());
-		props.onHide();
+		onHide();
 	};
 
 	return (
 		<ul className="user-menu">
 			<li className="user-menu__item">
-				<Link to="/profile">My profile</Link>
+				<Link to={`${PRIVATE_PROFILE_DIR}`}>My profile</Link>
 			</li>
 			<li className="user-menu__item">
 				<Link to="/message">Message</Link>
