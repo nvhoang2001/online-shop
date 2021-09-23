@@ -4,15 +4,14 @@ import CustomButton from "../UI/CustomButton/CustomButton.component";
 import { ReactComponent as CryEmoji } from "../../Assets/sad-tear.svg";
 import "./ErrorNotification.scss";
 
-const ErrorNotification = (props) => {
-	const { btnContent, className } = props;
+const ErrorNotification = ({ btnContent, className, children, onHide }) => {
 	const notiClasses = `error-notify ${className ?? ""}`;
 	return (
 		<Card className={notiClasses}>
 			<figure className="error-notify__container">
 				<CryEmoji />
-				<div className="error-notify__content">{props.children}</div>
-				<CustomButton className="error-notify__btn" onClick={props.onHide}>
+				<div className="error-notify__content">{children}</div>
+				<CustomButton className="error-notify__btn" onClick={onHide}>
 					{btnContent}
 				</CustomButton>
 			</figure>
