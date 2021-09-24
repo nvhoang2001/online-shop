@@ -94,7 +94,6 @@ function App() {
 						<PrivateUserPage />
 					</Route>
 				)}
-				{isSignIn && <Route path={`${PRIVATE_PROFILE_DIR}/change-password`}></Route>}
 
 				<Route path="*">
 					<NotFoundPage />

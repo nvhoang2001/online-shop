@@ -30,13 +30,13 @@
 }
 
 .private-dashboard {
-	margin: $page-padding;
+	width: 77.5%;
 	background: #fff;
 
 	&__title {
 		font-size: 1.75rem;
 		font-weight: 700;
-		padding: 1rem;
+		padding: 2rem 0 0 2rem;
 	}
 
 	&__modal {

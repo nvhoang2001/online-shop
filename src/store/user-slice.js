@@ -58,7 +58,6 @@ const userSlice = createSlice({
 			};
 		},
 
-		changePassword(state, action) {},
 		register(state, action) {
 			state.auth = action.payload.auth;
 

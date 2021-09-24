@@ -1,0 +1,53 @@
+.aside-bar {
+	margin-right: 2.5%;
+	width: 20%;
+	background-color: #fff;
+	padding: 1rem;
+
+	&__user {
+		display: flex;
+		align-items: center;
+		margin-bottom: 2rem;
+
+		&-basic {
+			margin-left: 1rem;
+		}
+
+		&-name {
+			font-weight: 700;
+			margin-bottom: 0.5rem;
+		}
+
+		&-email {
+			color: rgba(0, 0, 0, 0.5);
+		}
+	}
+
+	&__link {
+		&-list {
+			padding-left: 1rem;
+		}
+
+		&-item {
+			border-bottom: 0.25rem solid #cccc;
+			padding: 0.5rem 0 0.5rem 0.35rem;
+
+			&:hover {
+				color: rgb(51, 71, 255);
+				border-color: skyblue;
+			}
+		}
+
+		&-logo {
+			width: 1rem;
+			height: 1rem;
+			margin-right: 0.5rem;
+		}
+
+		&-link {
+			&--active {
+				color: rgb(51, 71, 255);
+			}
+		}
+	}
+}

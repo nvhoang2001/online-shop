@@ -225,7 +225,7 @@ const PrivateDashboard = () => {
 				</Modal>
 			)}
 
-			<h1 className="private-dashboard__title">Update your Infomation</h1>
+			<h1 className="private-dashboard__title">Update your infomation</h1>
 			<form className="private-dashboard__form" onClick={formSubmitHandler} ref={formRef}>
 				<div
 					className="private-dashboard__section-2"
