@@ -9,6 +9,7 @@ const CustomInput = ({
 	sendInputValue,
 	className,
 	sendInputClearFnc,
+	sendInputTouchFnc,
 }) => {
 	const { id, label, type, name, placeholder, validator, errorText, isRequired, defaultValue } =
 		input;
@@ -47,6 +48,12 @@ const CustomInput = ({
 	useEffect(() => {
 		sendInputValidity(id, isValid);
 	}, [id, isValid]);
+
+	useEffect(() => {
+		if (sendInputTouchFnc) {
+			sendInputTouchFnc(id, inputBlurHandler);
+		}
+	}, []);
 
 	const inputClass = `custom-input__input ${hasError ? "invalid" : ""}`;
 
