@@ -1,4 +1,21 @@
 @import "../../global.scss";
+
+%btn {
+	position: absolute;
+	bottom: 7%;
+	right: 5%;
+	border-radius: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	color: #fff;
+	transition: 0.25s;
+
+	svg {
+		height: 1rem;
+		width: 1rem;
+		margin-right: 1rem;
+	}
+}
+
 .customer-profile {
 	padding: $page-padding;
 	&__imgs-container {
@@ -35,19 +52,20 @@
 	}
 
 	&__follow-btn {
-		position: absolute;
-		bottom: 7%;
-		right: 5%;
+		@extend %btn;
 		border: 1px solid blue;
-		border-radius: 0.5rem;
-		padding: 0.75rem 2rem;
 		background: blue;
-		color: #fff;
-		transition: 0.25s;
 
 		&:hover {
 			background: transparent;
-			color: black;
+			color: hsl(240, 90%, 55%);
 		}
+	}
+
+	&__followed-btn {
+		$color: #0c0;
+		@extend %btn;
+		border: 1px solid $color;
+		background: $color;
 	}
 }

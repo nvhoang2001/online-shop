@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 
 import NotFound from "../../sections/NotFound/NotFound";
 import Activities from "../../sections/Profile__Activities/Activities";
-import CustomerProfile from "../../sections/CustomerProfile/CustomerProfile";
 import FollowingUser from "../../sections/Profile__FollowingUser/FollowingUser";
+import CustomerProfile from "../../sections/Profile__CustomerProfile/CustomerProfile";
 
-import { DB_URL } from "../../config";
+import { DB_URL, DEFAULT_COVER_IMG } from "../../config";
 const USER_NOT_EXIST = 0;
 
 const getUserProfileInfo = async (userId, successHandler, errorHandler) => {
@@ -36,14 +36,20 @@ const UserPage = () => {
 	if (!userId || userData === USER_NOT_EXIST) {
 		return <NotFound />;
 	}
+
 	let coverImgs = "",
 		profileImgs = "",
 		username = "",
 		followingUserIds = [];
 	if (userData) {
-		({ coverImgs, profileImgs, username } = userData);
+		({ username } = userData);
 		followingUserIds = userData.followingUserIds || followingUserIds;
+		coverImgs = userData.coverImgs || DEFAULT_COVER_IMG;
+		profileImgs = userData.profileImgs || `https://robohash.org/${userId}?set=set4&bgset=bg1`;
 	}
+
+	console.log(userData);
+	console.log(followingUserIds);
 
 	return (
 		<>
