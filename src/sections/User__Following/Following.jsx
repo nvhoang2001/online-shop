@@ -57,8 +57,11 @@ const Following = () => {
 			if (!resData) return;
 
 			const userData = Object.values(resData)[0];
-
-			setFollowedUsers(userData.followingUserIds);
+			const { followingUserIds } = userData;
+			if (!followingUserIds) {
+				return;
+			}
+			setFollowedUsers(followingUserIds);
 		})();
 	}, []);
 
@@ -72,14 +75,11 @@ const Following = () => {
 			<ul className="follow__list">
 				{followedUsers.length > 0 &&
 					followUsersInfos.map(({ profileImgs, username, id }) => {
+						const img = profileImgs || `https://robohash.org/${id}?set=set4&bgset=bg1`;
 						return (
 							<li className="follow__user" key={id} data-id={id}>
 								<Link to={`${PUBLIC_USR}/${id}`}>
-									<img
-										className="follow__user-img"
-										src={profileImgs}
-										alt={username}
-									/>
+									<img className="follow__user-img" src={img} alt={username} />
 									<span className="follow__user-name">{username}</span>
 								</Link>
 								<CustomButton
