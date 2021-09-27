@@ -111,6 +111,10 @@ export const signupAuth = (userInfo, successHandler, errorHandler) => {
 					delete userInfo["confirm-password"];
 					delete userInfo["password"];
 					sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+					sendDataToURL(`${DB_URL}/profile/${authData.localId}.json`, {
+						username: userInfo.username,
+						id: authData.localId,
+					});
 					refreshSignInSession(authData, dispatch);
 					signUpAuthToken = null;
 				}, time);
@@ -120,6 +124,10 @@ export const signupAuth = (userInfo, successHandler, errorHandler) => {
 				delete userInfo["confirm-password"];
 				delete userInfo["password"];
 				sendDataToURL(`${DB_URL}/users/${authData.localId}.json`, userInfo);
+				sendDataToURL(`${DB_URL}/profile/${authData.localId}.json`, {
+					username: userInfo.username,
+					id: authData.localId,
+				});
 				refreshSignInSession(authData, dispatch);
 				signUpAuthToken = null;
 			}
