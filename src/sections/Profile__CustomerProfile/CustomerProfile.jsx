@@ -61,7 +61,12 @@ const CustomerProfile = ({ uid, coverImgs, profileImgs, username }) => {
 				if (!resData) return;
 
 				const userData = Object.values(resData)[0];
-				setFollowedUserIds(userData.followingUserIds);
+				const { followingUserIds } = userData;
+				if (!followingUserIds) {
+					return;
+				}
+
+				setFollowedUserIds(followingUserIds);
 			})();
 		}
 	}, [isSignIn]);
