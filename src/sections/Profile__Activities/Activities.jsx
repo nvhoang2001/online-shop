@@ -5,19 +5,26 @@ import CustomerFeedbackItem from "../../components/CustomerFeedback/CustomerFeed
 
 import "./Activities.scss";
 
-const Activities = ({ uid, username }) => {
+const Activities = ({ uid }) => {
 	const products = useSelector((store) => store.products.items);
-	const feedbackedProducts = products.filter((product) => {
-		const { feedbacks } = product;
-		return feedbacks.find((feedback) => feedback.username === username);
-	});
+	const productHasInited = useSelector((store) => store.products.inited);
+	const feedbackedProducts = !productHasInited
+		? []
+		: products.filter((product) => {
+				const { feedbacks } = product;
+				if (!Array.isArray(feedbacks)) {
+					return false;
+				}
+				return feedbacks.find((feedback) => feedback.userId === uid);
+		  });
+
 	let userFeedback;
 	if (feedbackedProducts.length > 0) {
 		userFeedback = feedbackedProducts
 			.map((product) => {
 				const { feedbacks } = product;
 
-				return feedbacks.filter((feedback) => feedback.username === username);
+				return feedbacks.filter((feedback) => feedback.userId === uid);
 			})
 			.flat(2);
 	}
