@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
-import ProductList from "../../components/Product/ProductList";
 
-import { types } from "../../store/product-slice";
+import ProductList from "../../components/Product/ProductList";
 
 import "./FeatureProduct.scss";
 
@@ -16,7 +15,7 @@ const getTopItemsByRating = (items, type) => {
 
 const FeatureProduct = () => {
 	const products = useSelector((store) => store.products.items);
-
+	const types = useSelector((store) => store.products.types);
 	const [row1Type, row2Type] = types;
 
 	const featuredRow1 = getTopItemsByRating(products, row1Type);

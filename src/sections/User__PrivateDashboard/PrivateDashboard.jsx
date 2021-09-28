@@ -47,15 +47,16 @@ const PrivateDashboard = () => {
 			setCoverImg(DEFAULT_COVER_IMG);
 			return;
 		}
-		setCoverImg(userProfile.coverImgs);
+		setCoverImg(userProfile.coverImgs || DEFAULT_COVER_IMG);
 	}, [userProfile]);
 
 	useEffect(() => {
+		const userImg = `https://robohash.org/${uid}?set=set4&bgset=bg1`;
 		if (!userProfile) {
-			setProfileImg(`https://robohash.org/${uid}?set=set4&bgset=bg1`);
+			setProfileImg(userImg);
 			return;
 		}
-		setProfileImg(userProfile.profileImgs);
+		setProfileImg(userProfile.profileImgs || userImg);
 	}, [userProfile]);
 
 	const showCoverImgChangeInputHandler = () => {
@@ -122,7 +123,6 @@ const PrivateDashboard = () => {
 		};
 		const errorProps = [];
 
-		console.dir(formRef.current);
 		for (const element of formRef.current) {
 			if (element.tagName !== "INPUT") {
 				continue;

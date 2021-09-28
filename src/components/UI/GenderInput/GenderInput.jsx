@@ -26,23 +26,21 @@ const GenderInput = ({ sendInputValue, baseClass, className, defaultValue }) => 
 	}, []);
 
 	const genderChooseHandler = (e) => {
-		const clickedEl = e.target;
-		if (clickedEl.name !== "gender") {
+		const clickedEl = e.target.closest(".radio-choice");
+
+		if (!clickedEl) {
 			return;
 		}
 
-		switch (clickedEl.value) {
+		switch (clickedEl.dataset.value) {
 			case "male":
 				setGender([true, false, false]);
-
 				break;
 			case "female":
 				setGender([false, true, false]);
-
 				break;
 			case "other":
 				setGender([false, false, true]);
-
 				break;
 
 			default:
@@ -56,7 +54,7 @@ const GenderInput = ({ sendInputValue, baseClass, className, defaultValue }) => 
 		<div className={`custom-input ${baseClass}__input ${className}`}>
 			<p>Gender</p>
 			<div className={`${baseClass}__input-radio-container`} onClick={genderChooseHandler}>
-				<label htmlFor="gender-male" className="radio-choice">
+				<label data-value="male" htmlFor="gender-male" className="radio-choice">
 					Male:{" "}
 					<input
 						id="gender-male"
@@ -67,7 +65,7 @@ const GenderInput = ({ sendInputValue, baseClass, className, defaultValue }) => 
 						readOnly
 					/>
 				</label>
-				<label htmlFor="gender-female" className="radio-choice">
+				<label data-value="female" htmlFor="gender-female" className="radio-choice">
 					Female:{" "}
 					<input
 						id="gender-female"
@@ -78,7 +76,7 @@ const GenderInput = ({ sendInputValue, baseClass, className, defaultValue }) => 
 						readOnly
 					/>
 				</label>
-				<label htmlFor="gender-other" className="radio-choice">
+				<label data-value="other" htmlFor="gender-other" className="radio-choice">
 					Other:{" "}
 					<input
 						id="gender-other"

@@ -1,11 +1,10 @@
 import Banner from "../../sections/Banner/Banner";
+import TopBar from "../../sections/TopBar/TopBar";
 import BrandCarosel from "../../sections/BrandCarosel/BrandCarosel";
+import TwoSideProduct from "../../sections/TwoSideProduct/TwoSideProduct";
 import CaroselProduct from "../../sections/CaroselProduct/CaroselProduct";
 import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
-
 import ProductByCategory from "../../sections/ProductByCategory/ProductByCategory";
-import TopBar from "../../sections/TopBar/TopBar";
-import TwoSideProduct from "../../sections/TwoSideProduct/TwoSideProduct";
 
 const Homepage = () => {
 	return (

@@ -1,0 +1,22 @@
+.wrapper {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loader {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	border: 20px solid;
+	border-color: lightblue;
+	border-bottom-color: orange;
+	animation: spinner 1.5s infinite linear;
+}
+
+@keyframes spinner {
+	to {
+		transform: rotate(1turn);
+	}
+}

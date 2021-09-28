@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 
 import ColumnProduct from "../../components/ColumnProduct/ColumnProduct";
 
-import { types } from "../../store/product-slice";
 import capitalizeFirstCharacter from "../../Helpers/capitalizeFirstChar";
-
 import "./CaroselProduct.scss";
 
 const CaroselProduct = () => {
 	const prodItems = useSelector((store) => store.products.items);
+	const types = useSelector((store) => store.products.types);
 	const filterProductByType = () => {
 		const filteredItems = [];
 		filteredItems[0] = prodItems.filter((prod) => prod.type === types[0]);

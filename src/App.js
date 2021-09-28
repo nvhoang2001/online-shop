@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 
@@ -10,23 +10,27 @@ import Footer from "./sections/Footer/Footer";
 import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
 import UserPage from "./pages/UserPage/UserPage";
+import Loader from "./components/UI/Loader/Loader";
 import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import PrivateUserPage from "./pages/PrivateUserPage/PrivateUserPage";
 import ErrorNotification from "./components/Layout/ErrorNotification";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 
-import { checkoutPage, PRIVATE_PROFILE_DIR, PROD_DIR, PUBLIC_USR, signUpURL } from "./config";
 import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
+import { checkoutPage, PRIVATE_PROFILE_DIR, PROD_DIR, PUBLIC_USR, signUpURL } from "./config";
 
 import "./reset-css.scss";
 import "./App.css";
+import { initProductSlice } from "./store/product-slice";
 
 function App() {
+	const [isLoading, setIsLoading] = useState(true);
 	const userInfo = useSelector((store) => store.user);
 	const items = useSelector((store) => store.checkout.cartItems);
+	const hasInitedProducts = useSelector((store) => store.products.inited);
 	const dispatch = useDispatch();
 	const isSignIn = !!userInfo.auth;
 	const { hasError } = userInfo;
@@ -34,6 +38,14 @@ function App() {
 	const hideError = () => {
 		dispatch(userActions.logOut());
 	};
+
+	useEffect(() => {
+		if (!hasInitedProducts) {
+			dispatch(initProductSlice());
+			return;
+		}
+		setIsLoading(false);
+	}, [hasInitedProducts]);
 
 	useEffect(() => {
 		if (isSignIn) {
@@ -47,6 +59,10 @@ function App() {
 
 		dispatch(retrieveStoredAuth(retrievedAuth));
 	}, []);
+
+	if (isLoading) {
+		return <Loader />;
+	}
 
 	return (
 		<Fragment>

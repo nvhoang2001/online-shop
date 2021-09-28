@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import createProduct from "../classes/Product";
-import products from "./product-info";
+import { DB_URL } from "../config";
 
-const getBrands = () => {
+const getBrands = (products) => {
 	const brands = [];
 	products.forEach((prod) => {
 		const isExisted = brands.find((brand) => prod.brand === brand.brand);
@@ -56,14 +55,7 @@ const getTypes = (brands) => {
 	return type;
 };
 
-export const prodBrands = getBrands();
-export const categories = getCategories(prodBrands);
-export const types = getTypes(prodBrands);
-export const productItems = products.map((prod) => {
-	const { id, brand, category, description, feedbacks, name, preview, type } = prod;
-	return createProduct(id, name, brand, type, category, feedbacks, description, preview);
-});
-const categoryProducts = () => {
+const categoryProducts = (productItems) => {
 	const category = {};
 	productItems.forEach((prod) => {
 		const { type, category: prodCate, brand } = prod;
@@ -84,17 +76,45 @@ const categoryProducts = () => {
 	return category;
 };
 
-const categoriedProducts = categoryProducts();
-
 const productSlice = createSlice({
 	name: "products",
 	initialState: {
-		items: productItems,
-		brands: prodBrands,
-		catedItems: categoriedProducts,
+		types: null,
+		items: null,
+		brands: null,
+		catedItems: null,
+		inited: false,
 	},
-	reducers: {},
+	reducers: {
+		start(state, action) {
+			state.items = action.payload;
+			state.catedItems = categoryProducts(action.payload);
+			state.brands = getBrands(action.payload);
+			state.types = getTypes(state.brands);
+			state.inited = true;
+		},
+	},
 });
+
+export const initProductSlice = () => {
+	const destructuringProductData = (product) => {
+		return Object.values(product)[0];
+	};
+
+	return async (dispatch) => {
+		try {
+			const response = await fetch(`${DB_URL}/products.json`);
+			const resData = await response.json();
+			const productDatum = Object.values(resData).map((prod) =>
+				destructuringProductData(prod),
+			);
+
+			dispatch(productSlice.actions.start(productDatum));
+		} catch (error) {
+			throw error;
+		}
+	};
+};
 
 export const productActions = productSlice.actions;
 export default productSlice;
