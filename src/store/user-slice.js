@@ -141,7 +141,7 @@ export const signupAuth = (userInfo, successHandler, errorHandler) => {
 	};
 };
 
-export const signInAuth = (signInInfo, successHandler, errorHandler) => {
+export const signInAuth = (signInInfo) => {
 	return async (dispatch) => {
 		const signInData = { ...signInInfo, returnSecureToken: true };
 		try {
@@ -154,9 +154,9 @@ export const signInAuth = (signInInfo, successHandler, errorHandler) => {
 			const userInfo = { auth: authData, ...userData };
 			dispatch(userSlice.actions.logIn(userInfo));
 			refreshSignInSession(authData, dispatch);
-			successHandler();
+			dispatch(userSlice.actions.changeErrorState(false));
 		} catch (err) {
-			errorHandler(0);
+			dispatch(userSlice.actions.changeErrorState(true));
 		}
 	};
 };

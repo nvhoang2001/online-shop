@@ -12,6 +12,22 @@
 		font-weight: 700;
 	}
 
+	&__input {
+		input {
+			border: none;
+			transition: 0.25s;
+			border-bottom: 2px solid #000;
+
+			&:focus {
+				background-color: #e8f0fe;
+			}
+		}
+	}
+
+	&__show-password {
+		margin: 1rem 0;
+	}
+
 	&__btns {
 		display: flex;
 		justify-content: space-between;
