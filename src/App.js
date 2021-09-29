@@ -13,6 +13,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import UserPage from "./pages/UserPage/UserPage";
 import Loader from "./components/UI/Loader/Loader";
 import RefundPage from "./pages/RefundPage/RefundPage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
@@ -29,6 +30,7 @@ import {
 	PUBLIC_USR,
 	signUpURL,
 	REFUND_DIR,
+	CONTACT_DIR,
 } from "./config";
 
 import "./reset-css.scss";
@@ -121,6 +123,10 @@ function App() {
 
 				<Route path={REFUND_DIR}>
 					<RefundPage />
+				</Route>
+
+				<Route path={CONTACT_DIR}>
+					<ContactPage />
 				</Route>
 
 				<Route path="*">
