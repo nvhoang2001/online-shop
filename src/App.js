@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import { userActions } from "./store/user-slice";
 import { retrieveStoredAuth } from "./store/user-slice";
+import { initProductSlice } from "./store/product-slice";
 
 import Header from "./sections/Header/Header";
 import Footer from "./sections/Footer/Footer";
@@ -24,16 +25,15 @@ import { checkoutPage, PRIVATE_PROFILE_DIR, PROD_DIR, PUBLIC_USR, signUpURL } fr
 
 import "./reset-css.scss";
 import "./App.css";
-import { initProductSlice } from "./store/product-slice";
 
 function App() {
+	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
 	const userInfo = useSelector((store) => store.user);
 	const items = useSelector((store) => store.checkout.cartItems);
 	const hasInitedProducts = useSelector((store) => store.products.inited);
-	const dispatch = useDispatch();
+	const failRefreshToken = useSelector((store) => store.user.failRefreshToken);
 	const isSignIn = !!userInfo.auth;
-	const { hasError } = userInfo;
 
 	const hideError = () => {
 		dispatch(userActions.logOut());
@@ -67,7 +67,7 @@ function App() {
 	return (
 		<Fragment>
 			<Header />
-			{hasError && (
+			{failRefreshToken && (
 				<Modal onHide={hideError}>
 					<ErrorNotification
 						onHide={hideError}

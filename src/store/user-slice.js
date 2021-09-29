@@ -24,6 +24,7 @@ const userSlice = createSlice({
 		country: "",
 		zipcode: "",
 		hasError: false,
+		failRefreshToken: false,
 	},
 	reducers: {
 		logIn(_, action) {
@@ -55,6 +56,7 @@ const userSlice = createSlice({
 				country: "",
 				zipcode: "",
 				hasError: false,
+				failRefreshToken: false,
 			};
 		},
 
@@ -84,6 +86,10 @@ const userSlice = createSlice({
 
 		changeErrorState(state, action) {
 			state.hasError = action.payload;
+		},
+
+		changeFailRefreshTokenState(state, action) {
+			state.failRefreshToken = action.payload;
 		},
 	},
 });
@@ -204,7 +210,7 @@ function refreshSignInSession(auth, dispatch) {
 				);
 			})
 			.catch((err) => {
-				dispatch(userSlice.actions.changeErrorState(true));
+				dispatch(userSlice.actions.changeFailRefreshTokenState(true));
 			});
 	}, remainingTime);
 }
