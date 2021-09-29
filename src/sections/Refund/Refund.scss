@@ -1,0 +1,36 @@
+@import "../../global.scss";
+
+.refund {
+	margin: 5%;
+	padding: 2% 5%;
+	background: #fff;
+
+	&__title {
+		font-size: 2rem;
+		font-weight: 700;
+		text-align: center;
+	}
+
+	&__section {
+		width: 2/3 * 100%;
+		margin: 1rem auto;
+
+		&-title {
+			font-weight: 700;
+			margin-bottom: 1.2rem;
+		}
+
+		&-content {
+			font-weight: 400;
+			line-height: 1.5;
+		}
+
+		&-link {
+			text-decoration: underline;
+
+			&:hover {
+				color: #0006;
+			}
+		}
+	}
+}

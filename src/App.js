@@ -12,6 +12,7 @@ import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
 import UserPage from "./pages/UserPage/UserPage";
 import Loader from "./components/UI/Loader/Loader";
+import RefundPage from "./pages/RefundPage/RefundPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
@@ -21,7 +22,14 @@ import ErrorNotification from "./components/Layout/ErrorNotification";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage";
 
 import { retrieveStoredAuthInfo } from "./Helpers/storeAndRetrieveAuthInfo";
-import { checkoutPage, PRIVATE_PROFILE_DIR, PROD_DIR, PUBLIC_USR, signUpURL } from "./config";
+import {
+	checkoutPage,
+	PRIVATE_PROFILE_DIR,
+	PROD_DIR,
+	PUBLIC_USR,
+	signUpURL,
+	REFUND_DIR,
+} from "./config";
 
 import "./reset-css.scss";
 import "./App.css";
@@ -110,6 +118,10 @@ function App() {
 						<PrivateUserPage />
 					</Route>
 				)}
+
+				<Route path={REFUND_DIR}>
+					<RefundPage />
+				</Route>
 
 				<Route path="*">
 					<NotFoundPage />

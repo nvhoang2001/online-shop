@@ -4,7 +4,7 @@ import TopHeader from "./TopHeader";
 import UserHeader from "./UserHeader";
 import Navigator from "../../components/Navigator/Navigator";
 
-import { PROD_DIR } from "../../config";
+import { PROD_DIR, REFUND_DIR, CONTACT_DIR } from "../../config";
 import products from "../../store/product-info";
 import capitalizeFirstChar from "../../Helpers/capitalizeFirstChar";
 import randomGenerateString from "../../Helpers/randomGenerateString";
@@ -98,8 +98,8 @@ const navInfor = [
 		],
 	},
 	{
-		content: "Refund policy",
-		path: "/refund",
+		content: "Shipping & Returns",
+		path: REFUND_DIR,
 	},
 	{
 		content: "Blog",
@@ -107,7 +107,7 @@ const navInfor = [
 	},
 	{
 		content: "Contact",
-		path: "/contact",
+		path: CONTACT_DIR,
 	},
 ];
 
