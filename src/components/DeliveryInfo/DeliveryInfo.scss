@@ -73,6 +73,22 @@
 
 	&__input {
 		width: 47.5%;
+
+		&--textarea {
+			resize: none;
+		}
+	}
+
+	&__btn {
+		&:disabled {
+			color: #000;
+			background: #cccc;
+
+			&:hover {
+				border-color: transparent;
+				cursor: not-allowed;
+			}
+		}
 	}
 
 	&__submit-btn {
@@ -84,12 +100,16 @@
 		}
 
 		&--loading {
-			background: linear-gradient(#000 50%, #0000 0), linear-gradient(#0000 50%, #000 0),
-				linear-gradient(#000 50%, #0000 0), linear-gradient(#0000 50%, #000 0),
-				linear-gradient(#000 50%, #0000 0), linear-gradient(#0000 50%, #000 0) #ddd;
-			background-size: calc(100% / 6 + 1px) 200%;
-			background-repeat: no-repeat;
-			animation: loader 2s infinite;
+			color: black;
+			border-color: transparent;
+			background: repeating-linear-gradient(90deg, currentColor 0 8%, #0000 0 10%) 200% 100%/200%
+				3px no-repeat;
+			animation: loader 2s steps(6) infinite;
+
+			&:hover {
+				color: #000;
+				border-color: transparent;
+			}
 		}
 	}
 
@@ -160,6 +180,10 @@
 }
 
 .expand {
+	&-10 {
+		width: 100%;
+	}
+
 	&-8 {
 		width: 77.5%;
 	}
@@ -174,32 +198,7 @@
 }
 
 @keyframes loader {
-	0% {
-		background-position: calc(0 * 100% / 5) 100%, calc(1 * 100% / 5) 0%, calc(2 * 100% / 5) 100%,
-			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
-	}
-	16.67% {
-		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 0%, calc(2 * 100% / 5) 100%,
-			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
-	}
-	33.33% {
-		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 100%,
-			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
-	}
-	50% {
-		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
-			calc(3 * 100% / 5) 0%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
-	}
-	66.67% {
-		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
-			calc(3 * 100% / 5) 100%, calc(4 * 100% / 5) 100%, calc(5 * 100% / 5) 0%;
-	}
-	83.33% {
-		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
-			calc(3 * 100% / 5) 100%, calc(4 * 100% / 5) 0%, calc(5 * 100% / 5) 0%;
-	}
-	100% {
-		background-position: calc(0 * 100% / 5) 0%, calc(1 * 100% / 5) 100%, calc(2 * 100% / 5) 0%,
-			calc(3 * 100% / 5) 100%, calc(4 * 100% / 5) 0%, calc(5 * 100% / 5) 100%;
+	to {
+		background-position: 80% 100%;
 	}
 }

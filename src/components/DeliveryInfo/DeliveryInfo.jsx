@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { checkoutActions } from "../../store/checkout-slice";
 
 import Modal from "../UI/Modal/Modal";
+import StripeButton from "../Payment/StripeButton";
 import ErrorNotification from "../Layout/ErrorNotification";
 import SuccessNotification from "../Layout/SuccessNotification";
 import CustomInput from "../UI/CustomInput/CustomInput.component";
 import CustomButton from "../UI/CustomButton/CustomButton.component";
+import CustomTextArea from "../UI/CustomInput/CustomTextArea.component";
 
-import { checkoutActions } from "../../store/checkout-slice";
-
-import { baseURL, FORM_RECEIVE_ADDRESS } from "../../config";
 import phoneValiditor from "../../Helpers/phoneValidator";
+import { baseURL, FORM_RECEIVE_ADDRESS } from "../../config";
 
 import "./DeliveryInfo.scss";
-import StripeButton from "../Payment/StripeButton";
 
 const COUNT_DOWN = 5;
 
@@ -75,8 +75,8 @@ const DeliveryInfo = () => {
 	const isLoggedIn = !!userInfo.auth;
 	const { email } = userInfo;
 	const totalPrice = +(prodPrice + shipFee - discount).toFixed(2);
-	const submitBtnClasses = `delivery__btn delivery__submit-btn ${
-		isSendingRequest ? "delivery__submit-btn--loading" : ""
+	const submitBtnClasses = `delivery__btn ${
+		isSendingRequest ? "delivery__submit-btn--loading" : "delivery__submit-btn"
 	}`;
 
 	const formIsValid =
@@ -123,6 +123,7 @@ const DeliveryInfo = () => {
 		clearTimer();
 		setShowSuccess(false);
 		history.push(baseURL);
+		dispatch(checkoutActions.reset());
 	};
 
 	const initTimer = (callbackFn) => {
@@ -171,19 +172,23 @@ const DeliveryInfo = () => {
 		};
 
 		fetch(FORM_RECEIVE_ADDRESS, {
-			method: "PUT",
+			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(deliInfo),
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error("Order fail!");
+				}
+				return res.json();
+			})
 			.then((data) => {
 				console.log(data);
 				setShowSuccess(true);
 				initTimer(() => {
 					redirectHandler();
-					dispatch(checkoutActions.reset());
 				});
 			})
 			.catch((err) => {
@@ -390,8 +395,10 @@ const DeliveryInfo = () => {
 						Office (Delivery Between 10 AM - 5 PM)
 					</label>
 				</div>
-				<CustomInput
-					className="delivery__input expand-8"
+
+				<CustomTextArea
+					className="delivery__input expand-10"
+					textAreaClassName="delivery__input--textarea"
 					input={{
 						id: "note",
 						name: "note",
@@ -405,7 +412,11 @@ const DeliveryInfo = () => {
 				/>
 
 				<div className="delivery__form-section delivery__btn-section">
-					<CustomButton type="submit" className={submitBtnClasses}>
+					<CustomButton
+						type="submit"
+						className={submitBtnClasses}
+						disabled={!formIsValid}
+					>
 						{isSendingRequest ? "Sending your order..." : "Save And Deliver Here"}
 					</CustomButton>
 					{paymentMethod === "online-method" && (
