@@ -11,6 +11,7 @@ import Footer from "./sections/Footer/Footer";
 import Modal from "./components/UI/Modal/Modal";
 import Homepage from "./pages/Homepage/Homepage";
 import UserPage from "./pages/UserPage/UserPage";
+import BlogPage from "./pages/BlogPage/BlogPage";
 import Loader from "./components/UI/Loader/Loader";
 import RefundPage from "./pages/RefundPage/RefundPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
@@ -31,6 +32,7 @@ import {
 	signUpURL,
 	REFUND_DIR,
 	CONTACT_DIR,
+	BLOG_DIR,
 } from "./config";
 
 import "./reset-css.scss";
@@ -127,6 +129,10 @@ function App() {
 
 				<Route path={CONTACT_DIR}>
 					<ContactPage />
+				</Route>
+
+				<Route path={BLOG_DIR}>
+					<BlogPage />
 				</Route>
 
 				<Route path="*">

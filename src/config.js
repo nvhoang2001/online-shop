@@ -10,6 +10,7 @@ export const PUBLIC_USR = "/profile";
 export const PRIVATE_PROFILE_DIR = "/account";
 export const REFUND_DIR = "/refund";
 export const CONTACT_DIR = "/contact";
+export const BLOG_DIR = "/blog";
 export const DEFAULT_COVER_IMG = "https://images.unsplash.com/photo-1631664393319-2824b4f7277d";
 export const TIME_LIMIT = 5000;
 export const MOVE_TIME = 2000;

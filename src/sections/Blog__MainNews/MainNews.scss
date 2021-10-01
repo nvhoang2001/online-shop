@@ -1,0 +1,123 @@
+.main-news {
+	width: 2 /3 * 100%;
+	background-color: #fff;
+	padding: 1.5rem 3%;
+}
+
+.lastest-news {
+	$border-color: #ccc;
+	$new-distance: 10px;
+	width: 100%;
+	padding-bottom: 2rem;
+	margin-bottom: 2rem;
+	border-bottom: 0.125rem solid $border-color;
+
+	&__title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin: 1em 0;
+	}
+
+	&__news-list {
+		width: 100%;
+		display: grid;
+		grid-template-rows: max(300px, 45vh) max(250px, 5 / 6 * 45vh);
+		grid-template-columns: repeat(4, 1fr);
+		gap: $new-distance;
+	}
+
+	&__first-news {
+		a {
+			flex-direction: row-reverse;
+			justify-content: space-between;
+		}
+
+		img {
+			width: 60%;
+		}
+	}
+
+	&__news {
+		height: 100%;
+	}
+
+	&__news-items {
+		border-right: 0.125rem solid $border-color;
+		padding-right: $new-distance;
+
+		&:nth-child(2),
+		&:nth-child(6) {
+			padding-right: 0;
+			border-right: none;
+		}
+
+		&--first {
+			grid-column-start: 1;
+			grid-column-end: 4;
+		}
+
+		&--first,
+		&--second {
+			h3 {
+				font-size: 1.5rem;
+			}
+		}
+
+		a {
+			height: 100%;
+			background-color: rgba(204, 204, 204, 0.25);
+		}
+
+		span {
+			display: block;
+			margin: 0.25rem 0;
+		}
+	}
+}
+
+.news-list {
+	&__news {
+		height: 100%;
+	}
+
+	&__news-items {
+		$border-color: #ccc;
+		$new-distance: 1rem;
+
+		border-bottom: 0.125rem solid $border-color;
+		padding-bottom: $new-distance;
+		margin-bottom: $new-distance;
+
+		&:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
+
+		a {
+			height: 100%;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		img {
+			width: 30%;
+		}
+
+		figcaption {
+			margin-left: 1.5rem;
+		}
+
+		.news__info {
+			margin: 0.5rem 0;
+			&-author {
+				margin-right: 1rem;
+			}
+		}
+	}
+
+	&__btn--load {
+		display: block;
+		margin: 0 auto;
+	}
+}

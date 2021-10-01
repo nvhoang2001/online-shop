@@ -1,0 +1,44 @@
+.news {
+	&__container {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	&__img {
+		width: 100%;
+		object-fit: cover;
+	}
+
+	&__title {
+		font-size: 1.35rem;
+		font-weight: 700;
+	}
+
+	&__caption {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 0.5rem 0.25rem 0 0.5rem;
+	}
+
+	&__content {
+		$line: 1.2em;
+
+		overflow: hidden;
+		word-wrap: break-word;
+
+		text-overflow: ellipsis;
+		color: #666c;
+		line-height: $line;
+		max-height: $line * 3;
+	}
+
+	&__info {
+		color: #666c;
+		svg {
+			width: 1rem;
+			height: 1rem;
+		}
+	}
+}
