@@ -11,6 +11,8 @@ const NewsList = ({ newsList, className }) => {
 		setPage((page) => page + 1);
 	};
 
+	const isMax = NEWS_LIMIT * page >= newsList.length;
+
 	return (
 		<div className={`${className}`}>
 			<ul className={`${className}__list`}>
@@ -26,9 +28,14 @@ const NewsList = ({ newsList, className }) => {
 					);
 				})}
 
-				<CustomButton className={`${className}__btn--load`} onClick={loadMorePageHandler}>
-					Load more &#x025BE;
-				</CustomButton>
+				{!isMax && (
+					<CustomButton
+						className={`${className}__btn--load`}
+						onClick={loadMorePageHandler}
+					>
+						Load more &#x025BE;
+					</CustomButton>
+				)}
 			</ul>
 		</div>
 	);
