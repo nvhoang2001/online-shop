@@ -41,4 +41,8 @@
 			height: 1rem;
 		}
 	}
+
+	&__container:hover &__title {
+		color: #0087e0;
+	}
 }
