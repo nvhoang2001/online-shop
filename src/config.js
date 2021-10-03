@@ -11,10 +11,12 @@ export const PRIVATE_PROFILE_DIR = "/account";
 export const REFUND_DIR = "/refund";
 export const CONTACT_DIR = "/contact";
 export const BLOG_DIR = "/blog";
+export const MESSAGE_DIR = "/message";
 export const DEFAULT_COVER_IMG = "https://images.unsplash.com/photo-1631664393319-2824b4f7277d";
 export const TIME_LIMIT = 5000;
 export const MOVE_TIME = 2000;
 export const API_KEY = "AIzaSyD9J9UkgOCzJAqwtGqtee6_840LdBbl0EE";
+export const RANDOM_KEY = "d0c550fbb6704f789ee4ab4e5265033a";
 export const STRIPE_KEY =
 	"pk_test_51J7tZFAKuIJ92SHigNetWfLXZD6VC2QEmi8TZTUCn9iiq9AOaNawtZENA8WTypwubxKsutMnfFVmgt3R7faEM97q00KU8u1wXQ";
 export const DB_URL =

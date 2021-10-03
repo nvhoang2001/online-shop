@@ -14,8 +14,9 @@ import UserPage from "./pages/UserPage/UserPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
 import Loader from "./components/UI/Loader/Loader";
 import RefundPage from "./pages/RefundPage/RefundPage";
-import ContactPage from "./pages/ContactPage/ContactPage";
 import RegisterPage from "./pages/Register/RegisterPage";
+import MessagePage from "./pages/MessagePage/MessagePage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 import ProductPage from "./pages/ProductsPage/ProductPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
@@ -33,6 +34,7 @@ import {
 	REFUND_DIR,
 	CONTACT_DIR,
 	BLOG_DIR,
+	MESSAGE_DIR,
 } from "./config";
 
 import "./reset-css.scss";
@@ -133,6 +135,10 @@ function App() {
 
 				<Route path={BLOG_DIR}>
 					<BlogPage />
+				</Route>
+
+				<Route path={MESSAGE_DIR}>
+					<MessagePage />
 				</Route>
 
 				<Route path="*">
