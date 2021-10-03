@@ -1,18 +1,18 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-import { PROD_DIR } from "../../config";
 
 import "./Banner.scss";
 
-const Banner = () => {
-	const bannerProd = useSelector((store) => store.products.items[20]);
-	const { imgLink } = bannerProd;
-	const linkConver = `${PROD_DIR}/${bannerProd.type}/${bannerProd.category}/${bannerProd.brand}`;
+const Banner = ({ imgLink }) => {
 	return (
 		<section className="banner">
-			<Link to={linkConver} className="banner__link">
-				<img src={imgLink} alt={bannerProd.name} className="banner__img" />
+			<Link to="#" className="banner__link">
+				<div
+					className="banner__img"
+					style={{
+						backgroundImage: `url(${imgLink})`,
+					}}
+				></div>
+				{/* <img src={imgLink} alt="" className="banner__img" /> */}
 			</Link>
 		</section>
 	);

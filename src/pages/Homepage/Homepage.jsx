@@ -11,13 +11,13 @@ const Homepage = () => {
 		<>
 			<TopBar />
 			<FeatureProduct />
-			<Banner />
+			<Banner imgLink="https://m.media-amazon.com/images/I/71o0Os5bUeL._SX3740_.jpg" />
 			<TwoSideProduct />
-			<Banner />
+			<Banner imgLink="https://m.media-amazon.com/images/I/61Eo8-tsy0L._SX3000_.jpg" />
 			<ProductByCategory type="technology" driveId="1F4p24lo1nlvxtfPUEo1QSfzbtmmlaeBz" />
-			<Banner />
+			<Banner imgLink="https://m.media-amazon.com/images/I/61R1lkAv-hL._SX3740_.jpg" />
 			<ProductByCategory type="fashion" driveId="1BJ2lz8SWW9y3p5BOJ3Ed13fqEeSsslQT" />
-			<Banner />
+			<Banner imgLink="https://m.media-amazon.com/images/I/61MSGpQK43L._SX3740_.jpg" />
 			<CaroselProduct />
 			<BrandCarosel />
 		</>
