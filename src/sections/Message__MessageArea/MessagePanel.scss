@@ -5,9 +5,10 @@
 
 	&__top-panel {
 		background: rgba(0, 255, 255, 0.1);
-		padding: 1rem;
-
-		border-bottom: 2px solid #ccc;
+		padding: 1rem 1rem 0;
+		form {
+			border-bottom: 2px solid #ccc;
+		}
 	}
 
 	&__select-container {
@@ -71,4 +72,69 @@
 			}
 		}
 	}
+
+	&__message {
+		$user-width: 17.5%;
+
+		&-list {
+			height: max(75vh, 20rem);
+			overflow-y: auto;
+			padding: 1rem 1.5rem 1rem 1rem;
+		}
+
+		&-item {
+			display: flex;
+			padding: 1rem 0;
+		}
+
+		&-user {
+			width: $user-width;
+
+			> div:first-child {
+				display: flex;
+
+				align-items: flex-start;
+				margin-bottom: 0.5rem;
+			}
+
+			&-img {
+				width: 2rem;
+				height: 2rem;
+				margin-left: 0.5rem;
+			}
+
+			&-important {
+				width: 1rem;
+				height: 1rem;
+				display: block;
+				margin: 0 auto;
+				color: #2ebfba;
+			}
+		}
+
+		&-message {
+			width: 100% - $user-width;
+			display: flex;
+			flex-wrap: wrap;
+			align-content: space-around;
+			&-name {
+				font-size: 1.1rem;
+				strong {
+					font-weight: 700;
+				}
+			}
+
+			&-content {
+				font-size: 0.9rem;
+				color: #666;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+}
+
+input[type="radio"] {
+	appearance: radio;
 }
