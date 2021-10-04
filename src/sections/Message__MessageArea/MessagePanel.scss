@@ -1,0 +1,74 @@
+.message-panel {
+	$search-width: 85%;
+	width: 35%;
+	border-right: 2px solid #ccc;
+
+	&__top-panel {
+		background: rgba(0, 255, 255, 0.1);
+		padding: 1rem;
+
+		border-bottom: 2px solid #ccc;
+	}
+
+	&__select-container {
+		position: relative;
+		&::after {
+			content: "\025BE";
+			color: #6a6f73;
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 1.25rem;
+			pointer-events: none;
+			font-size: 1.2rem;
+			height: 1rem;
+			width: 1rem;
+			transform: translateY(-50%);
+		}
+	}
+
+	&__input {
+		&--select {
+			width: 100%;
+			background: #fff;
+			padding: 1.5rem;
+			font-size: 1.1rem;
+			border-radius: 0.25rem;
+		}
+
+		&--search {
+			width: $search-width;
+			border: 1px solid #000;
+			padding: 1.2rem;
+			font-size: 1.1rem;
+			border-top-left-radius: 0.25rem;
+			border-bottom-left-radius: 0.25rem;
+		}
+	}
+
+	&__search-field {
+		margin: 1rem 0;
+		display: flex;
+	}
+
+	&__btn {
+		&--search {
+			width: 100% - $search-width;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+			border-left: none;
+			color: #fff;
+			background: #000;
+
+			svg {
+				width: 1.2rem;
+				height: 1.2rem;
+			}
+
+			&:hover {
+				border-color: #000;
+				color: #000;
+			}
+		}
+	}
+}
