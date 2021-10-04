@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
-import { RANDOM_KEY } from "../../config";
+import { RANDOM_API } from "../../config";
 import HeaderBar from "../../sections/Message__HeaderBar/HeaderBar";
 import MessageArea from "../../sections/Message__MessageArea/MessageArea";
 
 const urls = [
-	`https://randommer.io/api/Text/LoremIpsum?loremType=normal&type=paragraphs&number=${Math.ceil(
-		Math.random() * 6,
-	)}`,
-	`https://randommer.io/api/Text/LoremIpsum?loremType=normal&type=paragraphs&number=${Math.ceil(
-		Math.random() * 6,
-	)}`,
-	`https://randommer.io/api/Text/LoremIpsum?loremType=normal&type=paragraphs&number=${Math.ceil(
-		Math.random() * 6,
-	)}`,
-	`https://randommer.io/api/Text/LoremIpsum?loremType=normal&type=paragraphs&number=${Math.ceil(
-		Math.random() * 6,
-	)}`,
-	`https://randommer.io/api/Text/LoremIpsum?loremType=normal&type=paragraphs&number=${Math.ceil(
-		Math.random() * 6,
-	)}`,
+	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
+	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
+	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
+	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
+	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
 ];
 
 const MessagePage = () => {
@@ -44,22 +34,14 @@ const MessagePage = () => {
 			try {
 				for (let i = 0; i < messagers.length; i++) {
 					const messagerId = messagers[i];
-					const requests = urls.map((url) =>
-						fetch(url, {
-							method: "GET",
-							headers: {
-								"Content-Type": "application/json",
-								"X-Api-Key": RANDOM_KEY,
-							},
-						}),
-					);
+					const requests = urls.map((url) => fetch(url));
 
 					const responses = await Promise.all(requests);
 					const data = await Promise.all(responses.map((res) => res.json()));
 
 					const messages = data.map((mes, i) => {
 						return {
-							content: mes,
+							content: mes.data[0].content,
 							time: Date.now() - 1_000_000 + i * 5000,
 							isAuthor: Math.random() < 0.5 ? true : false,
 						};

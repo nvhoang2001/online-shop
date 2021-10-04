@@ -137,9 +137,11 @@ function App() {
 					<BlogPage />
 				</Route>
 
-				<Route path={MESSAGE_DIR}>
-					<MessagePage />
-				</Route>
+				{isSignIn && (
+					<Route path={MESSAGE_DIR}>
+						<MessagePage />
+					</Route>
+				)}
 
 				<Route path="*">
 					<NotFoundPage />
