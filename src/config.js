@@ -16,7 +16,6 @@ export const DEFAULT_COVER_IMG = "https://images.unsplash.com/photo-163166439331
 export const TIME_LIMIT = 5000;
 export const MOVE_TIME = 2000;
 export const API_KEY = "AIzaSyD9J9UkgOCzJAqwtGqtee6_840LdBbl0EE";
-export const RANDOM_KEY = "d0c550fbb6704f789ee4ab4e5265033a";
 export const RANDOM_API = "https://fakerapi.it/api/v1";
 export const STRIPE_KEY =
 	"pk_test_51J7tZFAKuIJ92SHigNetWfLXZD6VC2QEmi8TZTUCn9iiq9AOaNawtZENA8WTypwubxKsutMnfFVmgt3R7faEM97q00KU8u1wXQ";
