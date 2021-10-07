@@ -1,47 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
 
-import { ReactComponent as SearchSVG } from "../../Assets/search.svg";
 import { ReactComponent as BoldSVG } from "../../Assets/star.min.svg";
 import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
-import { DB_URL } from "../../config";
+
 import "./MessagePanel.scss";
 
 const AllMessages = "All Messages",
 	UnreadMessages = "Unread Messages",
 	ImportantMessages = "Important Messages";
 
-const MessagePanel = ({ messages }) => {
+const MessagePanel = ({ selectMessageFnc, messagers }) => {
 	const [selectOption, setSelectOption] = useState(AllMessages);
-	const [userProfiles, setUserProfiles] = useState([]);
 	const [searchUser, setSearchUser] = useState("");
-
-	let messagers =
-		messages.length !== userProfiles.length
-			? []
-			: userProfiles.map((urs, i) => {
-					return {
-						name: urs.username,
-						imgLink: urs.profileImgs,
-						...messages[i],
-					};
-			  });
+	let messagesItems = messagers;
 
 	switch (selectOption) {
 		case UnreadMessages: {
-			messagers = messagers.filter((mess) => !mess.isRead);
+			messagesItems = messagesItems.filter((mess) => !mess.isRead);
 			break;
 		}
 		case ImportantMessages: {
-			messagers = messagers.filter((mess) => mess.isImportant);
+			messagesItems = messagesItems.filter((mess) => mess.isImportant);
 			break;
 		}
 		default:
 			break;
 	}
 
-	messagers = messagers.filter((mess) =>
+	messagesItems = messagesItems.filter((mess) =>
 		mess.name.toLowerCase().includes(searchUser.toLowerCase()),
 	);
 
@@ -52,24 +40,19 @@ const MessagePanel = ({ messages }) => {
 		setSearchUser(e.target.value);
 	};
 	const formSubmitHandler = (e) => e.preventDefault();
+	const resetSearchHandler = () => {
+		setSearchUser("");
+	};
 
-	useEffect(() => {
-		(async () => {
-			const userIds = messages.map((mes) => mes.withUser);
-			const urls = userIds.map((id) => `${DB_URL}/profile/${id}.json`);
-			try {
-				const responses = await Promise.all(urls.map((url) => fetch(url)));
-				const data = await Promise.all(responses.map((res) => res.json()));
-				const ursProfiles = data.map((data) => {
-					const [ursProfile] = Object.values(data);
-					return ursProfile;
-				});
-				setUserProfiles(ursProfiles);
-			} catch (error) {
-				console.error(error);
-			}
-		})();
-	}, [messages.length]);
+	const selectMessageHandler = (e) => {
+		const clickedMessage = e.target.closest(".message-panel__message-item");
+		if (!clickedMessage) {
+			return;
+		}
+
+		const messagePos = clickedMessage.dataset.pos;
+		selectMessageFnc(messagePos);
+	};
 
 	return (
 		<div className="message-panel">
@@ -96,17 +79,20 @@ const MessagePanel = ({ messages }) => {
 							onChange={searchUserHandler}
 							value={searchUser}
 						/>
-						<CustomButton className="message-panel__btn--search" onClick={() => {}}>
-							<SearchSVG />
+						<CustomButton
+							className="message-panel__btn--search"
+							onClick={resetSearchHandler}
+						>
+							X
 						</CustomButton>
 					</div>
 				</form>
 			</div>
-			<ul className="message-panel__message-list">
-				{messagers.map((mess) => {
-					const { name, isRead, imgLink, isImportant } = mess;
+			<ul className="message-panel__message-list" onClick={selectMessageHandler}>
+				{messagesItems.map((mess, i) => {
+					const { name, isRead, imgLink, isImportant, id } = mess;
 					return (
-						<li className="message-panel__message-item" key={name}>
+						<li className="message-panel__message-item" key={id} data-pos={i}>
 							<div className="message-panel__message-user">
 								<div>
 									<input

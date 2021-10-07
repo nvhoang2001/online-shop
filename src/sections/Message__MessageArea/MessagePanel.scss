@@ -1,5 +1,6 @@
 .message-panel {
 	$search-width: 85%;
+	max-height: max(100vh, 40rem);
 	width: 35%;
 	border-right: 2px solid #ccc;
 
@@ -85,6 +86,7 @@
 		&-item {
 			display: flex;
 			padding: 1rem 0;
+			cursor: pointer;
 		}
 
 		&-user {
@@ -116,7 +118,9 @@
 			width: 100% - $user-width;
 			display: flex;
 			flex-wrap: wrap;
-			align-content: space-around;
+			flex-direction: column;
+			justify-content: space-around;
+
 			&-name {
 				font-size: 1.1rem;
 				strong {
@@ -127,6 +131,7 @@
 			&-content {
 				font-size: 0.9rem;
 				color: #666;
+				width: 100%;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;

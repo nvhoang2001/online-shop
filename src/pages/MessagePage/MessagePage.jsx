@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
-import { RANDOM_API } from "../../config";
+import { useSelector } from "react-redux";
+
 import HeaderBar from "../../sections/Message__HeaderBar/HeaderBar";
 import MessageArea from "../../sections/Message__MessageArea/MessageArea";
-
-const urls = [
-	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
-	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
-	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
-	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
-	`${RANDOM_API}/texts?_quantity=1&_characters=${100 + 10 * Math.ceil(Math.random() * 6)}`,
-];
+import { DB_URL } from "../../config";
 
 const MessagePage = () => {
 	const [messages, setMessages] = useState([]);
+	const uid = useSelector((store) => store.user.auth.localId);
 
 	const unreadMessage =
 		messages.length === 0
@@ -24,39 +19,15 @@ const MessagePage = () => {
 
 	useEffect(() => {
 		(async () => {
-			const messagers = [
-				"0BrA5Dx6MABikU11hGJzhc8g5lYY1svrv",
-				"0n5alphBtF2Pe1svokQRfU1ZYJgNuyptg",
-				"1gYvWZmP5EKu8E2XqKDLAgnSN2aAhHbt7",
-				"2Gq5ZgyIgWUev4f1gB9twdgvkKAaLYBXB",
-				"338eG57JECMOfETA19WALDPnqbwnvpJ3S",
-			];
 			try {
-				for (let i = 0; i < messagers.length; i++) {
-					const messagerId = messagers[i];
-					const requests = urls.map((url) => fetch(url));
+				const response = await fetch(`${DB_URL}/message/${uid}.json`);
+				const messages = await response.json();
 
-					const responses = await Promise.all(requests);
-					const data = await Promise.all(responses.map((res) => res.json()));
-
-					const messages = data.map((mes, i) => {
-						return {
-							content: mes.data[0].content,
-							time: Date.now() - 1_000_000 + i * 5000,
-							isAuthor: Math.random() < 0.5 ? true : false,
-						};
-					});
-					const message = {
-						withUser: messagerId,
-						isRead: Math.random() < 0.5 ? true : false,
-						isImportant: Math.random() < 0.5 ? true : false,
-						messages,
-					};
-
-					messagers[i] = message;
+				for (const key in messages) {
+					messages[key].id = key;
 				}
 
-				setMessages(messagers);
+				setMessages(Object.values(messages));
 			} catch (error) {
 				console.log(error);
 			}
@@ -66,7 +37,7 @@ const MessagePage = () => {
 	return (
 		<>
 			<HeaderBar unRead={unreadMessage} />
-			<MessageArea messages={messages} />
+			<MessageArea messages={messages} userId={uid} />
 		</>
 	);
 };
