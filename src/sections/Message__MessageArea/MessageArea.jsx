@@ -47,8 +47,6 @@ const MessageArea = ({ messages, userId }) => {
 		setMessagers(messagers);
 	}, [messages.length, userProfiles.length]);
 
-	console.log(messages);
-
 	return (
 		<section className="message-area">
 			<MessagePanel

@@ -100,7 +100,6 @@ const ContactForm = () => {
 			return;
 		}
 
-		console.log(formState);
 
 		fetch(FORM_RECEIVE_ADDRESS, {
 			method: "POST",

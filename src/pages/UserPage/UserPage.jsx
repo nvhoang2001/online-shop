@@ -48,8 +48,6 @@ const UserPage = () => {
 		profileImgs = userData.profileImgs || `https://robohash.org/${userId}?set=set4&bgset=bg1`;
 	}
 
-	console.log(userData);
-	console.log(followingUserIds);
 
 	return (
 		<>
