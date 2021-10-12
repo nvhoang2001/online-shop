@@ -49,11 +49,19 @@ $border-color: #ccc;
 		}
 
 		&-settings {
-			font-size: 2rem;
-			color: #888;
-			cursor: pointer;
-			user-select: none;
-			margin-right: 1rem;
+			position: relative;
+
+			span {
+				font-size: 2rem;
+				color: #aaa;
+				cursor: pointer;
+				user-select: none;
+				margin: 0 1rem;
+
+				&:hover {
+					color: #222;
+				}
+			}
 		}
 
 		&-area {

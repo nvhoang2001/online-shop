@@ -6,9 +6,13 @@ import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
 import { ReactComponent as FillStarSVG } from "../../Assets/star.min.svg";
 import { DB_URL } from "../../config";
 import "./MessageContent.scss";
+import DropdownMenu from "./DropdownMessageOptions";
 
 const MessageContent = ({ message, uid }) => {
 	const [messageContent, setMessageContent] = useState("");
+	const [showDropdown, setShowDropDown] = useState(false);
+	const [messageIsImportant, setMessageIsImportant] = useState(message?.isImportant);
+	const [messageIsRead, setMessageIsRead] = useState(message?.isRead);
 	const listMessageRef = useRef();
 
 	useEffect(() => {
@@ -23,6 +27,24 @@ const MessageContent = ({ message, uid }) => {
 		}
 	}, [message?.messages.length]);
 
+	useEffect(() => {
+		if (message?.isImportant === undefined) {
+			return;
+		}
+
+		message.isImportant = messageIsImportant;
+	}, [messageIsImportant]);
+
+	useEffect(() => {
+		if (message?.isRead === undefined) {
+			return;
+		}
+
+		message.isRead = messageIsRead;
+	}, [messageIsRead]);
+
+	console.log(message);
+
 	if (!message) {
 		return (
 			<main className="message-content">
@@ -31,7 +53,21 @@ const MessageContent = ({ message, uid }) => {
 		);
 	}
 
-	const { isImportant, imgLink, name, messages, id: messageKey } = message;
+	const { imgLink, name, messages, id: messageKey } = message;
+
+	const showDropdownHandler = () => {
+		setShowDropDown(true);
+	};
+	const hideDropdownHandler = () => {
+		setShowDropDown(false);
+	};
+
+	const toggleImportantHandler = () => {
+		setMessageIsImportant((state) => !state);
+	};
+	const toggleReadHandler = () => {
+		setMessageIsRead((state) => !state);
+	};
 
 	const editMessageHandler = (e) => {
 		setMessageContent(e.target.value);
@@ -57,9 +93,9 @@ const MessageContent = ({ message, uid }) => {
 
 	return (
 		<main className="message-content">
-			<div className="message-content__user-bar">
+			<div className="message-content__user-bar" onMouseLeave={hideDropdownHandler}>
 				<div className="message-content__user-field">
-					{isImportant ? (
+					{messageIsImportant ? (
 						<FillStarSVG className="message-content__message-important" />
 					) : (
 						<EmptyStarSVG className="message-content__message-important" />
@@ -68,7 +104,15 @@ const MessageContent = ({ message, uid }) => {
 					<span className="message-content__user-name">{name}</span>
 				</div>
 				<div className="message-content__message-settings">
-					<span>&#x022EE;</span>
+					<span onClick={showDropdownHandler}>&#x022EE;</span>
+					{showDropdown && (
+						<DropdownMenu
+							isImportant={messageIsImportant}
+							isRead={messageIsRead}
+							toggleImportantHandler={toggleImportantHandler}
+							toggleReadHandler={toggleReadHandler}
+						/>
+					)}
 				</div>
 			</div>
 			<div className="message-content__message-area">
