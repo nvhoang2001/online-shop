@@ -38,6 +38,10 @@ const MessageContent = ({ message, uid }) => {
 	};
 
 	const sendMessageHandler = () => {
+		if (!messageContent) {
+			return;
+		}
+
 		messages.push({ content: messageContent, isAuthor: true, time: Date.now() });
 
 		fetch(`${DB_URL}/message/${uid}/${messageKey}/messages.json`, {
@@ -69,14 +73,16 @@ const MessageContent = ({ message, uid }) => {
 			</div>
 			<div className="message-content__message-area">
 				<ul className="message-content__message-list" ref={listMessageRef}>
-					{messages.map(({ content, time, isAuthor }) => {
+					{messages.map(({ content, time: timeStamp, isAuthor }) => {
+						const messageTime = new Date(timeStamp);
+						const time = `${messageTime.toLocaleDateString()} - ${messageTime.toLocaleTimeString()}`;
 						return (
 							<li
 								className={`message-content__message-item ${
 									isAuthor ? "message-content__message-item--author" : ""
 								}`}
 								title={time}
-								key={time}
+								key={timeStamp}
 							>
 								{content}
 							</li>
