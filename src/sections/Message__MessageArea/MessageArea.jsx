@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import messageContext from "../../store/messageContext";
 
 import MessagePanel from "./MessagePanel";
 import MessageContent from "./MessageContent";
@@ -6,12 +7,14 @@ import MessageContent from "./MessageContent";
 import { DB_URL } from "../../config";
 import "./MessageArea.scss";
 
-const MessageArea = ({ messages, userId }) => {
+const MessageArea = ({ userId }) => {
+	const messageCtx = useContext(messageContext);
+	const { messages } = messageCtx;
 	const [userProfiles, setUserProfiles] = useState([]);
 	const [selectMessage, setSelectMessage] = useState();
 	const [messagers, setMessagers] = useState([]);
 	const selectMessageHandler = (pos) => {
-		setSelectMessage(messagers[pos]);
+		setSelectMessage(pos);
 	};
 
 	useEffect(() => {
@@ -45,7 +48,7 @@ const MessageArea = ({ messages, userId }) => {
 		});
 
 		setMessagers(messagers);
-	}, [messages.length, userProfiles.length]);
+	}, [messages, userProfiles]);
 
 	return (
 		<section className="message-area">
@@ -54,7 +57,11 @@ const MessageArea = ({ messages, userId }) => {
 				messagers={messagers}
 				selectMessageFnc={selectMessageHandler}
 			/>
-			<MessageContent message={selectMessage} uid={userId} />
+			<MessageContent
+				message={messagers[selectMessage]}
+				messagePos={selectMessage}
+				uid={userId}
+			/>
 		</section>
 	);
 };

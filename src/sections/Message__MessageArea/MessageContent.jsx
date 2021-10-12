@@ -1,18 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import messageContext from "../../store/messageContext";
 
 import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
+import DropdownMenu from "./DropdownMessageOptions";
 
 import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
 import { ReactComponent as FillStarSVG } from "../../Assets/star.min.svg";
 import { DB_URL } from "../../config";
 import "./MessageContent.scss";
-import DropdownMenu from "./DropdownMessageOptions";
 
-const MessageContent = ({ message, uid }) => {
+const MessageContent = ({ message, messagePos, uid }) => {
+	const messageCtx = useContext(messageContext);
+	const { updateMessage } = messageCtx;
 	const [messageContent, setMessageContent] = useState("");
 	const [showDropdown, setShowDropDown] = useState(false);
-	const [messageIsImportant, setMessageIsImportant] = useState(message?.isImportant);
-	const [messageIsRead, setMessageIsRead] = useState(message?.isRead);
 	const listMessageRef = useRef();
 
 	useEffect(() => {
@@ -27,24 +28,6 @@ const MessageContent = ({ message, uid }) => {
 		}
 	}, [message?.messages.length]);
 
-	useEffect(() => {
-		if (message?.isImportant === undefined) {
-			return;
-		}
-
-		message.isImportant = messageIsImportant;
-	}, [messageIsImportant]);
-
-	useEffect(() => {
-		if (message?.isRead === undefined) {
-			return;
-		}
-
-		message.isRead = messageIsRead;
-	}, [messageIsRead]);
-
-	console.log(message);
-
 	if (!message) {
 		return (
 			<main className="message-content">
@@ -53,7 +36,7 @@ const MessageContent = ({ message, uid }) => {
 		);
 	}
 
-	const { imgLink, name, messages, id: messageKey } = message;
+	const { isImportant, isRead, imgLink, name, messages, id: messageKey } = message;
 
 	const showDropdownHandler = () => {
 		setShowDropDown(true);
@@ -63,10 +46,24 @@ const MessageContent = ({ message, uid }) => {
 	};
 
 	const toggleImportantHandler = () => {
-		setMessageIsImportant((state) => !state);
+		updateMessage(messagePos, "isImportant", !isImportant);
+		fetch(`${DB_URL}/message/${uid}/${messageKey}/isImportant.json`, {
+			method: "PUT",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(!isImportant),
+		});
 	};
 	const toggleReadHandler = () => {
-		setMessageIsRead((state) => !state);
+		updateMessage(messagePos, "isRead", !isRead);
+		fetch(`${DB_URL}/message/${uid}/${messageKey}/isRead.json`, {
+			method: "PUT",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(!isRead),
+		});
 	};
 
 	const editMessageHandler = (e) => {
@@ -95,7 +92,7 @@ const MessageContent = ({ message, uid }) => {
 		<main className="message-content">
 			<div className="message-content__user-bar" onMouseLeave={hideDropdownHandler}>
 				<div className="message-content__user-field">
-					{messageIsImportant ? (
+					{isImportant ? (
 						<FillStarSVG className="message-content__message-important" />
 					) : (
 						<EmptyStarSVG className="message-content__message-important" />
@@ -107,8 +104,8 @@ const MessageContent = ({ message, uid }) => {
 					<span onClick={showDropdownHandler}>&#x022EE;</span>
 					{showDropdown && (
 						<DropdownMenu
-							isImportant={messageIsImportant}
-							isRead={messageIsRead}
+							isImportant={isImportant}
+							isRead={isRead}
 							toggleImportantHandler={toggleImportantHandler}
 							toggleReadHandler={toggleReadHandler}
 						/>
