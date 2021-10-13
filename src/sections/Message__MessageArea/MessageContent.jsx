@@ -8,6 +8,7 @@ import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
 import { ReactComponent as FillStarSVG } from "../../Assets/star.min.svg";
 import { DB_URL } from "../../config";
 import "./MessageContent.scss";
+import Modal from "../../components/UI/Modal/Modal";
 
 const MessageContent = ({ message, messagePos, uid }) => {
 	const messageCtx = useContext(messageContext);
@@ -90,6 +91,8 @@ const MessageContent = ({ message, messagePos, uid }) => {
 
 	return (
 		<main className="message-content">
+			<Modal></Modal>
+
 			<div className="message-content__user-bar" onMouseLeave={hideDropdownHandler}>
 				<div className="message-content__user-field">
 					{isImportant ? (
