@@ -1,0 +1,98 @@
+.report-form {
+	background-color: #fff;
+	position: absolute;
+	width: 45vw;
+	border-radius: 0.25rem;
+	padding: 2rem;
+	top: 10vh;
+	left: 50vw;
+	transform: translateX(-50%);
+
+	&__title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		margin-bottom: 1.5rem;
+	}
+
+	&__claim {
+		line-height: 1.25;
+		color: #555;
+		margin-bottom: 1.5rem;
+	}
+
+	&__link {
+		color: #00f;
+		text-decoration: underline;
+	}
+
+	&__reason {
+		position: relative;
+		&::after {
+			content: "\025BE";
+			font-size: 2em;
+			position: absolute;
+			right: 1rem;
+			top: 50%;
+			transform: translateY(-50%);
+			pointer-events: none;
+		}
+	}
+
+	label {
+		font-weight: 700;
+		display: block;
+		margin: 0.5rem 0;
+	}
+
+	&__select {
+		border: 1px solid #000;
+		width: 100%;
+		padding: 1rem;
+	}
+
+	&__textarea {
+		border: 1px solid #000;
+		height: 7em;
+		resize: none;
+	}
+
+	&__btns {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&__btn {
+		margin-right: 1rem;
+		background-color: transparent;
+		color: #000;
+		border-color: #000;
+		&:hover {
+			background-color: #000;
+			color: #fff;
+		}
+
+		&--submit {
+			background-color: #000;
+			&:hover {
+				border-color: #000;
+				color: #000;
+			}
+		}
+	}
+}
+
+.error-notification {
+	background-color: #f00;
+}
+
+.success-notification {
+	background-color: hsl(120, 60%, 40%);
+}
+
+.error-notification,
+.success-notification {
+	margin: 1.5rem 0;
+	padding: 0.5rem 0;
+	text-align: center;
+	color: #fff;
+}

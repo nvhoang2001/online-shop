@@ -1,20 +1,22 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import messageContext from "../../store/messageContext";
 
-import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
+import ReportForm from "./ReportForm";
 import DropdownMenu from "./DropdownMessageOptions";
+import Modal from "../../components/UI/Modal/Modal";
+import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
 
 import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
 import { ReactComponent as FillStarSVG } from "../../Assets/star.min.svg";
 import { DB_URL } from "../../config";
 import "./MessageContent.scss";
-import Modal from "../../components/UI/Modal/Modal";
 
 const MessageContent = ({ message, messagePos, uid }) => {
 	const messageCtx = useContext(messageContext);
 	const { updateMessage } = messageCtx;
-	const [messageContent, setMessageContent] = useState("");
+	const [showReport, setShowReport] = useState(false);
 	const [showDropdown, setShowDropDown] = useState(false);
+	const [messageContent, setMessageContent] = useState("");
 	const listMessageRef = useRef();
 
 	useEffect(() => {
@@ -67,6 +69,15 @@ const MessageContent = ({ message, messagePos, uid }) => {
 		});
 	};
 
+	const showReportHandler = () => {
+		setShowDropDown(false);
+		setShowReport(true);
+	};
+
+	const hideReportHandler = () => {
+		setShowReport(false);
+	};
+
 	const editMessageHandler = (e) => {
 		setMessageContent(e.target.value);
 	};
@@ -91,8 +102,11 @@ const MessageContent = ({ message, messagePos, uid }) => {
 
 	return (
 		<main className="message-content">
-			<Modal></Modal>
-
+			{showReport && (
+				<Modal onHide={hideReportHandler}>
+					<ReportForm uid={uid} messageId={messageKey} onHide={hideReportHandler} />
+				</Modal>
+			)}
 			<div className="message-content__user-bar" onMouseLeave={hideDropdownHandler}>
 				<div className="message-content__user-field">
 					{isImportant ? (
@@ -111,6 +125,7 @@ const MessageContent = ({ message, messagePos, uid }) => {
 							isRead={isRead}
 							toggleImportantHandler={toggleImportantHandler}
 							toggleReadHandler={toggleReadHandler}
+							showReportHandler={showReportHandler}
 						/>
 					)}
 				</div>
