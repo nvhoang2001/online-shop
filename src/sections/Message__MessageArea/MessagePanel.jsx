@@ -6,12 +6,13 @@ import { ReactComponent as BoldSVG } from "../../Assets/star.min.svg";
 import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
 
 import "./MessagePanel.scss";
+import DotsLoader from "../../components/UI/Loader/DotsLoader";
 
 const AllMessages = "All Messages",
 	UnreadMessages = "Unread Messages",
 	ImportantMessages = "Important Messages";
 
-const MessagePanel = ({ selectMessageFnc, messagers }) => {
+const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 	const [selectOption, setSelectOption] = useState(AllMessages);
 	const [searchUser, setSearchUser] = useState("");
 	let messagesItems = messagers;
@@ -89,43 +90,53 @@ const MessagePanel = ({ selectMessageFnc, messagers }) => {
 				</form>
 			</div>
 			<ul className="message-panel__message-list" onClick={selectMessageHandler}>
-				{messagesItems.map((mess, i) => {
-					const { name, isRead, imgLink, isImportant, id } = mess;
-					return (
-						<li className="message-panel__message-item" key={id} data-pos={i}>
-							<div className="message-panel__message-user">
-								<div>
-									<input
-										className="message-panel__message-user-read"
-										type="radio"
-										checked={isRead}
-										readOnly
-									/>
-									<img
-										className="message-panel__message-user-img"
-										src={imgLink}
-										alt={name}
-									/>
+				{isLoading && (
+					<div className="message-panel__loader">
+						<DotsLoader />
+					</div>
+				)}
+				{!isLoading && messagesItems.length === 0 && (
+					<p className="message-panel__no-message">You have no messages</p>
+				)}
+				{!isLoading &&
+					messagesItems.length > 0 &&
+					messagesItems.map((mess, i) => {
+						const { name, isRead, imgLink, isImportant, id } = mess;
+						return (
+							<li className="message-panel__message-item" key={id} data-pos={i}>
+								<div className="message-panel__message-user">
+									<div>
+										<input
+											className="message-panel__message-user-read"
+											type="radio"
+											checked={isRead}
+											readOnly
+										/>
+										<img
+											className="message-panel__message-user-img"
+											src={imgLink}
+											alt={name}
+										/>
+									</div>
+									<div>
+										{isImportant ? (
+											<BoldSVG className="message-panel__message-user-important" />
+										) : (
+											<EmptyStarSVG className="message-panel__message-user-important" />
+										)}
+									</div>
 								</div>
-								<div>
-									{isImportant ? (
-										<BoldSVG className="message-panel__message-user-important" />
-									) : (
-										<EmptyStarSVG className="message-panel__message-user-important" />
-									)}
+								<div className="message-panel__message-message">
+									<p className="message-panel__message-message-name">
+										<strong>{name}</strong>
+									</p>
+									<p className="message-panel__message-message-content">
+										{mess.messages.at(-1).content}
+									</p>
 								</div>
-							</div>
-							<div className="message-panel__message-message">
-								<p className="message-panel__message-message-name">
-									<strong>{name}</strong>
-								</p>
-								<p className="message-panel__message-message-content">
-									{mess.messages.at(-1).content}
-								</p>
-							</div>
-						</li>
-					);
-				})}
+							</li>
+						);
+					})}
 			</ul>
 		</div>
 	);

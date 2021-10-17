@@ -10,9 +10,11 @@ import "./MessageArea.scss";
 const MessageArea = ({ userId }) => {
 	const messageCtx = useContext(messageContext);
 	const { messages } = messageCtx;
-	const [userProfiles, setUserProfiles] = useState([]);
-	const [selectMessage, setSelectMessage] = useState();
+
 	const [messagers, setMessagers] = useState([]);
+	const [selectMessage, setSelectMessage] = useState();
+	const [userProfiles, setUserProfiles] = useState([]);
+	const [isLoadingMessage, setIsLoadingMessage] = useState(true);
 	const selectMessageHandler = (pos) => {
 		setSelectMessage(pos);
 	};
@@ -48,6 +50,7 @@ const MessageArea = ({ userId }) => {
 		});
 
 		setMessagers(messagers);
+		setIsLoadingMessage(false);
 	}, [messages, userProfiles]);
 
 	return (
@@ -56,6 +59,7 @@ const MessageArea = ({ userId }) => {
 				messages={messages}
 				messagers={messagers}
 				selectMessageFnc={selectMessageHandler}
+				isLoading={isLoadingMessage}
 			/>
 			<MessageContent
 				message={messagers[selectMessage]}
