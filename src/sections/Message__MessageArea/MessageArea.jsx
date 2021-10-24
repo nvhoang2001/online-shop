@@ -9,7 +9,7 @@ import "./MessageArea.scss";
 
 const MessageArea = ({ userId }) => {
 	const messageCtx = useContext(messageContext);
-	const { messages } = messageCtx;
+	const { messages, addMessage } = messageCtx;
 
 	const [messagers, setMessagers] = useState([]);
 	const [selectMessage, setSelectMessage] = useState();
@@ -53,13 +53,25 @@ const MessageArea = ({ userId }) => {
 		setIsLoadingMessage(false);
 	}, [messages, userProfiles]);
 
+	const addMessageHanler = (messagerID, successCallback, errorCallback) => {
+		addMessage(
+			messagerID,
+			() => {
+				successCallback();
+				setSelectMessage(messages.length);
+			},
+			errorCallback,
+		);
+	};
+
 	return (
 		<section className="message-area">
 			<MessagePanel
 				messages={messages}
 				messagers={messagers}
-				selectMessageFnc={selectMessageHandler}
+				onSelectMessage={selectMessageHandler}
 				isLoading={isLoadingMessage}
+				onComposeMessage={addMessageHanler}
 			/>
 			<MessageContent
 				message={messagers[selectMessage]}

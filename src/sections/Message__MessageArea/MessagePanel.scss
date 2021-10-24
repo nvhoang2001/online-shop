@@ -1,5 +1,16 @@
+%message-btn {
+	color: #fff;
+	background: #000;
+
+	&:hover {
+		border-color: #000;
+		color: #000;
+	}
+}
+
 .message-panel {
 	$search-width: 85%;
+	$select-width: 75%;
 	max-height: max(100vh, 40rem);
 	width: 35%;
 	border-right: 2px solid #ccc;
@@ -14,6 +25,7 @@
 
 	&__select-container {
 		position: relative;
+		display: flex;
 		&::after {
 			content: "\025BE";
 			color: #6a6f73;
@@ -29,9 +41,66 @@
 		}
 	}
 
+	&__compose {
+		$border-width: 3px;
+		$border-color: gray;
+		$background-color: #fff;
+		$tri-left: 10px;
+		position: absolute;
+		transform: translateY(1rem);
+		top: 100%;
+		left: 0;
+		background-color: $background-color;
+
+		border: $border-width solid $border-color;
+		border-radius: 0.5rem;
+		animation: show-compose 0.5s linear;
+
+		&-container {
+			padding: 1rem;
+			position: relative;
+
+			&:before {
+				content: " ";
+				position: absolute;
+				width: 0;
+				height: 0;
+				left: $tri-left;
+				top: 0;
+
+				transform: translateY(-100%);
+				border: $border-width * 4 solid;
+				border-color: transparent transparent $border-color transparent;
+			}
+
+			&:after {
+				content: " ";
+				position: absolute;
+				width: 0;
+				height: 0;
+				left: $tri-left + 2 * $border-width;
+				top: 0;
+
+				transform: translateY(-100%);
+				border: $border-width * 2 solid;
+				border-color: transparent transparent $background-color transparent;
+			}
+		}
+
+		&-label {
+			font-weight: 700;
+		}
+
+		&-input {
+			margin-top: 0.75rem;
+			margin-left: 0.75rem;
+			display: flex;
+		}
+	}
+
 	&__input {
 		&--select {
-			width: 100%;
+			width: $select-width;
 			background: #fff;
 			padding: 1.5rem;
 			font-size: 1.1rem;
@@ -46,6 +115,12 @@
 			border-top-left-radius: 0.25rem;
 			border-bottom-left-radius: 0.25rem;
 		}
+
+		&--compose {
+			border: 1px solid #1a73e8;
+			padding: 0.25rem 0.5rem;
+			width: 20rem;
+		}
 	}
 
 	&__search-field {
@@ -54,22 +129,34 @@
 	}
 
 	&__btn {
-		&--search {
+		&--clear {
+			@extend %message-btn;
 			width: 100% - $search-width;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
 			border-left: none;
-			color: #fff;
-			background: #000;
 
 			svg {
 				width: 1.2rem;
 				height: 1.2rem;
 			}
+		}
 
-			&:hover {
-				border-color: #000;
-				color: #000;
+		&--compose {
+			@extend %message-btn;
+			width: 100% - $select-width;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		&--add {
+			padding: 0.5rem;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+			border-left: none;
+			svg {
+				width: 1rem;
+				height: 1rem;
 			}
 		}
 	}
@@ -149,8 +236,25 @@
 			}
 		}
 	}
+
+	&__error-text {
+		margin-top: 0.5rem;
+		margin-left: 0.75rem;
+	}
 }
 
 input[type="radio"] {
 	appearance: radio;
+}
+
+@keyframes show-compose {
+	from {
+		transform: translateY(-1rem);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(1rem);
+		opacity: 1;
+	}
 }

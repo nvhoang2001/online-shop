@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
+import DotsLoader from "../../components/UI/Loader/DotsLoader";
 import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
 
 import { ReactComponent as BoldSVG } from "../../Assets/star.min.svg";
 import { ReactComponent as EmptyStarSVG } from "../../Assets/empty-star.svg";
+import { ReactComponent as PlusSVG } from "../../Assets/plus.min.svg";
 
 import "./MessagePanel.scss";
-import DotsLoader from "../../components/UI/Loader/DotsLoader";
 
 const AllMessages = "All Messages",
 	UnreadMessages = "Unread Messages",
 	ImportantMessages = "Important Messages";
 
-const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
-	const [selectOption, setSelectOption] = useState(AllMessages);
+const MessagePanel = ({ onSelectMessage, messagers, isLoading, onComposeMessage }) => {
+	const panelRef = useRef();
+	const topPanelRef = useRef();
+
 	const [searchUser, setSearchUser] = useState("");
+	const [listHeight, setListHeight] = useState(null);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [showCompose, setShowCompose] = useState(false);
+	const [selectOption, setSelectOption] = useState(AllMessages);
 	let messagesItems = messagers;
 
 	switch (selectOption) {
@@ -40,7 +47,39 @@ const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 	const searchUserHandler = (e) => {
 		setSearchUser(e.target.value);
 	};
-	const formSubmitHandler = (e) => e.preventDefault();
+
+	const toggleShowComposeHanlder = () => {
+		setShowCompose((show) => !show);
+	};
+
+	const successComposeHandler = () => {
+		hideComposeFormHandler();
+		setErrorMessage("");
+	};
+
+	const errorComposeHandler = (errorText) => {
+		setErrorMessage(errorText);
+	};
+
+	const formSubmitHandler = (e) => {
+		e.preventDefault();
+		const formEl = e.target;
+		const { "user-id": messageUserInpEl } = formEl;
+		const { value: userId } = messageUserInpEl;
+		if (!userId.trim()) {
+			return;
+		}
+		onComposeMessage(userId, successComposeHandler, errorComposeHandler);
+	};
+
+	const hideComposeFormHandler = (e) => {
+		if (e?.target?.tagName === "INPUT") {
+			return;
+		}
+		setShowCompose(false);
+		setErrorMessage("");
+	};
+
 	const resetSearchHandler = () => {
 		setSearchUser("");
 	};
@@ -52,14 +91,34 @@ const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 		}
 
 		const messagePos = clickedMessage.dataset.pos;
-		selectMessageFnc(messagePos);
+		onSelectMessage(messagePos);
 	};
 
+	useEffect(() => {
+		setListHeight(
+			`${
+				parseFloat(getComputedStyle(panelRef.current).height) -
+				parseFloat(getComputedStyle(topPanelRef.current).height)
+			}px`,
+		);
+	}, []);
+	console.log(listHeight);
 	return (
-		<div className="message-panel">
-			<div className="message-panel__top-panel">
+		<div className="message-panel" ref={panelRef}>
+			<div
+				className="message-panel__top-panel"
+				onMouseLeave={hideComposeFormHandler}
+				ref={topPanelRef}
+			>
 				<form onSubmit={formSubmitHandler}>
 					<div className="message-panel__select-container">
+						<CustomButton
+							className="message-panel__btn--compose"
+							onClick={toggleShowComposeHanlder}
+						>
+							Compose
+						</CustomButton>
+
 						<select
 							name="message-type"
 							id="message-type"
@@ -71,6 +130,40 @@ const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 							<option value={UnreadMessages}>Unread Messages</option>
 							<option value={ImportantMessages}>Important Messages</option>
 						</select>
+						{showCompose && (
+							<div className="message-panel__compose">
+								<div className="message-panel__compose-container">
+									<p>
+										<label
+											htmlFor="message-compose"
+											className="message-panel__compose-label"
+										>
+											User's ID:
+										</label>
+									</p>
+									<div className="message-panel__compose-input">
+										<input
+											type="text"
+											name="user-id"
+											id="message-compose"
+											className="message-panel__input--compose"
+											placeholder="Type user's id you want to contact"
+										/>
+										<CustomButton
+											className="message-panel__btn--add"
+											type="submit"
+										>
+											<PlusSVG />
+										</CustomButton>
+									</div>
+									{errorMessage && (
+										<p className="error-text message-panel__error-text">
+											Error: {errorMessage}
+										</p>
+									)}
+								</div>
+							</div>
+						)}
 					</div>
 					<div className="message-panel__search-field">
 						<input
@@ -81,7 +174,7 @@ const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 							value={searchUser}
 						/>
 						<CustomButton
-							className="message-panel__btn--search"
+							className="message-panel__btn--clear"
 							onClick={resetSearchHandler}
 						>
 							X
@@ -89,7 +182,13 @@ const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 					</div>
 				</form>
 			</div>
-			<ul className="message-panel__message-list" onClick={selectMessageHandler}>
+			<ul
+				className="message-panel__message-list"
+				onClick={selectMessageHandler}
+				style={{
+					height: listHeight,
+				}}
+			>
 				{isLoading && (
 					<div className="message-panel__loader">
 						<DotsLoader />
@@ -130,9 +229,14 @@ const MessagePanel = ({ selectMessageFnc, messagers, isLoading }) => {
 									<p className="message-panel__message-message-name">
 										<strong>{name}</strong>
 									</p>
-									<p className="message-panel__message-message-content">
-										{mess.messages.at(-1).content}
-									</p>
+
+									{mess?.messages?.length > 0 ? (
+										<p className="message-panel__message-message-content">
+											{mess.messages.at(-1).content}
+										</p>
+									) : (
+										<p className="message-panel__message-message-content"></p>
+									)}
 								</div>
 							</li>
 						);
