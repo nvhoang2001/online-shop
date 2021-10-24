@@ -79,7 +79,7 @@ const CustomerProfile = ({ uid, coverImgs, profileImgs, username }) => {
 					style={{ backgroundImage: `url(${coverImgs})` }}
 				></div>
 				<img
-					src={`${profileImgs}&size=130x130`}
+					src={`${profileImgs}`}
 					alt="profile image"
 					className="customer-profile__profile-img"
 					ref={imgRef}

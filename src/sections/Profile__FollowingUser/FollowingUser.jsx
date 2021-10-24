@@ -29,6 +29,10 @@ const FollowingUser = ({ followingUserIds }) => {
 			<ul className="follow-users__follow-list">
 				{followedUsers.length > 0 &&
 					followedUsers.map(({ profileImgs, username, id }) => {
+						if (!profileImgs) {
+							profileImgs = `https://robohash.org/${id}?set=set4`;
+						}
+
 						return (
 							<li className="follow-users__user" key={id}>
 								<Link to={`${PUBLIC_USR}/${id}`}>
