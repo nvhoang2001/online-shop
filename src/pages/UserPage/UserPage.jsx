@@ -31,7 +31,7 @@ const UserPage = () => {
 
 	useEffect(() => {
 		getUserProfileInfo(userId, setUserData, setUserData.bind(null, USER_NOT_EXIST));
-	}, [setUserData]);
+	}, [setUserData, userId]);
 
 	if (!userId || userData === USER_NOT_EXIST) {
 		return <NotFound />;
@@ -47,7 +47,6 @@ const UserPage = () => {
 		coverImgs = userData.coverImgs || DEFAULT_COVER_IMG;
 		profileImgs = userData.profileImgs || `https://robohash.org/${userId}?set=set4&bgset=bg1`;
 	}
-
 
 	return (
 		<>

@@ -20,7 +20,7 @@ const FollowingUser = ({ followingUserIds }) => {
 
 	useEffect(() => {
 		getFollowedUserInfo();
-	}, [followingUserIds.length]);
+	}, [followingUserIds]);
 
 	return (
 		<section
