@@ -5,7 +5,7 @@ import SideProduct from "../../components/SideProduct/SideProduct";
 
 import "./TwoSideProduct.scss";
 
-const PRODUCT_MAX = 3;
+const PRODUCT_MAX = 9;
 
 const TwoSideProduct = () => {
 	const productItems = useSelector((store) => store.products.items);
@@ -26,8 +26,8 @@ const TwoSideProduct = () => {
 
 	return (
 		<section className="two-side-product">
-			<SideProduct products={getTopRatingItems()} title="Top rating items" />
-			<SideProduct products={getTopWeekViewItems()} title="Top view items" />
+			<SideProduct products={getTopRatingItems()} title="Top rating items" side="left" />
+			<SideProduct products={getTopWeekViewItems()} title="Top view items" side="right" />
 		</section>
 	);
 };
