@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import ProductList from "../../components/Product/ProductList";
 import { driveViewLink } from "../../config";
@@ -41,7 +41,7 @@ const ProductByCategory = (props) => {
 		return prodItems;
 	};
 
-	const fileredItems = filterItemBy(sortType).slice(
+	const fileredItems = useMemo(() => filterItemBy(sortType), [sortType]).slice(
 		activePosition * ITEM_LIMIT,
 		(activePosition + 1) * ITEM_LIMIT,
 	);
@@ -66,6 +66,7 @@ const ProductByCategory = (props) => {
 				setSortType(NONE);
 				break;
 		}
+		setActivePosition(0);
 		setActiveList((ac) => !ac);
 	};
 
@@ -78,7 +79,7 @@ const ProductByCategory = (props) => {
 		setActiveList((ac) => !ac);
 	};
 	const slideProductRightHandler = () => {
-		if (activePosition === 5) {
+		if (activePosition === 4) {
 			return;
 		}
 
