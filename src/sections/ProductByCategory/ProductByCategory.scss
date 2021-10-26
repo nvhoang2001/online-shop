@@ -3,6 +3,7 @@
 $background: rgb(0, 47, 255);
 $img-size: 20%;
 $list-pad: 1em;
+$btn-size: 2rem;
 
 .product-by-category {
 	padding: 0 $page-padding;
@@ -44,23 +45,77 @@ $list-pad: 1em;
 
 		border-top-right-radius: 1em;
 		border-top-left-radius: 1em;
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__control-btns {
+	}
+
+	&__navigate-btns {
+		height: $btn-size;
+		width: 2 * $btn-size + 1.5rem;
 	}
 
 	&__btn {
 		border-top: 0.1em solid black;
 		border-bottom: 0.1em solid transparent;
-		padding: 1% 2%;
-		margin: 0 1%;
+		padding: 0.5rem 1.25rem;
+		margin: 0 0.75rem;
 		transition: all 0.25s;
 
-		&:hover {
-			border-bottom-color: black;
-			color: hsl(145, 87%, 20%);
+		&--slide {
+			height: $btn-size;
+			width: $btn-size;
+			display: inline-block;
+			position: relative;
+
+			// Button effect author: Temani Afif
+			// https://dev.to/afif
+
+			box-shadow: 0 0 0px #0004;
+			transition: 0.4s linear, background 0.3s 0.4s linear, color 0.3s 0.4s linear;
+
+			&:hover {
+				background-color: #000;
+				color: #fff;
+				transform: perspective(100px) translateZ(5px);
+				box-shadow: 0 10px 20px #000a;
+				transition: 0.4s linear, transform 0.3s 0.4s linear, box-shadow 0.3s 0.4s linear;
+			}
+			#shape {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 0;
+				width: 0;
+				border: $btn-size/2 solid;
+				pointer-events: none;
+			}
+
+			&-left {
+				margin-right: 1.5rem;
+				#shape {
+					border-color: transparent currentColor transparent transparent;
+				}
+			}
+			&-right {
+				#shape {
+					border-color: transparent transparent transparent currentColor;
+				}
+			}
 		}
 
 		&--active {
 			border-color: rgb(0, 163, 0);
 			color: slateblue;
+		}
+
+		&:hover {
+			border-bottom-color: black;
+			color: #075f2c;
 		}
 	}
 
@@ -71,6 +126,15 @@ $list-pad: 1em;
 		background-color: white;
 		border-bottom-right-radius: 1em;
 		border-bottom-left-radius: 1em;
+		overflow: hidden;
+
+		&--active {
+			li {
+				transform: translateY(8rem);
+				opacity: 0;
+				transition: none !important;
+			}
+		}
 
 		ul {
 			height: 100%;
@@ -80,6 +144,7 @@ $list-pad: 1em;
 				height: 100%;
 
 				width: 19%;
+				transition: 0.5s ease-in-out;
 			}
 		}
 	}
