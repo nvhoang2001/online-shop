@@ -39,6 +39,7 @@ import {
 
 import "./reset-css.scss";
 import "./App.css";
+import GoToTop from "./components/UI/GoToTop/GoToTop";
 
 function App() {
 	const dispatch = useDispatch();
@@ -147,6 +148,7 @@ function App() {
 					<NotFoundPage />
 				</Route>
 			</Switch>
+			<GoToTop />
 			<Footer />
 		</Fragment>
 	);

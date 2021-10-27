@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import Banner from "../../sections/Banner/Banner";
 import TopBar from "../../sections/TopBar/TopBar";
 import BrandCarosel from "../../sections/BrandCarosel/BrandCarosel";
@@ -7,6 +9,13 @@ import FeatureProduct from "../../sections/FeatureProduct/FeatureProduct";
 import ProductByCategory from "../../sections/ProductByCategory/ProductByCategory";
 
 const Homepage = () => {
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	}, []);
+
 	return (
 		<>
 			<TopBar />

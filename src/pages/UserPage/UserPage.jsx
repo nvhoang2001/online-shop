@@ -33,6 +33,13 @@ const UserPage = () => {
 		getUserProfileInfo(userId, setUserData, setUserData.bind(null, USER_NOT_EXIST));
 	}, [setUserData, userId]);
 
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	}, []);
+
 	if (!userId || userData === USER_NOT_EXIST) {
 		return <NotFound />;
 	}

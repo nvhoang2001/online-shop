@@ -1,0 +1,42 @@
+.go-top {
+	$background: #00c6ee;
+	position: fixed;
+	bottom: 5%;
+	right: 2.5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	background-color: $background;
+	color: #fff;
+	border-radius: 50%;
+
+	outline: 3px solid $background;
+	outline-offset: -3px;
+	transition: 0s;
+	&:hover {
+		outline-offset: 1rem;
+		outline-color: transparent;
+		transition: 0.5s;
+	}
+
+	svg {
+		stroke: #fff;
+	}
+
+	#cross {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translate(50%, -50%);
+		color: #000;
+		width: 1rem;
+		height: 1rem;
+		&:hover {
+			border-radius: 50%;
+			background-color: $background;
+			color: #fff;
+		}
+	}
+}

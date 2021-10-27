@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -12,6 +13,12 @@ const ProductDetailPage = () => {
 	const products = useSelector((store) => store.products.items);
 	const { productId } = params;
 	const product = products.find((prod) => prod.id === productId);
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	}, []);
 	return (
 		<div className="product-page-wrapper" style={{ backgroundColor: "#f9fbfd" }}>
 			<ProductBrieffing product={product} />
