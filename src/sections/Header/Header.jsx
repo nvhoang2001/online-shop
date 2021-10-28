@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import TopHeader from "./TopHeader";
@@ -113,11 +114,44 @@ const navInfor = [
 
 const Header = () => {
 	const categoriedProducts = useSelector((store) => store.products.catedItems);
+	const [activeStickyHeader, setActiveStickyHeader] = useState(false);
+	const stickySectionRef = useRef();
+	const topHeaderRef = useRef();
+
+	useEffect(() => {
+		const headerHeight = stickySectionRef.current.getBoundingClientRect().height;
+
+		const stickySectionObserve = (entries) => {
+			const [entry] = entries;
+			if (entry.isIntersecting) {
+				setActiveStickyHeader(false);
+			} else {
+				setActiveStickyHeader(true);
+			}
+		};
+		const observerOptions = {
+			root: null,
+			threshold: 0,
+			rootMargin: `${headerHeight - headerHeight * 0.1}px 0px 0px 0px`,
+		};
+		const observer = new IntersectionObserver(stickySectionObserve, observerOptions);
+		observer.observe(topHeaderRef.current);
+	}, []);
 
 	return (
-		<header className="header">
-			<TopHeader />
-			<UserHeader />
+		<header
+			className="header"
+			style={{
+				paddingBottom: !activeStickyHeader
+					? ""
+					: `calc(${stickySectionRef.current.getBoundingClientRect().height}px + 1rem)`,
+			}}
+		>
+			<TopHeader ref={topHeaderRef} />
+			<UserHeader
+				className={`header__sticky-section ${activeStickyHeader ? "" : "inactive"}`}
+				ref={stickySectionRef}
+			/>
 			<Navigator nav={navInfor} category={categoriedProducts} />
 		</header>
 	);

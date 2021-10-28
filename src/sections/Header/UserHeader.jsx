@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
@@ -11,9 +11,9 @@ import { ReactComponent as SearchSVG } from "../../Assets/search.svg";
 import { ReactComponent as CartSVG } from "../../Assets/shopping-cart.svg";
 import "./UserHeader.scss";
 
-const UserHeader = () => {
+const UserHeader = React.forwardRef(({ className }, ref) => {
 	const totalAmount = useSelector((store) => store.checkout.totalAmount);
-	const [showError, setShowError] = useState(false)
+	const [showError, setShowError] = useState(false);
 	const [showShoppingCart, setShowShoppingCart] = useState(false);
 	const history = useHistory();
 	const searchBtnRef = useRef();
@@ -33,15 +33,15 @@ const UserHeader = () => {
 	};
 
 	const showGiftHandler = () => {
-		setShowError(true)
-	}
+		setShowError(true);
+	};
 
 	const hideErrorHandler = () => {
-		setShowError(false)
-	}
+		setShowError(false);
+	};
 
 	return (
-		<div className="user-header">
+		<div className={`user-header ${className}`} ref={ref}>
 			{showError && <ErrorNotification2 onHide={hideErrorHandler} />}
 			<div className="logo">
 				<Link to={baseURL} className="user-header__logo">
@@ -63,7 +63,7 @@ const UserHeader = () => {
 				</form>
 			</div>
 			<div className="user-header__shopping-info">
-				<div >
+				<div>
 					<GiftSVG title="Gift" onClick={showGiftHandler} />
 				</div>
 				<div className="user-header__cart">
@@ -74,6 +74,6 @@ const UserHeader = () => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default UserHeader;

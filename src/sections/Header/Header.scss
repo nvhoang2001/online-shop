@@ -1,4 +1,18 @@
 .header {
 	padding: 0 0 1rem 0;
 	background: white;
+	&__sticky-section {
+		position: fixed;
+		background: white;
+		width: 100%;
+		top: 0;
+		z-index: 7;
+		padding-top: 1.5%;
+		border-bottom: 0.2rem solid #ccc;
+		&.inactive {
+			border-bottom: none;
+			padding-top: 0;
+			position: static;
+		}
+	}
 }

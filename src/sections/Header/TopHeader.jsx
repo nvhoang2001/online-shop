@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -13,7 +13,7 @@ import { ReactComponent as UserSVG } from "../../Assets/user.svg";
 import { signUpURL } from "../../config";
 import "./TopHeader.scss";
 
-const TopHeader = () => {
+const TopHeader = React.forwardRef((_, ref) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showSignIn, setShowSignIn] = useState(false);
 	const userInfor = useSelector((store) => store.user);
@@ -73,7 +73,7 @@ const TopHeader = () => {
 					<SignIn onHide={hideSignInPanel} />
 				</Modal>
 			)}
-			<div className="top-header">
+			<div className="top-header" ref={ref}>
 				<div className="top-header__info">
 					<ContactSVG />
 					<p>Contact me via: 012-465-7899</p>
@@ -89,6 +89,6 @@ const TopHeader = () => {
 			</div>
 		</>
 	);
-};
+});
 
 export default TopHeader;
