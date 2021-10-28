@@ -45,7 +45,6 @@ function App() {
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
 	const userInfo = useSelector((store) => store.user);
-	const items = useSelector((store) => store.checkout.cartItems);
 	const hasInitedProducts = useSelector((store) => store.products.inited);
 	const failRefreshToken = useSelector((store) => store.user.failRefreshToken);
 	const isSignIn = !!userInfo.auth;
@@ -110,11 +109,9 @@ function App() {
 					<ProductDetailPage />
 				</Route>
 
-				{items.length !== 0 && (
-					<Route path={checkoutPage}>
-						<CheckoutPage />
-					</Route>
-				)}
+				<Route path={checkoutPage}>
+					<CheckoutPage />
+				</Route>
 
 				<Route path={`${PUBLIC_USR}/:userId`}>
 					<UserPage />

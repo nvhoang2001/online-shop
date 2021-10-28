@@ -42,7 +42,7 @@ const OrderInfo = () => {
 			<div className="order-info__delivery">
 				<p>
 					<span>Delivery</span>
-					<span>${shipFee} Express</span>
+					<span>${items.length !== 0 ? shipFee : 0} Express</span>
 				</p>
 				<p>
 					<span>Discount</span>
@@ -51,7 +51,7 @@ const OrderInfo = () => {
 			</div>
 			<div className="order-info__total">
 				<p>Total:</p>
-				<p>${(totalPrice + shipFee - discount).toFixed(2)}</p>
+				<p>${(items.length !== 0 ? totalPrice + shipFee - discount : 0).toFixed(2)}</p>
 			</div>
 		</section>
 	);

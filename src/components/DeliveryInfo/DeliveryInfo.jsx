@@ -149,9 +149,15 @@ const DeliveryInfo = () => {
 	};
 
 	const submitHandler = (errorMessage) => {
+		const { cartItems: items, totalAmount, note } = checkout;
+
+		if (items.length === 0) {
+			setErrorMgs("Your cart is empty. Please add some items to buy them.");
+
+			return;
+		}
 		setIsSendingRequest(true);
 
-		const { cartItems: items, totalAmount, note } = checkout;
 		const sendItems = items.map((item) => {
 			const { id, name, amount, price } = item;
 			return { id, name, price, amount };
