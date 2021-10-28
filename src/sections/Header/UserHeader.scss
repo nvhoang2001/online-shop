@@ -83,21 +83,24 @@ $search-size: 5%;
 			}
 		}
 
-		@at-root .cart-numbers {
+		.cart-numbers {
 			$color: #f36e36;
 			border-radius: 50%;
-			box-sizing: border-box;
-			text-align: center;
 			width: 1.25rem;
 			height: 1.25rem;
 			padding: 0.2rem;
 			position: absolute;
-			top: -10%;
-			left: 70%;
+			top: 0;
+			right: 0;
+			transform: translate(50%, -20%);
 			background-color: $color;
 			cursor: pointer;
 			font-size: 0.75rem;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
 			color: white;
+			user-select: none;
 		}
 	}
 }
