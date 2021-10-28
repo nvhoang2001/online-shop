@@ -15,7 +15,7 @@ const Product = (props) => {
 	const { name, summaryName, sold, rating, price, imgLink, id } = product;
 
 	const addItemToCart = () => {
-		dispatch(checkoutActions.addItemToCart(product));
+		dispatch(checkoutActions.addItemToCart({ product, quantity: 1 }));
 	};
 
 	return (
