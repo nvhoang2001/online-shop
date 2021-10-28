@@ -33,20 +33,44 @@ const checkoutSlice = createSlice({
 		},
 
 		addItemToCart(state, action) {
-			const existingItem = state.cartItems.find((item) => item.id === action.payload.id);
+			const { product, quantity } = action.payload;
+			const existingItem = state.cartItems.find((item) => item.id === product.id);
 			if (existingItem) {
-				existingItem.amount++;
+				existingItem.amount += quantity;
+				existingItem.totalPrice = +(
+					existingItem.totalPrice +
+					quantity * product.price
+				).toFixed(2);
 			} else {
-				state.cartItems.push({ ...action.payload, amount: 1 });
+				state.cartItems.push({
+					...product,
+					amount: quantity,
+					totalPrice: +(product.price * quantity).toFixed(2),
+				});
 			}
 
-			state.totalAmount++;
-			state.totalPrice += action.payload.price;
+			state.totalAmount += quantity;
+			state.totalPrice = Number((state.totalPrice + product.price * quantity).toFixed(2));
 		},
 
 		updateUserInfo(state, action) {
 			const { name, value } = action.payload;
 			state[name] = value;
+		},
+
+		updateItem(state, action) {
+			const { itemID, amount } = action.payload;
+			const itemIndex = state.cartItems.findIndex((item) => item.id === itemID);
+			state.cartItems[itemIndex].amount = amount;
+			state.totalAmount = state.cartItems.reduce(
+				(totalAmount, item) => totalAmount + item.amount,
+				0,
+			);
+			state.totalPrice = Number(
+				state.cartItems
+					.reduce((totalPrice, item) => totalPrice + item.amount * item.price, 0)
+					.toFixed(2),
+			);
 		},
 	},
 });

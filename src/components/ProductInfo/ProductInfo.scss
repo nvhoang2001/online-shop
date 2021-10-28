@@ -33,6 +33,7 @@
 		color: #ff3714;
 		margin: 0.5rem 0;
 	}
+
 	&__brief {
 		strong {
 			font-weight: 700;
@@ -59,6 +60,68 @@
 				background-color: blue;
 				border-radius: 50%;
 				border: 1px solid #000;
+			}
+		}
+	}
+
+	&__quantity {
+		margin: 1rem 0;
+		display: flex;
+		align-items: center;
+		> p {
+			width: 7rem;
+			font-weight: 700;
+		}
+
+		> div {
+			background-color: #fff;
+			display: flex;
+			align-items: center;
+		}
+
+		&-input {
+			width: 4rem;
+			height: 2rem;
+			border: 1px solid #000;
+			border-left: 0;
+			border-right: 0;
+			font-weight: 400;
+			display: flex;
+			align-items: center;
+			text-align: center;
+			/* For Chrome, Safari, Edge, Opera */
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+			/* For Firefox */
+			-moz-appearance: textfield;
+		}
+
+		&-btn {
+			font-size: 1rem;
+			font-weight: 300;
+			line-height: 1;
+			letter-spacing: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid #000;
+			border-radius: 2px;
+			background: transparent;
+			color: rgba(0, 0, 0, 0.8);
+			width: 2rem;
+			height: 2rem;
+
+			&:first-child {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+			&:last-child {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
 			}
 		}
 	}

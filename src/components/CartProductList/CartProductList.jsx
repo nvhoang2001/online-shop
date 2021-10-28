@@ -1,9 +1,8 @@
-const CartProductList = (props) => {
-	const { items, baseClass } = props;
+const CartProductList = ({ items, baseClass, readOnly = true }) => {
 	return (
 		<ul className={`${baseClass}__list`}>
 			{items.map((item) => {
-				const { imgLink, name, amount, price } = item;
+				const { imgLink, name, amount, price, totalPrice } = item;
 				let sumName = name.split(" ");
 				sumName.length = 5;
 				sumName = sumName.join(" ");
@@ -16,7 +15,7 @@ const CartProductList = (props) => {
 								${price} x {amount}
 							</p>
 						</div>
-						<p className={`${baseClass}__price`}>${amount * price}</p>
+						<p className={`${baseClass}__price`}>${totalPrice}</p>
 					</li>
 				);
 			})}
