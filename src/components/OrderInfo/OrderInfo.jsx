@@ -11,6 +11,18 @@ const OrderInfo = () => {
 	const isSignedIn = !!useSelector((store) => store.user.auth);
 	const dispatch = useDispatch();
 	const { cartItems: items, totalPrice, shipFee, discount } = checkout;
+
+	const increaseProductHandler = (product) => {
+		dispatch(checkoutActions.updateItem({ itemID: product.id, amount: product.amount + 1 }));
+	};
+	const decreaseProductHandler = (product) => {
+		if (product.amount === 1) {
+			dispatch(checkoutActions.removeItem({ itemID: product.id }));
+			return;
+		}
+		dispatch(checkoutActions.updateItem({ itemID: product.id, amount: product.amount - 1 }));
+	};
+
 	useEffect(() => {
 		if (isSignedIn) {
 			dispatch(checkoutActions.updateUserInfo({ name: "discount", value: 10 }));
@@ -20,7 +32,13 @@ const OrderInfo = () => {
 	return (
 		<section className="order-info" style={{ height: items.length >= 3 ? "" : "fit-content" }}>
 			<h3 className="order-info__title">Your Order</h3>
-			<CartProductList items={items} baseClass="order-info" />
+			<CartProductList
+				items={items}
+				baseClass="order-info"
+				readOnly={false}
+				increaseProductHandler={increaseProductHandler}
+				decreaseProductHandler={decreaseProductHandler}
+			/>
 			<div className="order-info__delivery">
 				<p>
 					<span>Delivery</span>

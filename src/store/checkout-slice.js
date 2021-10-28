@@ -62,6 +62,23 @@ const checkoutSlice = createSlice({
 			const { itemID, amount } = action.payload;
 			const itemIndex = state.cartItems.findIndex((item) => item.id === itemID);
 			state.cartItems[itemIndex].amount = amount;
+			state.cartItems[itemIndex].totalPrice = +(
+				state.cartItems[itemIndex].price * amount
+			).toFixed(2);
+			state.totalAmount = state.cartItems.reduce(
+				(totalAmount, item) => totalAmount + item.amount,
+				0,
+			);
+			state.totalPrice = Number(
+				state.cartItems
+					.reduce((totalPrice, item) => totalPrice + item.amount * item.price, 0)
+					.toFixed(2),
+			);
+		},
+
+		removeItem(state, action) {
+			const { itemID } = action.payload;
+			state.cartItems = state.cartItems.filter((item) => item.id !== itemID);
 			state.totalAmount = state.cartItems.reduce(
 				(totalAmount, item) => totalAmount + item.amount,
 				0,
