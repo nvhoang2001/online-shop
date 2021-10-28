@@ -1,10 +1,25 @@
+import { useState } from "react";
+
 import AddToCartBtn from "../ColumnProduct/AddToCartBtn";
+import ErrorNotification2 from "../Layout/NonModalErrorNotification";
+
 import "./ProductInfo.scss";
 
 const ProductInfo = ({ product }) => {
 	const { name, ratingNum, rating, sold, preview, price } = product;
+
+	const [showError, setShowError] = useState(false);
+
+	const buyNowBtnClickHandler = () => {
+		setShowError(true);
+	};
+	const hideErrorHandler = () => {
+		setShowError(false);
+	};
+
 	return (
 		<div className="product-info">
+			{showError && <ErrorNotification2 onHide={hideErrorHandler} />}
 			<h1 className="product-info__title">{name}</h1>
 			<div className="product-info__rating">
 				<p>
@@ -32,7 +47,9 @@ const ProductInfo = ({ product }) => {
 			</div>
 			<div className="product-info__btns">
 				<AddToCartBtn className="product-info__btn" product={product} />
-				<button className="product-info__btn">Buy Now</button>
+				<button className="product-info__btn" onClick={buyNowBtnClickHandler}>
+					Buy Now
+				</button>
 			</div>
 		</div>
 	);
