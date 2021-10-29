@@ -1,7 +1,15 @@
+import { useState } from "react";
+
 import { ReactComponent as UpArrowSVG } from "../../../Assets/up-arrow.min.svg";
 import "./GoToTop.scss";
 
 const GoToTop = () => {
+	const [isMinimize, setIsMinimize] = useState(false);
+
+	const toggleMinimizeHandler = () => {
+		setIsMinimize((mini) => !mini);
+	};
+
 	const goToTopHandler = () => {
 		window.scrollTo({
 			top: 0,
@@ -10,11 +18,14 @@ const GoToTop = () => {
 	};
 
 	return (
-		<button className="go-top" onClick={goToTopHandler}>
-			<span>
-				<UpArrowSVG />
-			</span>
-			<span>Go Top</span>
+		<button
+			className={`go-top ${isMinimize ? "go-top--minimize" : ""}`}
+			onClick={goToTopHandler}
+		>
+			<span>{isMinimize ? "\u21D1" : <UpArrowSVG />}</span>
+			<div id="cross" onClick={toggleMinimizeHandler}>
+				{isMinimize ? "+" : "x"}{" "}
+			</div>
 		</button>
 	);
 };

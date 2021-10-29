@@ -1,9 +1,15 @@
+@use "sass:math";
+
 .go-top {
+	$btn-size: 3.5rem;
 	$background: #00c6ee;
 	position: fixed;
 	bottom: 5%;
 	right: 2.5%;
 	z-index: 20;
+	width: $btn-size;
+	height: $btn-size;
+
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -12,6 +18,7 @@
 	background-color: $background;
 	color: #fff;
 	border-radius: 50%;
+	font-size: 0.9rem;
 
 	outline: 3px solid $background;
 	outline-offset: -3px;
@@ -24,5 +31,42 @@
 
 	svg {
 		stroke: #fff;
+		width: 1.7em;
+		height: 1.7em;
+	}
+
+	#cross {
+		width: 1rem;
+		height: 1rem;
+		border-radius: 50%;
+		position: absolute;
+		color: #000;
+		top: (math.cos(45) * (math.sqrt(2) - 1) / 2) * $btn-size;
+		right: (math.cos(45) * (math.sqrt(2) - 1) / 2) * $btn-size;
+		transform: translate(50%, -50%);
+		background-color: #fff;
+		opacity: 0;
+		&:hover {
+			color: $background;
+		}
+	}
+
+	&--minimize {
+		bottom: 0;
+		right: 0;
+		border-radius: 0;
+		font-size: 1rem;
+		width: 1.5rem;
+		height: 1.5rem;
+		outline: none;
+
+		#cross {
+			top: 0;
+			right: 100%;
+		}
+	}
+
+	&:hover #cross {
+		opacity: 1;
 	}
 }
