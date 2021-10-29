@@ -177,7 +177,10 @@ const DeliveryInfo = () => {
 			note,
 		};
 
-		fetch(FORM_RECEIVE_ADDRESS, {
+		const checkoutURL = `${FORM_RECEIVE_ADDRESS}/${
+			isLoggedIn ? userInfo.auth.localId : "anonymous"
+		}.json`;
+		fetch(checkoutURL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -230,7 +233,7 @@ const DeliveryInfo = () => {
 					<SuccessNotification className="delivery__notify--success">
 						<p>THANK YOU FOR YOUR ORDER</p>
 						<p>You'll be redirect to homepage in {countdownTime}s</p>
-						<button onClick={redirectHandler}>Redirect me now</button>
+						<button onClick={redirectHandler}>Continue shopping</button>
 					</SuccessNotification>
 				</Modal>
 			)}
