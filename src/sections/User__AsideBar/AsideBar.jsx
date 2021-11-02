@@ -5,6 +5,7 @@ import { ReactComponent as PenSVG } from "../../Assets/pen.svg";
 import { ReactComponent as UserSVG } from "../../Assets/user.svg";
 import { ReactComponent as FollowSVG } from "../../Assets/user-plus.svg";
 import { ReactComponent as PenSquareSVG } from "../../Assets/pen-square.svg";
+import { ReactComponent as ClipboardList } from "../../Assets/clipboard-list.min.svg";
 import { PRIVATE_PROFILE_DIR } from "../../config";
 import "./AsideBar.scss";
 
@@ -48,6 +49,15 @@ const AsideBar = () => {
 						to={`${PRIVATE_PROFILE_DIR}/change-password`}
 					>
 						<PenSquareSVG className="aside-bar__link-logo" /> Change password
+					</NavLink>
+				</li>
+				<li className="aside-bar__link-item">
+					<NavLink
+						activeClassName="aside-bar__link-link--active"
+						className="aside-bar__link-link"
+						to={`${PRIVATE_PROFILE_DIR}/purchase`}
+					>
+						<ClipboardList className="aside-bar__link-logo" /> Purchased
 					</NavLink>
 				</li>
 			</ul>

@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import NotFound from "../../sections/NotFound/NotFound";
 import AsideBar from "../../sections/User__AsideBar/AsideBar";
 import Following from "../../sections/User__Following/Following";
+import PurchasedProducts from "../../sections/User__Purchase/PurchasedProducts";
 import ChangePassword from "../../sections/User__ChangePassword/ChangePassword";
 import PrivateDashboard from "../../sections/User__PrivateDashboard/PrivateDashboard";
 
@@ -27,6 +28,9 @@ const PrivateUserPage = () => {
 				</Route>
 				<Route path={`${PRIVATE_PROFILE_DIR}/follow`} exact>
 					<Following />
+				</Route>
+				<Route path={`${PRIVATE_PROFILE_DIR}/purchase`} exact>
+					<PurchasedProducts />
 				</Route>
 				<Route path="*">
 					<NotFound />

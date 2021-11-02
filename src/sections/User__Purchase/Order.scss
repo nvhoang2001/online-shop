@@ -1,0 +1,98 @@
+.ordered {
+	margin: 1rem 0;
+	padding: 1.5rem;
+	background-color: #fff;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+
+		> div {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	&__id {
+		justify-self: self-start;
+	}
+
+	&__title {
+		text-transform: uppercase;
+		color: orangered;
+		margin-right: 1rem;
+	}
+
+	&__additional {
+		position: relative;
+		svg {
+			height: 1rem;
+			width: 1rem;
+		}
+
+		&-content {
+			display: none;
+			position: absolute;
+			top: 150%;
+			right: 0;
+			background-color: #fff;
+			width: max-content;
+			padding: 1.5rem;
+			box-shadow: 0 0 1px;
+			> p {
+				line-height: 1.2;
+			}
+		}
+
+		&:hover &-content {
+			display: block;
+		}
+	}
+
+	&__list {
+		padding: 1.5rem 0;
+		border-top: 2px solid #ccc;
+		border-bottom: 2px solid #ccc;
+	}
+
+	&__item {
+		padding: 1rem 0;
+	}
+
+	&__order {
+		&-info {
+			display: flex;
+			justify-content: space-between;
+			figure {
+				width: 85%;
+				display: flex;
+				justify-content: space-between;
+				figcaption {
+					width: 80%;
+					> h4,
+					> p {
+						line-height: 1.5;
+					}
+				}
+			}
+		}
+
+		&-img {
+			max-height: 150px;
+			width: 15%;
+			object-fit: cover;
+		}
+
+		&-price {
+			width: 10%;
+			text-align: right;
+		}
+	}
+
+	&__total {
+		margin-top: 1.5rem;
+		text-align: right;
+	}
+}
