@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -7,10 +7,13 @@ import ProductBrieffing from "../../sections/ProductBrieffing/ProductBrieffing";
 import ProductDetail from "../../sections/Product__ProductDetail/ProductDetail";
 import RecommendationProducts from "../../sections/Product__RecommendationProducts/RecommendationProducts";
 import ManufacturerDescription from "../../sections/Product_ManufacturerDescription/ManufacturerDescription";
+import { DB_URL } from "../../config";
 
 const ProductDetailPage = () => {
 	const params = useParams();
+	const auth = useSelector((store) => store.user.auth);
 	const products = useSelector((store) => store.products.items);
+	const [feedbackable, setFeedbackable] = useState(false);
 	const { productId } = params;
 	const product = products.find((prod) => prod.id === productId);
 	useEffect(() => {
@@ -18,13 +21,40 @@ const ProductDetailPage = () => {
 			top: 0,
 			behavior: "smooth",
 		});
+
+		if (!auth) {
+			return;
+		}
+
+		fetch(`${DB_URL}/checkout/${auth.localId}.json`)
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error();
+				}
+				return res.json();
+			})
+			.then((orders) => {
+				console.log(orders);
+				let fe = false;
+				outer: for (const orderID in orders) {
+					const order = orders[orderID];
+					if (order.items.find((item) => item.id === productId)) {
+						fe = true;
+						break outer;
+					}
+				}
+				setFeedbackable(fe);
+			})
+			.catch((_) => {
+				setFeedbackable(false);
+			});
 	}, [productId]);
 	return (
 		<div className="product-page-wrapper" style={{ backgroundColor: "#f9fbfd" }}>
 			<ProductBrieffing product={product} />
 			<ManufacturerDescription />
 			<ProductDetail product={product} />
-			<ProductRating product={product} />
+			<ProductRating product={product} feedbackable={feedbackable} />
 			<RecommendationProducts product={product} />
 		</div>
 	);

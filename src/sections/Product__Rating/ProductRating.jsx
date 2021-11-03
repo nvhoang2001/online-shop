@@ -5,7 +5,7 @@ import CustomerFeedback from "../../components/CustomerFeedback/CustomerFeedback
 import RatingDetail from "../../components/RatingDetail/RatingDetail";
 import "./ProductRating.scss";
 
-const ProductRating = ({ product: { feedbacks, rating, ratingNum } }) => {
+const ProductRating = ({ product: { feedbacks, rating, ratingNum }, feedbackable }) => {
 	const location = useLocation();
 	const searchParams = new URLSearchParams(location.search);
 	const [selectedFeedbacks, setSelectedFeedbacks] = useState(feedbacks);
