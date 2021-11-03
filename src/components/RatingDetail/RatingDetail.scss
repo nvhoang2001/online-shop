@@ -17,8 +17,21 @@
 	}
 
 	&__rating-num {
+		width: 70%;
 		color: #565959;
 		font-size: 0.9rem;
+
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__clear-rating {
+		color: #0f1111;
+		text-decoration: underline;
+
+		&:hover {
+			color: blue;
+		}
 	}
 
 	&__rating-item {

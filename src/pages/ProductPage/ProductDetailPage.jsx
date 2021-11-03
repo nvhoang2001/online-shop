@@ -18,7 +18,7 @@ const ProductDetailPage = () => {
 			top: 0,
 			behavior: "smooth",
 		});
-	}, []);
+	}, [productId]);
 	return (
 		<div className="product-page-wrapper" style={{ backgroundColor: "#f9fbfd" }}>
 			<ProductBrieffing product={product} />

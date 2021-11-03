@@ -12,6 +12,7 @@ const ProductRating = ({ product: { feedbacks, rating, ratingNum } }) => {
 	const ratingParams = +searchParams.get("rating-sort");
 	useEffect(() => {
 		if (!ratingParams) {
+			setSelectedFeedbacks([...feedbacks]);
 			return;
 		}
 

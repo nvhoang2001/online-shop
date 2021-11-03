@@ -70,13 +70,22 @@ const RatingDetail = ({ feedbacks, rating, ratingNum }) => {
 		history.push(`${history.location.pathname}?${params.toString()}`);
 	};
 
+	const clearRatingClickHandler = () => {
+		history.push(`${history.location.pathname}`);
+	};
+
 	return (
 		<div className="rating-detail">
 			<h3 className="rating-detail__title">Customer reviews</h3>
 			<div className="rating-detail__rating">
 				{star} {rating} out of 5
 			</div>
-			<div className="rating-detail__rating-num">{ratingNum} global ratings</div>
+			<div className="rating-detail__rating-num">
+				<span>{ratingNum} global ratings</span>
+				<button className="rating-detail__clear-rating" onClick={clearRatingClickHandler}>
+					Clear
+				</button>
+			</div>
 			<div className="rating-detail__detail">
 				<ul onClick={ratingListClickHandler}>
 					{ratingStars.map((rating, i) => {
