@@ -6,29 +6,35 @@ import { calculateRemainingTime, saveAuthInfo } from "../Helpers/storeAndRetriev
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
 const SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
 const REFRESH_URL = "https://securetoken.googleapis.com/v1/token?key=";
+export const FEEDBACKING = "FEEDBACKING";
+export const FEEDBACK_ERROR = "FEEDBACK_ERROR";
+export const FEEDBACK_SUCCESS = "FEEDBACK_SUCCESS";
 
 let timeout, timeout2;
 let signUpAuthToken;
 
+const userInitialState = {
+	auth: null,
+	username: "",
+	address: "",
+	gender: true,
+	email: "",
+	phone: "",
+	age: 0,
+	city: "",
+	country: "",
+	zipcode: "",
+	hasError: false,
+	failRefreshToken: false,
+	feedbackState: null,
+};
+
 const userSlice = createSlice({
 	name: "user",
-	initialState: {
-		auth: null,
-		username: "",
-		address: "",
-		gender: true,
-		email: "",
-		phone: "",
-		age: 0,
-		city: "",
-		country: "",
-		zipcode: "",
-		hasError: false,
-		failRefreshToken: false,
-	},
+	initialState: userInitialState,
 	reducers: {
-		logIn(_, action) {
-			return action.payload;
+		logIn(state, action) {
+			return { ...state, ...action.payload };
 		},
 
 		logOut() {
@@ -45,18 +51,7 @@ const userSlice = createSlice({
 			localStorage.removeItem("expirationTime");
 
 			return {
-				auth: null,
-				username: "",
-				address: "",
-				gender: true,
-				email: "",
-				phone: "",
-				age: 0,
-				city: "",
-				country: "",
-				zipcode: "",
-				hasError: false,
-				failRefreshToken: false,
+				...userInitialState,
 			};
 		},
 
@@ -90,6 +85,11 @@ const userSlice = createSlice({
 
 		changeFailRefreshTokenState(state, action) {
 			state.failRefreshToken = action.payload;
+		},
+
+		changeFeedbackState(state, action) {
+			const { type } = action.payload;
+			state.feedbackState = type;
 		},
 	},
 });

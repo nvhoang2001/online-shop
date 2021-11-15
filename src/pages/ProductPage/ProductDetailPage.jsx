@@ -11,11 +11,13 @@ import { DB_URL } from "../../config";
 
 const ProductDetailPage = () => {
 	const params = useParams();
-	const auth = useSelector((store) => store.user.auth);
-	const products = useSelector((store) => store.products.items);
-	const [feedbackable, setFeedbackable] = useState(false);
 	const { productId } = params;
-	const product = products.find((prod) => prod.id === productId);
+	const auth = useSelector((store) => store.user.auth);
+	const product = useSelector((store) =>
+		store.products.items.find((prod) => prod.id === productId),
+	);
+	const [feedbackable, setFeedbackable] = useState(false);
+
 	useEffect(() => {
 		window.scrollTo({
 			top: 0,
@@ -34,7 +36,6 @@ const ProductDetailPage = () => {
 				return res.json();
 			})
 			.then((orders) => {
-				console.log(orders);
 				let fe = false;
 				outer: for (const orderID in orders) {
 					const order = orders[orderID];
@@ -49,6 +50,7 @@ const ProductDetailPage = () => {
 				setFeedbackable(false);
 			});
 	}, [productId]);
+
 	return (
 		<div className="product-page-wrapper" style={{ backgroundColor: "#f9fbfd" }}>
 			<ProductBrieffing product={product} />

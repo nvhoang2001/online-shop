@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { DB_URL } from "../config";
+import { FEEDBACKING, FEEDBACK_ERROR, FEEDBACK_SUCCESS, userActions } from "./user-slice";
 
 const getBrands = (products) => {
 	const brands = [];
@@ -93,6 +94,16 @@ const productSlice = createSlice({
 			state.types = getTypes(state.brands);
 			state.inited = true;
 		},
+		addFeedback(state, action) {
+			const { productId, feedback } = action.payload;
+			const item = state.items.find((product) => product.id === productId);
+
+			item.ratingNum = item.feedbacks.unshift(feedback);
+			item.rating =
+				Number(
+					(item.feedbacks.reduce((s, i) => s + i.rating, 0) / item.ratingNum).toFixed(1),
+				) || 0;
+		},
 	},
 });
 
@@ -112,6 +123,34 @@ export const initProductSlice = () => {
 			dispatch(productSlice.actions.start(productDatum));
 		} catch (error) {
 			throw error;
+		}
+	};
+};
+
+export const addFeedbackToProduct = (productId, feedbackObj, feedbackURL) => {
+	return async (dispatch) => {
+		try {
+			dispatch(userActions.changeFeedbackState({ type: FEEDBACKING }));
+			const response = await fetch(feedbackURL, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(feedbackObj),
+				method: "POST",
+			});
+			if (!response.ok) {
+				throw Error("Can't connect to server");
+			}
+			const resData = await response.json();
+			dispatch(
+				productSlice.actions.addFeedback({
+					productId,
+					feedback: feedbackObj,
+				}),
+			);
+			dispatch(userActions.changeFeedbackState({ type: FEEDBACK_SUCCESS }));
+		} catch (error) {
+			dispatch(userActions.changeFeedbackState({ type: FEEDBACK_ERROR }));
 		}
 	};
 };
