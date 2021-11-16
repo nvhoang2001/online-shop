@@ -4,6 +4,8 @@ import BigCarosel from "../../components/Carosel/BigCarosel";
 import AsideBar from "./AsideBar";
 
 import { driveViewLink } from "../../config";
+import Aside1 from "../../Assets/side-banner-1.jpg";
+import Aside2 from "../../Assets/side-banner-2.jpg";
 import "./Topbar.scss";
 
 const ITEM_AMOUNT = 5;
@@ -20,16 +22,8 @@ const TopBar = () => {
 	return (
 		<section className="TopBar">
 			<BigCarosel className="TopBar__carosel" topProds={topProds} />
-			<AsideBar
-				className="TopBar__aside"
-				link={driveViewLink + "1bunegyOuB-hMpsl4sysW378rIbk_NJOh"}
-				to="#"
-			/>
-			<AsideBar
-				className="TopBar__aside"
-				link={driveViewLink + "1bunegyOuB-hMpsl4sysW378rIbk_NJOh"}
-				to="#"
-			/>
+			<AsideBar className="TopBar__aside" imgLink={Aside1} />
+			<AsideBar className="TopBar__aside" imgLink={Aside2} />
 		</section>
 	);
 };

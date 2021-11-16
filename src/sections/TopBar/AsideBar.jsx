@@ -1,11 +1,25 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import Notification from "../../components/Layout/NonModalErrorNotification";
 
-const AsideBar = (props) => {
+const AsideBar = ({ className = "", imgLink }) => {
+	const [showNoti, setShowNoti] = useState(false);
+	const showNotifiHandler = () => {
+		setShowNoti(true);
+	};
+	const hideNotifiHandler = () => {
+		setShowNoti(false);
+	};
+
 	return (
-		<div className={`${props.className ?? ""}`}>
-			<Link to={props.to}>
-				<img src={props.link} alt="" />
-			</Link>
+		<div className={`${className}`}>
+			{showNoti && (
+				<Notification
+					errorContent="We're sorry. This event is ended. We'll remove this soon."
+					btnContent="Close"
+					onHide={hideNotifiHandler}
+				/>
+			)}
+			<img src={imgLink} alt="" onClick={showNotifiHandler} />
 		</div>
 	);
 };
