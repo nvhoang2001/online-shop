@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { DB_URL } from "../../config";
 
+import Order from "./Order";
 import ClonesLoader from "../../components/UI/Loader/ClonesLoader";
 
 import { ReactComponent as CartSVG } from "../../Assets/shopping-cart.svg";
-
 import "./PurchasedProducts.scss";
-import Order from "./Order";
 
-const IS_FETCHING = null;
+const FETCHING_DATA = null;
+const orderTypes = ["all", "completed", "delivering", "processing", "cancel"];
+let orderItems = null;
 
 const PurchasedProducts = () => {
-	const [orders, setOrders] = useState(IS_FETCHING);
+	const [orders, setOrders] = useState(FETCHING_DATA);
 	const [timestamp, setTimestamp] = useState(null);
 
 	const uid = useSelector((store) => store.user.auth.localId);
+	const location = useLocation();
 
 	useEffect(() => {
 		(async () => {
@@ -30,14 +32,34 @@ const PurchasedProducts = () => {
 				for (const id in resData) {
 					resData[id].id = id;
 				}
-				const purchaseData = Object.values(resData);
-				setOrders(purchaseData);
+				orderItems = Object.values(resData);
+				const searchURL = new URLSearchParams(location.search);
+				const orderType = searchURL.get("type");
+				if (!orderType) {
+					setOrders(orderItems);
+				} else {
+					setOrders(orderItems.filter((order) => order.state === orderType));
+				}
 				setTimestamp(Date.now());
 			} catch (error) {
 				setOrders([]);
 			}
 		})();
 	}, []);
+
+	useEffect(() => {
+		if (!orders) {
+			return;
+		}
+
+		const searchURL = new URLSearchParams(location.search);
+		const orderType = searchURL.get("type");
+		if (!orderType) {
+			setOrders(orderItems);
+			return;
+		}
+		setOrders(orderItems.filter((order) => order.state === orderType));
+	}, [location.search]);
 
 	let ordersContent = (
 		<div className="purchase__fetching">
@@ -68,19 +90,19 @@ const PurchasedProducts = () => {
 			<nav className="purchase__nav">
 				<ul>
 					<li>
-						<Link to="#">All</Link>
+						<Link to={location.pathname}>All</Link>
 					</li>
 					<li>
-						<Link to="#">Completed</Link>
+						<Link to={`${location.pathname}?type=${orderTypes[1]}`}>Completed</Link>
 					</li>
 					<li>
-						<Link to="#">Delivering</Link>
+						<Link to={`${location.pathname}?type=${orderTypes[2]}`}>Delivering</Link>
 					</li>
 					<li>
-						<Link to="#">Progessing</Link>
+						<Link to={`${location.pathname}?type=${orderTypes[3]}`}>Processing</Link>
 					</li>
 					<li>
-						<Link to="#">Cancel</Link>
+						<Link to={`${location.pathname}?type=${orderTypes[4]}`}>Cancel</Link>
 					</li>
 				</ul>
 			</nav>
