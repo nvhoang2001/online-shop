@@ -7,7 +7,7 @@ import CustomInput from "../../components/UI/CustomInput/CustomInput.component";
 import CustomButton from "../../components/UI/CustomButton/CustomButton.component";
 import CustomTextArea from "../../components/UI/CustomInput/CustomTextArea.component";
 
-import { FORM_RECEIVE_ADDRESS } from "../../config";
+import { CONTACT_URL } from "../../config";
 import emailValidator from "../../Helpers/emailValidator";
 import "./ContactForm.scss";
 
@@ -100,8 +100,7 @@ const ContactForm = () => {
 			return;
 		}
 
-
-		fetch(FORM_RECEIVE_ADDRESS, {
+		fetch(CONTACT_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

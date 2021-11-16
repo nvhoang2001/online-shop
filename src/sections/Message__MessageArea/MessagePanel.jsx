@@ -102,7 +102,6 @@ const MessagePanel = ({ onSelectMessage, messagers, isLoading, onComposeMessage 
 			}px`,
 		);
 	}, []);
-	console.log(listHeight);
 	return (
 		<div className="message-panel" ref={panelRef}>
 			<div

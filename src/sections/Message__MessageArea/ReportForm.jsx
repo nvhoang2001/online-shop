@@ -49,7 +49,6 @@ const ReportForm = ({ uid, messageId, onHide }) => {
 				return res.json();
 			})
 			.then((res) => {
-				console.log(res);
 				setNotifyClass(SUCCESS);
 
 				timer = setTimeout(() => {

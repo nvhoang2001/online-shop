@@ -1,0 +1,167 @@
+.feedback-form {
+	background: #fff;
+	box-shadow: 0.05em 0.1em 0.1em 0.1em rgb(102 102 102 / 25%);
+	position: absolute;
+	z-index: 10;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	width: 50vw;
+	padding: 2rem;
+	animation: fly-in 0.5s;
+	&__title {
+		font-size: 1.25em;
+		font-weight: 700;
+	}
+
+	&__product {
+		border-top: 0.1rem solid #ccc;
+		border-bottom: 0.1rem solid #ccc;
+		padding: 1rem 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 1rem 0;
+		&-img {
+			width: 12.5%;
+		}
+		&-name {
+			width: 82.5%;
+		}
+	}
+
+	&__rating {
+		display: flex;
+		justify-content: space-between;
+		> div {
+			width: 20%;
+
+			> p {
+				height: 1rem;
+				width: 100%;
+				text-align: center;
+			}
+		}
+		&-stars {
+			/* 
+				Star rating
+				Author: Temani Afif - https://dev.to/afif
+				Source: https://dev.to/afif/the-one-star-rating-system-the-future-of-rating-4jl8
+			*/
+			display: inline-grid;
+			width: 100%;
+			aspect-ratio: 1/1;
+			// height: 300px; /* to support old browsers */
+
+			input {
+				grid-area: 1/1;
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				opacity: 0;
+				cursor: pointer;
+				clip-path: polygon(
+					49% 0,
+					calc(50% + 0.2245 * 50%) calc(0.691 * 50%),
+					50% 50%,
+					calc(50% - 0.2245 * 50%) calc(0.691 * 50%)
+				);
+
+				&:nth-of-type(2) {
+					transform: rotate(72deg);
+				}
+				&:nth-of-type(3) {
+					transform: rotate(144deg);
+				}
+				&:nth-of-type(4) {
+					transform: rotate(216deg);
+				}
+				&:nth-of-type(5) {
+					transform: rotate(288deg);
+				}
+			}
+
+			i {
+				grid-area: 1/1;
+				pointer-events: none;
+				clip-path: polygon(
+					50% 0%,
+					61% 35%,
+					98% 35%,
+					68% 56%,
+					79% 91%,
+					50% 70%,
+					21% 91%,
+					32% 56%,
+					2% 35%,
+					39% 35%
+				);
+			}
+		}
+	}
+
+	&__feedback {
+		margin: 0.5rem 0;
+		textarea {
+			width: 100%;
+			resize: none;
+			border: 1px solid #000;
+			padding: 1rem;
+		}
+	}
+
+	&__btn {
+		&-submit {
+			display: block;
+			margin: 0.5rem auto;
+
+			&:disabled {
+				background-color: transparent;
+				color: #000000;
+				border: 1px solid #c4c4c4;
+				animation: loading-feedback 1s linear infinite alternate;
+
+				@keyframes loading-feedback {
+					to {
+						opacity: 0.5;
+					}
+				}
+				&:hover {
+					background-color: inherit;
+					color: inherit;
+				}
+			}
+		}
+
+		&-close {
+			position: absolute;
+			top: 1.5rem;
+			right: 2rem;
+			padding: 0.5rem 1.25rem;
+			border: 1px solid #111;
+			border-radius: 0.25rem;
+		}
+	}
+
+	&__caution {
+		font-size: 0.85rem;
+		text-align: center;
+
+		&--imp {
+			color: red;
+			margin: 0.5rem 0;
+		}
+	}
+}
+
+@keyframes fly-in {
+	from {
+		top: 55vh;
+		opacity: 0;
+	}
+
+	to {
+		top: 50vh;
+		opacity: 1;
+	}
+}

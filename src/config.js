@@ -21,6 +21,7 @@ export const STRIPE_KEY =
 	"pk_test_51J7tZFAKuIJ92SHigNetWfLXZD6VC2QEmi8TZTUCn9iiq9AOaNawtZENA8WTypwubxKsutMnfFVmgt3R7faEM97q00KU8u1wXQ";
 export const DB_URL =
 	"https://ecommerce-shop-e8e5b-default-rtdb.asia-southeast1.firebasedatabase.app/";
+export const CONTACT_URL = "https://jsonplaceholder.typicode.com/posts";
 export const FORM_RECEIVE_ADDRESS = `${DB_URL}/checkout`;
 export const TIME_THRESHOLD = 300_000;
 export const UNSTABLE_NETWORK_ERROR = "Your internet connection is unstable!";
