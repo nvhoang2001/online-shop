@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import BigCarosel from "../../components/Carosel/BigCarosel";
 import AsideBar from "./AsideBar";
 
-import { driveViewLink } from "../../config";
 import Aside1 from "../../Assets/side-banner-1.jpg";
 import Aside2 from "../../Assets/side-banner-2.jpg";
 import "./Topbar.scss";
