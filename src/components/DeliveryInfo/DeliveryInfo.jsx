@@ -170,6 +170,7 @@ const DeliveryInfo = () => {
 			country,
 			zipCode,
 			items: sendItems,
+			state: "delivering",
 			totalPrice,
 			totalAmount,
 			delivery: addressType,
