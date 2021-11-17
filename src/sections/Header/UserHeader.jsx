@@ -7,6 +7,7 @@ import ErrorNotification2 from "../../components/Layout/NonModalErrorNotificatio
 
 import { baseURL, PROD_DIR } from "../../config";
 import { ReactComponent as GiftSVG } from "../../Assets/gift.svg";
+import { ReactComponent as Logo } from "../../Assets/HeaderLogo.svg";
 import { ReactComponent as SearchSVG } from "../../Assets/search.svg";
 import { ReactComponent as CartSVG } from "../../Assets/shopping-cart.svg";
 import "./UserHeader.scss";
@@ -43,9 +44,9 @@ const UserHeader = React.forwardRef(({ className }, ref) => {
 	return (
 		<div className={`user-header ${className}`} ref={ref}>
 			{showError && <ErrorNotification2 onHide={hideErrorHandler} />}
-			<div className="logo">
-				<Link to={baseURL} className="user-header__logo">
-					Hoangzzzsss
+			<div className="user-header__logo">
+				<Link to={baseURL}>
+					<Logo />
 				</Link>
 			</div>
 			<div className="user-header__search-bar">
