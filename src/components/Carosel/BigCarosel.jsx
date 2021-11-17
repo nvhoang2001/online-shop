@@ -6,9 +6,7 @@ import "./BigCarosel.scss";
 
 let moveTimer, pauseTimer;
 
-const BigCarosel = (props) => {
-	const { topProds } = props;
-
+const BigCarosel = ({ topProds, className = "" }) => {
 	const maxImg = topProds.length - 1,
 		minImg = 0,
 		initImg = 0;
@@ -34,30 +32,31 @@ const BigCarosel = (props) => {
 
 		return activeImg + 1;
 	};
-
-	const pauseInterval = () => {
+	const pauseSlide = () => {
 		clearInterval(moveTimer);
+		moveTimer = null;
 		clearTimeout(pauseTimer);
+		pauseTimer = null;
+	};
+	const continueSlide = () => {
+		pauseTimer && clearTimeout(pauseTimer);
 		pauseTimer = setTimeout(() => {
+			moveTimer && clearTimeout(moveTimer);
 			moveTimer = setInterval(() => {
-				setActiveImg((actImg) => {
-					if (actImg === maxImg) {
+				setActiveImg((curImg) => {
+					if (curImg === maxImg) {
 						return minImg;
 					}
 
-					return actImg + 1;
+					return curImg + 1;
 				});
 			}, MOVE_TIME);
 		}, TIME_LIMIT);
 	};
-
 	const prevBtnClickHandler = () => {
-		pauseInterval();
-
 		moveToImg(prevImg());
 	};
 	const nextBtnClickHandler = () => {
-		pauseInterval();
 		moveToImg(nextImg());
 	};
 	const dotClickHandler = (e) => {
@@ -65,9 +64,29 @@ const BigCarosel = (props) => {
 		if (!curEl.classList.contains("carosel__dot")) {
 			return;
 		}
-		pauseInterval();
-		const imgIndex = Number(curEl.dataset.img);
-		moveToImg(imgIndex);
+		pauseSlide();
+		const clickImgIndex = Number(curEl.dataset.img);
+		if (clickImgIndex === nextImg() || clickImgIndex === prevImg()) {
+			moveToImg(clickImgIndex);
+			return;
+		}
+		let currentImg = activeImg;
+		(function moveImg() {
+			if (clickImgIndex === currentImg) {
+				return;
+			} else if (clickImgIndex < currentImg) {
+				moveToImg(--currentImg);
+			} else {
+				moveToImg(++currentImg);
+			}
+			setTimeout(moveImg, 1000);
+		})();
+	};
+	const caroselMouseEnterHandler = () => {
+		pauseSlide();
+	};
+	const caroselMouseOutHandler = () => {
+		continueSlide();
 	};
 
 	useEffect(() => {
@@ -87,28 +106,34 @@ const BigCarosel = (props) => {
 	}, []);
 
 	return (
-		<div className={`carosel ${props.className ?? ""}`}>
+		<div
+			className={`carosel ${className}`}
+			onMouseEnter={caroselMouseEnterHandler}
+			onMouseLeave={caroselMouseOutHandler}
+		>
 			<div className="carosel__slider">
 				{topProds.map((prod, i) => {
 					let imgClass = "carosel__item ";
 
-					if (i === activeImg) {
-						imgClass += "carosel__item--active";
+					switch (i) {
+						case activeImg:
+							imgClass += "carosel__item--active";
+							break;
+						case prevImg():
+							imgClass += "carosel__item--prev";
+							break;
+						case nextImg():
+							imgClass += "carosel__item--next";
+							break;
+						default:
+							break;
 					}
 
-					let translateX = !imgClass.includes("-") ? `${(i - activeImg) * 100}%` : "0";
-
 					return (
-						<div
-							className={imgClass}
-							key={prod.id}
-							style={{
-								left: translateX,
-							}}
-						>
+						<div className={imgClass} key={prod.id}>
 							<Link
 								className="carosel__img"
-								to={prod.link || "#"}
+								to={`/product/${prod.id}`}
 								style={{
 									backgroundImage: `url(${prod.imgLink})`,
 								}}
