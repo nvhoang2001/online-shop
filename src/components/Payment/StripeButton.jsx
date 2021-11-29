@@ -1,7 +1,7 @@
 import StripeCheckout from "react-stripe-checkout";
 
 import { STRIPE_KEY } from "../../config";
-import logo from "../../Assets/logo.png";
+import logo from "../../Assets/Logo.png";
 
 const StripeButton = ({ price, email, disabled, callbackFn, className, errorMgs }) => {
 	const exchangePrice = price * 100;
