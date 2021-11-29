@@ -11,6 +11,7 @@ const BigCarosel = ({ topProds, className = "" }) => {
 		minImg = 0,
 		initImg = 0;
 	const [activeImg, setActiveImg] = useState(initImg);
+	const [loadedResources, setLoadedResources] = useState([]);
 
 	const moveToImg = (index) => {
 		if (index === activeImg) {
@@ -88,8 +89,16 @@ const BigCarosel = ({ topProds, className = "" }) => {
 	const caroselMouseOutHandler = () => {
 		continueSlide();
 	};
+	const loadImgHandler = (e) => {
+		const prodID = e.target.closest(".carosel__img").dataset.id;
+		setLoadedResources([...loadedResources, prodID]);
+	};
 
 	useEffect(() => {
+		console.log(loadedResources);
+		if (loadedResources.length < topProds.length - 1) {
+			return;
+		}
 		moveTimer = setInterval(() => {
 			setActiveImg((actImg) => {
 				if (actImg === maxImg) {
@@ -101,9 +110,9 @@ const BigCarosel = ({ topProds, className = "" }) => {
 		}, MOVE_TIME);
 
 		return () => {
-			clearInterval(moveTimer);
+			moveTimer && clearInterval(moveTimer);
 		};
-	}, []);
+	}, [loadedResources]);
 
 	return (
 		<div
@@ -112,7 +121,7 @@ const BigCarosel = ({ topProds, className = "" }) => {
 			onMouseLeave={caroselMouseOutHandler}
 		>
 			<div className="carosel__slider">
-				{topProds.map((prod, i) => {
+				{topProds.map(({ id, imgLink }, i) => {
 					let imgClass = "carosel__item ";
 
 					switch (i) {
@@ -130,14 +139,17 @@ const BigCarosel = ({ topProds, className = "" }) => {
 					}
 
 					return (
-						<div className={imgClass} key={prod.id}>
+						<div className={imgClass} key={id}>
 							<Link
 								className="carosel__img"
-								to={`/product/${prod.id}`}
+								to={`/product/${id}`}
 								style={{
-									backgroundImage: `url(${prod.imgLink})`,
+									backgroundImage: `url(${imgLink})`,
 								}}
-							/>
+								data-id={id}
+							>
+								<img src={imgLink} alt="" onLoad={loadImgHandler} />
+							</Link>
 						</div>
 					);
 				})}
