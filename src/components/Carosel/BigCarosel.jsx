@@ -11,7 +11,7 @@ const BigCarosel = ({ topProds, className = "" }) => {
 		minImg = 0,
 		initImg = 0;
 	const [activeImg, setActiveImg] = useState(initImg);
-	const [loadedResources, setLoadedResources] = useState([]);
+	const [loadedResources, setLoadedResources] = useState({});
 
 	const moveToImg = (index) => {
 		if (index === activeImg) {
@@ -34,6 +34,7 @@ const BigCarosel = ({ topProds, className = "" }) => {
 		return activeImg + 1;
 	};
 	const pauseSlide = () => {
+		moveTimer && clearTimeout(moveTimer);
 		clearInterval(moveTimer);
 		moveTimer = null;
 		clearTimeout(pauseTimer);
@@ -91,15 +92,11 @@ const BigCarosel = ({ topProds, className = "" }) => {
 	};
 	const loadImgHandler = (e) => {
 		const prodID = e.target.closest(".carosel__img").dataset.id;
-		setLoadedResources([...loadedResources, prodID]);
+		setLoadedResources({ ...loadedResources, [prodID]: true });
 	};
 
 	useEffect(() => {
-		console.log(loadedResources);
-		if (loadedResources.length < topProds.length - 1) {
-			return;
-		}
-		moveTimer = setInterval(() => {
+		(function initCarosel() {
 			setActiveImg((actImg) => {
 				if (actImg === maxImg) {
 					return minImg;
@@ -107,12 +104,13 @@ const BigCarosel = ({ topProds, className = "" }) => {
 
 				return actImg + 1;
 			});
-		}, MOVE_TIME);
+			moveTimer = setTimeout(initCarosel, MOVE_TIME);
+		})();
 
 		return () => {
-			moveTimer && clearInterval(moveTimer);
+			moveTimer && clearTimeout(moveTimer);
 		};
-	}, [loadedResources]);
+	}, []);
 
 	return (
 		<div
@@ -141,10 +139,14 @@ const BigCarosel = ({ topProds, className = "" }) => {
 					return (
 						<div className={imgClass} key={id}>
 							<Link
-								className="carosel__img"
+								className={`carosel__img ${
+									loadedResources[id] ? "carosel__img--loaded" : ""
+								}`}
 								to={`/product/${id}`}
 								style={{
-									backgroundImage: `url(${imgLink})`,
+									backgroundImage: `${
+										loadedResources[id] ? `url(${imgLink})` : ""
+									}`,
 								}}
 								data-id={id}
 							>
