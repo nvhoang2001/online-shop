@@ -1,22 +1,24 @@
+import useLoadImg from "../../hooks/useLoadImg.js";
 import { Link } from "react-router-dom";
 
 import AddToCartBtn from "./AddToCartBtn";
 
-const BottomProduct = (props) => {
-	const classes = `column-product__product ${props.className || ""}`;
-
-	const { product } = props;
+const BottomProduct = ({ className = "", product, style }) => {
 	const { id, summaryName, imgLink } = product;
+	const classes = `column-product__product ${className}`;
+	const { showImg, imgSrc, loadedImgHandler } = useLoadImg(imgLink);
 
 	return (
-		<div className={classes} style={props.style}>
+		<div className={classes} style={style}>
 			<div
 				className="column-product__img"
 				style={{
-					backgroundImage: `url(${imgLink})`,
+					backgroundImage: imgSrc,
 				}}
 			>
-				<AddToCartBtn product={props.product} className="column-product__prod-btn" />
+				{showImg && <img src={imgLink} alt="" onLoad={loadedImgHandler} />}
+				{imgSrc === "" && <span className="column-product__img-skeleton"></span>}
+				<AddToCartBtn product={product} className="column-product__prod-btn" />
 			</div>
 			<div className="column-product__prod-info">
 				<h4 className="column-product__prod-name">

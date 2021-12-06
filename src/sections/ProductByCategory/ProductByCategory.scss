@@ -146,6 +146,12 @@ $btn-size: 2rem;
 		}
 	}
 
+	&__product {
+		.product__img-skeleton {
+			background-color: #a5a5a5;
+		}
+	}
+
 	&__img {
 		width: $img-size;
 		overflow: hidden;
